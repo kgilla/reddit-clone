@@ -1,0 +1,19 @@
+#nav-container {
+  margin: 0 auto;
+  background-color: #fff;
+}
+
+#top-nav {
+  max-width: 1400px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button {
+  outline: none;
+  background: #fff;
+  padding: 0.5rem;
+  border: 0.2rem solid #3498db;
+  border-radius: 0.5rem;
+}
