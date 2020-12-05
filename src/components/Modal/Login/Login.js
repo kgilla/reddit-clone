@@ -1,5 +1,6 @@
 import "./Login.css";
 import { useState } from "react";
+import FormGroup from "../../FormGroup";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -35,30 +36,26 @@ const Login = () => {
   };
 
   return (
-    <div className="modal-centered">
-      <form>
-        <h2>Login</h2>
-        <div className="form-group">
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            data="username"
-            value={username}
-            onChange={handleChange}
-          ></input>
-        </div>
-        <div className="form-group">
-          <label htmlFor="username">Password</label>
-          <input
-            type="text"
-            data="password"
-            value={password}
-            onChange={handleChange}
-          ></input>
-        </div>
-        <button onClick={handleClick}>Log In</button>
-      </form>
-    </div>
+    <form>
+      <h2>Login</h2>
+      <FormGroup
+        name="username"
+        type="text"
+        handleChange={handleChange}
+        value={username}
+      >
+        Username
+      </FormGroup>
+      <FormGroup
+        name="password"
+        type="password"
+        handleChange={handleChange}
+        value={password}
+      >
+        Password
+      </FormGroup>
+      <button onClick={handleClick}>Log In</button>
+    </form>
   );
 };
 

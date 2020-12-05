@@ -1,0 +1,30 @@
+#nav-subs {
+  position: relative;
+  width: 100%;
+  max-width: 20rem;
+}
+
+#sub-nav-button {
+  width: 100%;
+  max-width: 15em;
+  padding: 0.5em;
+  border: none;
+  outline: none;
+  font-weight: 700;
+  color: #222;
+  background-color: #fff;
+  text-align: center;
+}
+
+#sub-dropdown {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 15em;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border: 0.1rem solid #eee;
+  border-radius: 4px;
+}

@@ -1,4 +1,4 @@
-import "./Main.css";
+import "./Sub.css";
 import { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
@@ -8,9 +8,9 @@ import {
   useParams,
 } from "react-router-dom";
 
-import Post from "../Post";
+import PostPreview from "../PostPreview";
 
-const Main = () => {
+const Sub = () => {
   const { name } = useParams();
   const [subData, setSubData] = useState(null);
 
@@ -30,20 +30,25 @@ const Main = () => {
   }, []);
 
   return (
-    <div>
+    <div className="sub-container">
       {subData ? (
         <div>
-          <h1>{subData.name}</h1>
-          <h2>{subData.description}</h2>
-          <div id="posts-container">
-            {subData.posts.map((post) => (
-              <Post post={post} />
-            ))}
-          </div>
+          <header id="sub-header">
+            <div className="colored-bar"></div>
+            <h1 className="sub-heading">{subData.name}</h1>
+          </header>
+          <main className="sub-page">
+            <div id="posts-container">
+              {subData.posts.map((post) => (
+                <PostPreview key={post._id} post={post} />
+              ))}
+            </div>
+            <div className="sidebar"></div>
+          </main>
         </div>
       ) : null}
     </div>
   );
 };
 
-export default Main;
+export default Sub;

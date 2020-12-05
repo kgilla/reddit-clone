@@ -1,23 +1,53 @@
 import "./Navbar.css";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import NavLink from "./NavLink";
+import Dropdown from "./DropDown";
 
-const Navbar = () => {
+const Navbar = ({ openModal }) => {
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [subs, setSubs] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const URL = `http://localhost:3000/api/s/`;
+        const response = await fetch(URL);
+        const data = await response.json();
+        setSubs(data.allSubs);
+        console.log(data.allSubs);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const handleShowChange = () => {
+    showDropdown ? setShowDropdown(false) : setShowDropdown(true);
+  };
+
+  const handleClick = (e) => {
+    openModal(e.target.name);
+  };
+
   return (
     <div id="nav-container">
       <nav id="top-nav">
-        <h3>Saidit</h3>
-        <div id="nav-buttons">
-          <Link to="/signup">
-            <button className="button" id="signup-button">
-              SIGN UP
-            </button>
-          </Link>
-          <Link to="/login">
-            <button className="button" id="login-button">
-              LOG IN
-            </button>
-          </Link>
-        </div>
+        S/eddit
+        <Dropdown
+          subs={subs}
+          showDropdown={showDropdown}
+          changeShowDropdown={handleShowChange}
+        />
+        <input id="nav-search" type="search" placeholder="Search"></input>
+        <ul id="nav-buttons">
+          <button name="signup" onClick={handleClick}>
+            SIGN UP
+          </button>
+          <button name="login" onClick={handleClick}>
+            LOG IN
+          </button>
+        </ul>
       </nav>
     </div>
   );

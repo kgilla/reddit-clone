@@ -1,0 +1,13 @@
+.post-container {
+  border: 0.1rem solid #aaa;
+  background-color: #fff;
+}
+
+.post-container header {
+  display: flex;
+}
+
+.post-container footer {
+  display: flex;
+  justify-content: space-evenly;
+}
