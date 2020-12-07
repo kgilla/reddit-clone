@@ -17,15 +17,22 @@ function App() {
   };
 
   const handleRemoveModal = () => {
-    console.log("hi");
     setOpenModal(false);
     setModalType(null);
+  };
+
+  const storeUser = (user) => {
+    console.log(user);
   };
 
   return (
     <div className="App">
       {openModal ? (
-        <Modal type={modalType} removeModal={handleRemoveModal} />
+        <Modal
+          type={modalType}
+          removeModal={handleRemoveModal}
+          storeUser={storeUser}
+        />
       ) : null}
       <Router>
         <Navbar openModal={handleOpenModal} />

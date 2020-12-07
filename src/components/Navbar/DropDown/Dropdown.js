@@ -1,6 +1,5 @@
 import "./Dropdown.css";
 import NavLink from "../NavLink";
-import { useState } from "react";
 
 const Dropdown = ({ subs, showDropdown, changeShowDropdown }) => {
   const handleClick = () => {

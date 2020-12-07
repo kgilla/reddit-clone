@@ -1,13 +1,15 @@
-.post-container {
+.post-preview-container {
   border: 0.1rem solid #aaa;
   background-color: #fff;
 }
 
-.post-container header {
+.post-preview-header {
   display: flex;
 }
 
-.post-container footer {
+.post-preview-main {
+}
+
+.post-preview-footer {
   display: flex;
-  justify-content: space-evenly;
 }

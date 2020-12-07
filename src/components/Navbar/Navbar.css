@@ -1,7 +1,6 @@
 #nav-container {
   position: fixed;
   width: 100%;
-  margin: 0 auto;
   background-color: #fff;
 }
 
@@ -13,6 +12,7 @@
   align-content: center;
   align-items: center;
   padding: 0 0.5rem;
+  margin: 0 auto;
 }
 
 #nav-search {

@@ -1,14 +1,9 @@
 import "./Sub.css";
 import { useState, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams,
-} from "react-router-dom";
-
+import { useParams } from "react-router-dom";
+import { fetchGetData } from "../../api";
 import PostPreview from "../PostPreview";
+import Sidebar from "../Sidebar";
 
 const Sub = () => {
   const { name } = useParams();
@@ -16,18 +11,12 @@ const Sub = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const URL = `http://localhost:3000/api/s/${name}`;
-        const response = await fetch(URL);
-        const data = await response.json();
-        setSubData(data.sub);
-        console.log(data.sub);
-      } catch (err) {
-        console.log(err);
-      }
+      const data = await fetchGetData(`http://localhost:3000/api/s/${name}`);
+      console.log(data.sub);
+      setSubData(data.sub);
     };
     fetchData();
-  }, []);
+  }, [name]);
 
   return (
     <div className="sub-container">
@@ -43,7 +32,7 @@ const Sub = () => {
                 <PostPreview key={post._id} post={post} />
               ))}
             </div>
-            <div className="sidebar"></div>
+            <Sidebar sub={subData} />
           </main>
         </div>
       ) : null}

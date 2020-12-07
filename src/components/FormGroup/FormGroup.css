@@ -1,7 +1,7 @@
 .form-group {
   display: flex;
   flex-direction: column;
-  margin: 0.5em 0;
+  margin: 1em 0;
 }
 
 .form-group-label {
@@ -10,7 +10,25 @@
 
 .form-group-input {
   padding: 0.5em;
-  color: #444;
-  border: 0.1em solid #ccc;
+  border: 0.1em solid #ddd;
   border-radius: 4px;
+  font-size: 1em;
+  color: #555;
+}
+
+.form-group-input-error {
+  padding: 0.5em;
+  border: 0.1em solid red;
+  border-radius: 4px;
+  font-size: 1em;
+  color: #555;
+}
+
+.error {
+  padding: 0.5em;
+  margin: 0.5em 0;
+  background-color: lightcoral;
+  border: 0.1em solid red;
+  border-radius: 4px;
+  color: #000;
 }

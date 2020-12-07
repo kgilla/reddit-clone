@@ -1,6 +1,5 @@
 import "./Navbar.css";
 import { useState, useEffect } from "react";
-import NavLink from "./NavLink";
 import Dropdown from "./DropDown";
 
 const Navbar = ({ openModal }) => {
@@ -14,7 +13,6 @@ const Navbar = ({ openModal }) => {
         const response = await fetch(URL);
         const data = await response.json();
         setSubs(data.allSubs);
-        console.log(data.allSubs);
       } catch (err) {
         console.log(err);
       }

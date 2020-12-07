@@ -1,48 +1,56 @@
 import "./Login.css";
 import { useState } from "react";
+import { fetchPostData } from "../../../api/index";
 import FormGroup from "../../FormGroup";
 
-const Login = () => {
+const Login = ({ sendUserUp, removeModal }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  const loginUser = async () => {
-    try {
-      const URL = `http://localhost:3000/api/users/login`;
-      const response = await fetch(URL, {
-        method: "post",
-        body: JSON.stringify({ username, password }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await response.json();
-      console.log(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
-    const tar = e.target.attributes[1].value;
-    tar === "username"
+    setError(null);
+    e.target.name === "username"
       ? setUsername(e.target.value)
       : setPassword(e.target.value);
   };
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
-    loginUser();
+    const response = await fetchPostData(
+      "http://localhost:3000/api/users/login",
+      { username, password }
+    );
+    handleResponse(response);
+  };
+
+  const clearFields = () => {
+    setUsername("");
+    setPassword("");
+  };
+
+  const handleResponse = (response) => {
+    if (response.user) {
+      clearFields();
+      removeModal();
+      sendUserUp(response);
+    } else {
+      console.log("hello");
+      setError({ name: response.name, message: response.message });
+    }
   };
 
   return (
-    <form>
+    <form className="modal-form">
       <h2>Login</h2>
       <FormGroup
         name="username"
         type="text"
         handleChange={handleChange}
         value={username}
+        error={
+          error ? (error.name === "username" ? error.message : null) : null
+        }
       >
         Username
       </FormGroup>
@@ -51,10 +59,15 @@ const Login = () => {
         type="password"
         handleChange={handleChange}
         value={password}
+        error={
+          error ? (error.name === "password" ? error.message : null) : null
+        }
       >
         Password
       </FormGroup>
-      <button onClick={handleClick}>Log In</button>
+      <button className="form-button" onClick={handleClick}>
+        Log In
+      </button>
     </form>
   );
 };
