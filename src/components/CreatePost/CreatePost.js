@@ -1,16 +1,7 @@
 import FormGroup from "../FormGroup";
 import { fetchGetData, fetchPostData } from "../../api/index";
 import { useState, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  Redirect,
-  useHistory,
-  useLocation,
-  useParams,
-} from "react-router-dom";
+import { Redirect, useParams } from "react-router-dom";
 import "./CreatePost.css";
 
 const CreatePost = ({ user }) => {

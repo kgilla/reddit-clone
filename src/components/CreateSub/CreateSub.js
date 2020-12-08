@@ -1,15 +1,7 @@
 import { useState, useEffect } from "react";
 import { fetchGetData, fetchPostData } from "../../api";
 import FormGroup from "../FormGroup";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  Redirect,
-  useHistory,
-  useLocation,
-} from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 const CreateSub = ({ user }) => {
   const [name, setName] = useState("");

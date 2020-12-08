@@ -9,6 +9,8 @@ import Modal from "../Modal";
 import CreatePost from "../CreatePost";
 import CreateSub from "../CreateSub";
 import Post from "../Post";
+import Signup from "../Modal/Signup";
+import Login from "../Modal/Login"
 
 function App() {
   const [user, SetUser] = useState(null);
@@ -50,6 +52,9 @@ function App() {
         <main id="main-container">
           {" "}
           <Switch>
+            <Route path="/s/:subID/posts/:postID">
+              <Post user={user} />
+            </Route>
             <Route path="/s/:subID/submit">
               <CreatePost user={user} />
             </Route>
@@ -62,6 +67,12 @@ function App() {
             </Route>
             <Route path="/newSub">
               <CreateSub user={user} />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/signup">
+              <Signup />
             </Route>
             <Route path="/">
               <Home />

@@ -1,0 +1,8 @@
+.comment {
+  border: 0.1em solid #aaa;
+}
+
+.comment-reply {
+  border: 0.1em solid green;
+  margin-left: 1em;
+}
