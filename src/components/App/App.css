@@ -37,3 +37,10 @@ button:hover {
   filter: brightness(90%);
   cursor: pointer;
 }
+
+#main-container {
+  grid-row: 2/3;
+  min-height: calc(100vh - 48px);
+  max-width: 100vw;
+  display: grid;
+}

@@ -16,6 +16,16 @@
   color: #555;
 }
 
+.form-group-textarea {
+  padding: 0.5em;
+  border: 0.1em solid #ddd;
+  border-radius: 4px;
+  font-size: 1em;
+  color: #555;
+  resize: vertical;
+  font-family: inherit;
+}
+
 .form-group-input-error {
   padding: 0.5em;
   border: 0.1em solid red;

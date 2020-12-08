@@ -6,17 +6,17 @@ import PostPreview from "../PostPreview";
 import Sidebar from "../Sidebar";
 
 const Sub = () => {
-  const { name } = useParams();
+  const { subID } = useParams();
   const [subData, setSubData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchGetData(`http://localhost:3000/api/s/${name}`);
+      const data = await fetchGetData(`http://localhost:3000/api/s/${subID}`);
       console.log(data.sub);
       setSubData(data.sub);
     };
     fetchData();
-  }, [name]);
+  }, [subID]);
 
   return (
     <div className="sub-container">

@@ -6,8 +6,12 @@ import Navbar from "../Navbar";
 import Home from "../Home";
 import Sub from "../Sub";
 import Modal from "../Modal";
+import CreatePost from "../CreatePost";
+import CreateSub from "../CreateSub";
+import Post from "../Post";
 
 function App() {
+  const [user, SetUser] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [modalType, setModalType] = useState(null);
 
@@ -23,6 +27,13 @@ function App() {
 
   const storeUser = (user) => {
     console.log(user);
+    localStorage.setItem("user", JSON.stringify(user));
+    SetUser(user);
+  };
+
+  const handleLogout = () => {
+    SetUser(null);
+    localStorage.removeItem("user");
   };
 
   return (
@@ -35,15 +46,31 @@ function App() {
         />
       ) : null}
       <Router>
-        <Navbar openModal={handleOpenModal} />
-        <Switch>
-          <Route path="/s/:name">
-            <Sub />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
+        <Navbar openModal={handleOpenModal} user={user} logout={handleLogout} />
+        <main id="main-container">
+          {" "}
+          <Switch>
+            <Route path="/s/:subID/submit">
+              <CreatePost user={user} />
+            </Route>
+            <Route path="/s/:subID">
+              <Sub />
+            </Route>
+
+            <Route path="/submit">
+              <CreatePost user={user} />
+            </Route>
+            <Route path="/newSub">
+              <CreateSub user={user} />
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+            <Route path="/s:name/posts/:id">
+              <Post />
+            </Route>
+          </Switch>
+        </main>
       </Router>
     </div>
   );

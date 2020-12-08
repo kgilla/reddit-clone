@@ -35,7 +35,6 @@ const Login = ({ sendUserUp, removeModal }) => {
       removeModal();
       sendUserUp(response);
     } else {
-      console.log("hello");
       setError({ name: response.name, message: response.message });
     }
   };

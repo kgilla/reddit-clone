@@ -1,8 +1,9 @@
 import "./Navbar.css";
 import { useState, useEffect } from "react";
-import Dropdown from "./DropDown";
+import { Link } from "react-router-dom";
+import Dropdown from "../DropDown";
 
-const Navbar = ({ openModal }) => {
+const Navbar = ({ openModal, user, logout }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [subs, setSubs] = useState(null);
 
@@ -28,24 +29,38 @@ const Navbar = ({ openModal }) => {
     openModal(e.target.name);
   };
 
+  const handleLogout = () => {
+    logout();
+  };
+
   return (
     <div id="nav-container">
       <nav id="top-nav">
-        S/eddit
+        <Link to="/">
+          <button> S/eddit</button>
+        </Link>
         <Dropdown
           subs={subs}
           showDropdown={showDropdown}
           changeShowDropdown={handleShowChange}
         />
         <input id="nav-search" type="search" placeholder="Search"></input>
-        <ul id="nav-buttons">
-          <button name="signup" onClick={handleClick}>
-            SIGN UP
-          </button>
-          <button name="login" onClick={handleClick}>
-            LOG IN
-          </button>
-        </ul>
+        {user ? (
+          <ul id="nav-buttons">
+            <button name="signup" onClick={handleLogout}>
+              LOG OUT
+            </button>
+          </ul>
+        ) : (
+          <ul id="nav-buttons">
+            <button name="signup" onClick={handleClick}>
+              SIGN UP
+            </button>
+            <button name="login" onClick={handleClick}>
+              LOG IN
+            </button>
+          </ul>
+        )}
       </nav>
     </div>
   );

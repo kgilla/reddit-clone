@@ -7,13 +7,22 @@ const FormGroup = ({ name, type, handleChange, value, error, children }) => {
       <label className="form-group-label" htmlFor="username">
         {children}
       </label>
-      <input
-        className={error ? "form-group-input-error" : "form-group-input"}
-        type={type}
-        name={name}
-        value={value}
-        onChange={handleChange}
-      ></input>
+      {type === "textarea" ? (
+        <textarea
+          className={error ? "form-group-input-error" : "form-group-textarea"}
+          name={name}
+          value={value}
+          onChange={handleChange}
+        ></textarea>
+      ) : (
+        <input
+          className={error ? "form-group-input-error" : "form-group-input"}
+          type={type}
+          name={name}
+          value={value}
+          onChange={handleChange}
+        ></input>
+      )}
     </div>
   );
 };

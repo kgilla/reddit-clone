@@ -10,13 +10,14 @@ const fetchGetData = async (url) => {
   }
 };
 
-const fetchPostData = async (url, body) => {
+const fetchPostData = async (url, body, token) => {
   try {
     const response = await fetch(url, {
       method: "post",
       body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
     const data = await response.json();

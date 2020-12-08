@@ -1,5 +1,5 @@
 import "./Dropdown.css";
-import NavLink from "../NavLink";
+import DropdownItem from "./DropdownItem";
 
 const Dropdown = ({ subs, showDropdown, changeShowDropdown }) => {
   const handleClick = () => {
@@ -18,14 +18,13 @@ const Dropdown = ({ subs, showDropdown, changeShowDropdown }) => {
           </button>
           {subs.length > 0
             ? subs.map((sub) => (
-                <NavLink
+                <DropdownItem
                   key={sub._id}
-                  href={`/s/${sub.name}`}
-                  style="nav-dropdown-item"
+                  href={`/s/${sub._id}`}
                   onClick={handleClick}
                 >
                   {sub.name}
-                </NavLink>
+                </DropdownItem>
               ))
             : null}
         </div>
