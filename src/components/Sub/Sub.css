@@ -1,8 +1,10 @@
 .sub-container {
-  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
 }
 
 #posts-container {
+  width: 640px;
 }
 
 #sub-header {
@@ -22,11 +24,11 @@
 
 .sub-page {
   width: 100%;
-  max-width: 900px;
-  margin: 20px auto;
+  max-width: 1000px;
+  margin: 0.5em auto;
   display: grid;
   grid-template-columns: 1fr 0.5fr;
-  gap: 20px;
+  gap: 25px;
 }
 
 .sidebar {

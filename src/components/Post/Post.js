@@ -20,6 +20,16 @@ const Post = ({ user }) => {
     fetchData();
   }, []);
 
+  const determineCommentsLength = () => {
+    let length = 0;
+    for (let i = 0; i < post.comments.length; i++) {
+      post.comments[i].replies
+        ? (length += post.comments[i].replies.length + 1)
+        : length++;
+    }
+    return length;
+  };
+
   return (
     <div className="post-container">
       {post ? (
@@ -36,11 +46,11 @@ const Post = ({ user }) => {
           </main>
           <footer className="post-preview-footer">
             <p>{post.score}</p>
-            <p>{post.comments.length} comments</p>
+            <p>{determineCommentsLength()} comments</p>
           </footer>
         </div>
       ) : null}
-      {post ? <Comments comments={post.comments} user={user} /> : null}
+      {post ? <Comments postComments={post.comments} user={user} /> : null}
     </div>
   );
 };

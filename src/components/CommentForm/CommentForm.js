@@ -13,13 +13,16 @@ const CommentForm = ({ user, parent, handleNewComment }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetchPostData(
-      `http://localhost:3000/api/s/${subID}/posts/${postID}/comments/create`,
-      { content, parent },
-      user.token
-    );
-    console.log(response);
-    handleNewComment(response);
+    try {
+      const response = await fetchPostData(
+        `http://localhost:3000/api/s/${subID}/posts/${postID}/comments/create`,
+        { content, parent },
+        user.token
+      );
+      handleNewComment(response.comment);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

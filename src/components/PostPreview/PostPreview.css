@@ -5,6 +5,9 @@
 
 .post-preview-header {
   display: flex;
+  font-size: 0.8em;
+  color: #888;
+  text-decoration: none;
 }
 
 .post-preview-main {

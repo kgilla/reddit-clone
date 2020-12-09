@@ -1,12 +1,10 @@
 #nav-subs {
   position: relative;
   width: 100%;
-  max-width: 20rem;
 }
 
 #sub-nav-button {
   width: 100%;
-  max-width: 15em;
   padding: 0.5em;
   border: none;
   outline: none;
@@ -21,7 +19,6 @@
   top: 0;
   left: 0;
   width: 100%;
-  max-width: 15em;
   display: flex;
   flex-direction: column;
   background-color: #fff;

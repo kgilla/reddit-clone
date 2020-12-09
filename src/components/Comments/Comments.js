@@ -1,10 +1,19 @@
+import { useState } from "react";
 import Comment from "./Comment";
 import CommentForm from "../CommentForm";
 
-const Comments = ({ comments, user }) => {
+const Comments = ({ postComments, user }) => {
+  const [comments, setComments] = useState(postComments);
+
   const handleNewComment = (comment) => {
-    console.log(comment);
-    comments = [...comments, comment];
+    if (comment.parent) {
+      let newComments = comments.slice();
+      const parent = newComments.findIndex((c) => c._id === comment.parent);
+      newComments[parent].replies.push(comment);
+      setComments(newComments);
+    } else {
+      setComments((comments) => [...comments, comment]);
+    }
   };
 
   return (

@@ -22,10 +22,6 @@ const Sub = () => {
     <div className="sub-container">
       {subData ? (
         <div>
-          <header id="sub-header">
-            <div className="colored-bar"></div>
-            <h1 className="sub-heading">{subData.name}</h1>
-          </header>
           <main className="sub-page">
             <div id="posts-container">
               {subData.posts.map((post) => (

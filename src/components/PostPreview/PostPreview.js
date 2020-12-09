@@ -2,7 +2,16 @@ import "./PostPreview.css";
 import { Link } from "react-router-dom";
 
 const PostPreview = ({ post }) => {
-  console.log(post);
+  const determineCommentsLength = () => {
+    let length = 0;
+    for (let i = 0; i < post.comments.length; i++) {
+      post.comments[i].replies
+        ? (length += post.comments[i].replies.length + 1)
+        : length++;
+    }
+    return length;
+  };
+
   return (
     <Link to={`/s/${post.sub}/posts/${post._id}`}>
       <div className="post-preview-container">
@@ -18,7 +27,7 @@ const PostPreview = ({ post }) => {
         </main>
         <footer className="post-preview-footer">
           <p>{post.score}</p>
-          <p>{post.comments.length} comments</p>
+          <p>{determineCommentsLength()} comments</p>
         </footer>
       </div>
     </Link>
