@@ -1,3 +1,4 @@
+import "./Comments.css";
 import { useState } from "react";
 import Comment from "./Comment";
 import CommentForm from "../CommentForm";
@@ -16,27 +17,26 @@ const Comments = ({ postComments, user }) => {
     }
   };
 
+  const renderAllComments = (comments, layer) => {
+    return comments.map((comment) => (
+      <Comment
+        comment={comment}
+        user={user}
+        handleNewComment={handleNewComment}
+        layer={layer}
+      >
+        {comment.replies ? renderAllComments(comment.replies, layer + 1) : null}
+      </Comment>
+    ));
+  };
+
   return (
-    <div>
+    <div id="comments-container">
       <div>
         <CommentForm handleNewComment={handleNewComment} user={user} />
       </div>
-      <div>
-        {comments
-          ? comments.map((comment) => (
-              <Comment
-                comment={comment}
-                user={user}
-                handleNewComment={handleNewComment}
-              >
-                {comment.replies
-                  ? comment.replies.map((reply) => (
-                      <Comment comment={reply} user={user} reply="true" />
-                    ))
-                  : null}
-              </Comment>
-            ))
-          : null}
+      <div id="comments-index">
+        {comments ? renderAllComments(comments, 1) : null}
       </div>
     </div>
   );

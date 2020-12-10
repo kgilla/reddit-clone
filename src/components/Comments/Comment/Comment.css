@@ -1,8 +1,23 @@
-.comment {
-  border: 0.1em solid #aaa;
+.comment-container {
+  margin: 0.5em 0;
 }
 
 .comment-reply {
-  border: 0.1em solid green;
+  margin: 0.5em 0;
   margin-left: 1em;
+  border-left: 0.1em solid #ddd;
+}
+
+.reply-button {
+  width: auto;
+  border: none;
+  background-color: #fff;
+  padding: none;
+  margin: none;
+  color: #aaa;
+}
+
+.comment-reply {
+  margin-left: 1em;
+  border-left: 0.1em solid #ccc;
 }

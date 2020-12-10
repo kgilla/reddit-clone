@@ -2,7 +2,7 @@ import "./Sub.css";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { fetchGetData } from "../../api";
-import PostPreview from "../PostPreview";
+import Post from "../Post";
 import Sidebar from "../Sidebar";
 
 const Sub = () => {
@@ -25,7 +25,7 @@ const Sub = () => {
           <main className="sub-page">
             <div id="posts-container">
               {subData.posts.map((post) => (
-                <PostPreview key={post._id} post={post} />
+                <Post key={post._id} post={post} link="true" />
               ))}
             </div>
             <Sidebar sub={subData} />

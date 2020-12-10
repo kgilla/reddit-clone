@@ -1,0 +1,12 @@
+#comments-container {
+  margin-top: 1em;
+  padding: 1em;
+  border: 0.1em solid #ccc;
+  background-color: #fff;
+}
+
+#comments-index {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1em;
+}

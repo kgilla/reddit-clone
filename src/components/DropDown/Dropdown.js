@@ -9,12 +9,12 @@ const Dropdown = ({ subs, showDropdown, changeShowDropdown }) => {
   return (
     <div id="nav-subs">
       <button id="sub-nav-button" onClick={handleClick}>
-        Subseddits
+        Communities
       </button>
       {showDropdown ? (
         <div id="sub-dropdown">
           <button id="sub-nav-button" onClick={handleClick}>
-            Subseddits
+            Communities
           </button>
           {subs.length > 0
             ? subs.map((sub) => (

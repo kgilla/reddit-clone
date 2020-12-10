@@ -30,8 +30,3 @@
   grid-template-columns: 1fr 0.5fr;
   gap: 25px;
 }
-
-.sidebar {
-  min-height: 100vh;
-  background-color: green;
-}

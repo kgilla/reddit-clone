@@ -1,15 +1,9 @@
 import "./Sidebar.css";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams,
-  useRouteMatch,
-} from "react-router-dom";
+import { Link, useRouteMatch } from "react-router-dom";
 
 const Sidebar = ({ sub }) => {
-  let { path, url } = useRouteMatch();
+  let { url } = useRouteMatch();
+  sub = sub ? sub : { name: "Home", description: "Your homepage" };
   return (
     <div id="sidebar-container">
       <div className="sidebar-item">

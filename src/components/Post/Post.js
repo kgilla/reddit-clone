@@ -1,24 +1,11 @@
 import "./Post.css";
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { fetchGetData } from "../../api";
-import Comments from "../Comments";
+import { Link } from "react-router-dom";
+import { ArrowUp, ArrowDown } from "@styled-icons/entypo";
+import { useState } from "react";
+import moment from "moment";
 
-const Post = ({ user }) => {
-  const { subID, postID } = useParams();
-
-  const [post, setPost] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetchGetData(
-        `http://localhost:3000/api/s/${subID}/posts/${postID}`
-      );
-      console.log(response.post);
-      setPost(response.post);
-    };
-    fetchData();
-  }, []);
+const Post = ({ post, link }) => {
+  const [score, setScore] = useState(post.score);
 
   const determineCommentsLength = () => {
     let length = 0;
@@ -32,25 +19,42 @@ const Post = ({ user }) => {
 
   return (
     <div className="post-container">
-      {post ? (
-        <div className="post-preview-container">
-          <header className="post-preview-header">
-            <p>
-              {post.author ? `Posted by ${post.author.username}` : "[Deleted]"}
-            </p>
-            <p>On {post.dateCreated}</p>
-          </header>
-          <main className="post-preview-main">
-            <h3>{post.title}</h3>
-            <p>{post.content}</p>
-          </main>
-          <footer className="post-preview-footer">
-            <p>{post.score}</p>
-            <p>{determineCommentsLength()} comments</p>
-          </footer>
-        </div>
+      <div className="score-box">
+        <ArrowUp
+          className="score-arrow"
+          onClick={() => setScore((oldScore) => (oldScore += 1))}
+        />
+        {score}
+        <ArrowDown
+          className="score-arrow"
+          onClick={() => setScore((oldScore) => (oldScore -= 1))}
+        />
+      </div>
+      <article>
+        <header className="card-header">
+          <span className="card-item">
+            {post.author ? `Posted by ${post.author.username}` : "[Deleted]"}
+          </span>
+          <span className="card-item">
+            {moment(post.dateCreated).startOf("hour").fromNow()}
+          </span>
+        </header>
+        <main className="card-main">
+          <h3>{post.title}</h3>
+          <p>{post.content}</p>
+        </main>
+        <footer className="card-footer">
+          <span className="card-item">
+            {determineCommentsLength()} comments
+          </span>
+        </footer>
+      </article>
+      {link ? (
+        <Link
+          to={`/s/${post.sub}/posts/${post._id}`}
+          className="post-link"
+        ></Link>
       ) : null}
-      {post ? <Comments postComments={post.comments} user={user} /> : null}
     </div>
   );
 };

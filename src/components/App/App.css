@@ -40,7 +40,4 @@ button:hover {
 
 #main-container {
   grid-row: 2/3;
-  min-height: calc(100vh - 48px);
-  max-width: 100vw;
-  display: grid;
 }

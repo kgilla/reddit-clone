@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import PostPreview from "../PostPreview";
+import Post from "../Post";
 import { fetchGetData } from "../../api";
 
 const Home = ({ user }) => {
@@ -18,7 +18,7 @@ const Home = ({ user }) => {
       {posts ? (
         <div id="posts-container">
           {posts.map((post) => (
-            <PostPreview key={post._id} post={post} />
+            <Post key={post._id} post={post} />
           ))}
         </div>
       ) : null}

@@ -1,13 +1,59 @@
 .post-container {
-  border: 0.1rem solid #aaa;
+  position: relative;
+  display: flex;
+  border: 0.1em solid #aaa;
+  border-radius: 4px;
   background-color: #fff;
+  z-index: 0;
 }
 
-.post-container header {
+.score-box {
+  width: 50px;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.post-container footer {
+.score-arrow {
+  width: 25px;
+  color: #ccc;
+  z-index: 6;
+}
+
+.score-arrow:hover {
+  color: orange;
+  cursor: pointer;
+}
+
+.card-header,
+.card-main,
+.card-footer {
+  padding: 0.5em;
+  width: 100%;
+}
+
+.card-header,
+.card-footer {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 0.8em;
+  color: #888;
+}
+
+.card-footer {
+}
+
+.post-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+
+.post-link:hover {
+  border: 0.1em solid #444;
 }

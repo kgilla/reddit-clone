@@ -37,7 +37,7 @@ const Navbar = ({ openModal, user, logout }) => {
     <div id="nav-container">
       <nav id="top-nav">
         <Link to="/" id="nav-brand">
-          S/Eddit
+          S/eddit
         </Link>
         <Dropdown
           subs={subs}

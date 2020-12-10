@@ -1,8 +1,8 @@
 #sidebar-container {
   width: 312px;
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 3em;
+  grid-template-rows: auto auto 1fr;
+  gap: 2em;
 }
 
 .sidebar-item {

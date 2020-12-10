@@ -8,9 +8,9 @@ import Sub from "../Sub";
 import Modal from "../Modal";
 import CreatePost from "../CreatePost";
 import CreateSub from "../CreateSub";
-import Post from "../Post";
+import PostContainer from "../PostContainer";
 import Signup from "../Modal/Signup";
-import Login from "../Modal/Login"
+import Login from "../Modal/Login";
 
 function App() {
   const [user, SetUser] = useState(null);
@@ -53,7 +53,7 @@ function App() {
           {" "}
           <Switch>
             <Route path="/s/:subID/posts/:postID">
-              <Post user={user} />
+              <PostContainer user={user} />
             </Route>
             <Route path="/s/:subID/submit">
               <CreatePost user={user} />
@@ -61,7 +61,6 @@ function App() {
             <Route path="/s/:subID">
               <Sub />
             </Route>
-
             <Route path="/submit">
               <CreatePost user={user} />
             </Route>
@@ -76,9 +75,6 @@ function App() {
             </Route>
             <Route path="/">
               <Home />
-            </Route>
-            <Route path="/s:name/posts/:id">
-              <Post />
             </Route>
           </Switch>
         </main>

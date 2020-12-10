@@ -1,8 +1,9 @@
 import CommentForm from "../../CommentForm";
 import { useState } from "react";
+import moment from "moment";
 import "./Comment.css";
 
-const Comment = ({ comment, user, handleNewComment, children, reply }) => {
+const Comment = ({ comment, user, handleNewComment, layer, children }) => {
   const [openForm, setOpenForm] = useState(false);
 
   const handleClick = () => {
@@ -10,21 +11,25 @@ const Comment = ({ comment, user, handleNewComment, children, reply }) => {
   };
 
   return (
-    <div className="comment-container">
-      {comment.parent ? (
-        <div className="comment-reply">
-          <h2>{comment.author.username}</h2>
-          <p>{comment.content}</p>
-          <p>{comment.dateCreated}</p>
-        </div>
-      ) : (
-        <div className="comment">
-          <h2>{comment.author.username}</h2>
-          <p>{comment.content}</p>
-          <p>{comment.dateCreated}</p>
-          <button onClick={handleClick}>Reply</button>
-        </div>
-      )}
+    <div className={comment.parent ? "comment-reply" : "comment-container"}>
+      <header className="card-header">
+        <span className="card-item">{comment.author.username}</span>
+        <span className="card-item">
+          {moment(comment.dateCreated).startOf("hour").fromNow()}
+        </span>
+      </header>
+      <main className="card-main">
+        {" "}
+        <span>{comment.content}</span>
+      </main>
+      <footer className="card-footer">
+        {" "}
+        {layer < 6 ? (
+          <button onClick={handleClick} className="reply-button">
+            Reply
+          </button>
+        ) : null}
+      </footer>
       {openForm ? (
         <CommentForm
           user={user}

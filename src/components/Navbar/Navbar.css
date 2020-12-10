@@ -2,13 +2,14 @@
   position: fixed;
   width: 100%;
   background-color: #fff;
+  z-index: 4;
 }
 
 #top-nav {
   max-width: 1400px;
   height: 48px;
   display: grid;
-  grid-template-columns: 100px 0.5fr 1fr auto;
+  grid-template-columns: auto 0.5fr 1fr auto;
   align-content: center;
   align-items: center;
   gap: 1em;
