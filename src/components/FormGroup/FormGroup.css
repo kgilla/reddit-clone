@@ -1,7 +1,8 @@
 .form-group {
-  display: flex;
-  flex-direction: column;
-  margin: 1em 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5em;
+  margin: 1.5em 0;
 }
 
 .form-group-label {
@@ -17,6 +18,7 @@
 }
 
 .form-group-textarea {
+  min-height: 10em;
   padding: 0.5em;
   border: 0.1em solid #ddd;
   border-radius: 4px;

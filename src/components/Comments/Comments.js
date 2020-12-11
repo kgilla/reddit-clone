@@ -6,16 +6,7 @@ import CommentForm from "../CommentForm";
 const Comments = ({ postComments, user }) => {
   const [comments, setComments] = useState(postComments);
 
-  const handleNewComment = (comment) => {
-    if (comment.parent) {
-      let newComments = comments.slice();
-      const parent = newComments.findIndex((c) => c._id === comment.parent);
-      newComments[parent].replies.push(comment);
-      setComments(newComments);
-    } else {
-      setComments((comments) => [...comments, comment]);
-    }
-  };
+  const handleNewComment = (comment) => {};
 
   const renderAllComments = (comments, layer) => {
     return comments.map((comment) => (

@@ -7,45 +7,43 @@ import moment from "moment";
 const Post = ({ post, link }) => {
   const [score, setScore] = useState(post.score);
 
-  const determineCommentsLength = () => {
-    let length = 0;
-    for (let i = 0; i < post.comments.length; i++) {
-      post.comments[i].replies
-        ? (length += post.comments[i].replies.length + 1)
-        : length++;
-    }
-    return length;
-  };
-
   return (
     <div className="post-container">
       <div className="score-box">
         <ArrowUp
           className="score-arrow"
+          id="up-arrow"
           onClick={() => setScore((oldScore) => (oldScore += 1))}
         />
         {score}
         <ArrowDown
           className="score-arrow"
+          id="down-arrow"
           onClick={() => setScore((oldScore) => (oldScore -= 1))}
         />
       </div>
       <article>
         <header className="card-header">
+          {post.author ? (
+            <Link to={`/users/${post.author.username}`}>
+              {post.author.username}
+            </Link>
+          ) : (
+            <span className="card-item">[Deleted]</span>
+          )}
           <span className="card-item">
-            {post.author ? `Posted by ${post.author.username}` : "[Deleted]"}
-          </span>
-          <span className="card-item">
-            {moment(post.dateCreated).startOf("hour").fromNow()}
+            ~ {moment(post.dateCreated).startOf("hour").fromNow()}
           </span>
         </header>
         <main className="card-main">
-          <h3>{post.title}</h3>
-          <p>{post.content}</p>
+          <h2 className="post-title">{post.title}</h2>
+          <p className="post-content">{post.content}</p>
         </main>
         <footer className="card-footer">
           <span className="card-item">
-            {determineCommentsLength()} comments
+            {post.commentCount === 1
+              ? "1 Comment"
+              : post.commentCount + " Comments"}
           </span>
         </footer>
       </article>

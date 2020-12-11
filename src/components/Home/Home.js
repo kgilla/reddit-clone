@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import Post from "../Post";
 import { fetchGetData } from "../../api";
+import Post from "../Post";
+import Sidebar from "../Sidebar";
 
 const Home = ({ user }) => {
   const [posts, setPosts] = useState(null);
@@ -13,14 +14,24 @@ const Home = ({ user }) => {
     };
     fetchData();
   }, []);
+
   return (
-    <div>
+    <div className="sub-container">
+      <header className="sub-header">Homepage</header>
       {posts ? (
-        <div id="posts-container">
-          {posts.map((post) => (
-            <Post key={post._id} post={post} />
-          ))}
-        </div>
+        <main className="sub-page">
+          <div id="posts-container">
+            {posts.map((post) => (
+              <Post key={post._id} post={post} />
+            ))}
+          </div>
+          <Sidebar
+            sub={{
+              name: "Homepage",
+              description: "Your personalized homepage",
+            }}
+          />
+        </main>
       ) : null}
     </div>
   );

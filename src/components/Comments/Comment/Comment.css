@@ -1,23 +1,46 @@
 .comment-container {
-  margin: 0.5em 0;
+  position: relative;
+  border-left: 2px solid #eee;
+}
+
+.comment {
+  padding: 0.25em 0;
 }
 
 .comment-reply {
-  margin: 0.5em 0;
+  position: relative;
   margin-left: 1em;
-  border-left: 0.1em solid #ddd;
+  border-left: 2px solid #eee;
 }
 
 .reply-button {
-  width: auto;
+  justify-self: flex-start;
+  align-self: start;
+  display: flex;
+  align-items: center;
+  width: fit-content;
   border: none;
   background-color: #fff;
-  padding: none;
-  margin: none;
-  color: #aaa;
+  padding: 2px;
+  margin: 0;
+  color: #888;
 }
 
-.comment-reply {
-  margin-left: 1em;
-  border-left: 0.1em solid #ccc;
+.reply-bubble {
+  height: 1.25em;
+  width: 1.25em;
+  margin-right: 0.5em;
+  color: #888;
+}
+
+.comment {
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+
+.comment-score-box {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
 }

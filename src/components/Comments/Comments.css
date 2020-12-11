@@ -1,7 +1,8 @@
 #comments-container {
   margin-top: 1em;
   padding: 1em;
-  border: 0.1em solid #ccc;
+  border: 1px solid #ccc;
+  border-radius: 4px;
   background-color: #fff;
 }
 

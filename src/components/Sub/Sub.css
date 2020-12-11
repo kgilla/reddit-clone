@@ -7,19 +7,17 @@
   width: 640px;
 }
 
-#sub-header {
-  height: 150px;
+.sub-header {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 2em;
+  margin-bottom: 0.5em;
   border-bottom: 0.1rem solid #ccc;
-  background-color: #fff;
-}
-
-.colored-bar {
-  height: 70px;
-  background-color: #26a69a;
-}
-
-.sub-heading {
-  padding: 0 5em;
+  background-color: var(--blue);
+  color: #fff;
+  font-size: 1.4em;
+  font-weight: 700;
 }
 
 .sub-page {

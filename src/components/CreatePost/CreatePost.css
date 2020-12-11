@@ -1,9 +1,31 @@
-.centered-form {
-  place-self: center;
-  width: 100%;
-  max-width: 40em;
-  border: 0.1em solid #aaa;
+.form-container {
+  height: calc(100vh - 48px);
+  display: grid;
+  grid-template-columns: 10em 1fr;
+}
+
+.form-picture {
+  background-image: url("../../images/benn-mcguinness-vWbBC7G2BQQ-unsplash.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
+select {
+  padding: 0.5em;
+  border: 1px solid #ccc;
   border-radius: 4px;
-  padding: 2em;
-  background-color: #fff;
+  color: #444;
+}
+
+.form-left {
+  max-width: 30em;
+  padding: 1em;
+}
+
+.form-heading {
+  padding: 1em 0;
+  border-bottom: 1px solid #aaa;
+  color: #444;
+  font-size: 1.2em;
+  font-weight: 500;
 }

@@ -46,37 +46,50 @@ const CreatePost = ({ user }) => {
   };
 
   return (
-    <form className="centered-form">
-      {subs ? (
-        <select name="sub" onChange={handleChange}>
-          {subs.map((sub) => (
-            <option key={sub._id} value={sub._id}>
-              {sub.name}
-            </option>
-          ))}
-        </select>
-      ) : null}
-      <FormGroup
-        name="title"
-        type="text"
-        handleChange={handleChange}
-        value={title}
-      >
-        Title
-      </FormGroup>
-      <FormGroup
-        name="content"
-        type="textarea"
-        handleChange={handleChange}
-        value={content}
-      >
-        Body
-      </FormGroup>
-      <button onClick={handleSubmit}>Submit</button>
-      {postCreated ? (
-        <Redirect to={`/s/${sub}/posts/${postCreated._id}`} />
-      ) : null}
-    </form>
+    <div class="form-container">
+      <div class="form-picture"></div>
+      <form className="form-left">
+        <h2 className="form-heading">New Post</h2>
+        {subs ? (
+          <div className="form-group">
+            <label className="form-group-label" htmlFor="sub">
+              Community
+            </label>
+            <select name="sub" onChange={handleChange}>
+              {subs.map((sub) => (
+                <option
+                  key={sub._id}
+                  value={sub._id}
+                  selected={subID === sub._id ? true : null}
+                >
+                  {sub.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        ) : null}
+        <FormGroup
+          name="title"
+          type="text"
+          handleChange={handleChange}
+          value={title}
+        >
+          Title
+        </FormGroup>
+        <FormGroup
+          name="content"
+          type="textarea"
+          handleChange={handleChange}
+          value={content}
+        >
+          Body
+        </FormGroup>
+        <button onClick={handleSubmit}>Submit</button>
+        {postCreated ? (
+          <Redirect to={`/s/${sub}/posts/${postCreated._id}`} />
+        ) : null}
+      </form>
+    </div>
   );
 };
 

@@ -1,11 +1,12 @@
 things to do:
 
-- post creation, updating, deletion
-- comment creation, updating, deletion
-- sub creation
-- persist logged in user.
-- user profile page
+- updating, deletion
+- updating, deletion
+- user profile page/ password change/ email change/
 - user front page
 - ability to subscribe to subs
+- ability to upvote and downvote comments and posts.
+
+Future things:
+
 - sorting for posts and comments
-- detail view for posts to see comments / make comments

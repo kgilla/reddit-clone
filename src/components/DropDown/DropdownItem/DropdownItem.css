@@ -1,11 +1,24 @@
 .dropdown-item {
-  padding: 0.5em;
-  color: #222;
-  font-size: 1em;
+  display: flex;
+  align-items: center;
+  padding: 0.5em 1em;
   text-decoration: none;
 }
 
 .dropdown-item:hover {
   cursor: pointer;
-  background-color: #ccc;
+  background-color: #eee;
+}
+
+.dropdown-item-icon {
+  height: 20px;
+  width: 20px;
+  color: var(--blue);
+  margin-right: 0.5em;
+}
+
+.dropdown-item-heading {
+  color: #444;
+  font-size: 1em;
+  text-decoration: none;
 }

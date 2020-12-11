@@ -11,9 +11,10 @@ import CreateSub from "../CreateSub";
 import PostContainer from "../PostContainer";
 import Signup from "../Modal/Signup";
 import Login from "../Modal/Login";
+import UserProfile from "../UserProfile";
 
 function App() {
-  const [user, SetUser] = useState(null);
+  const [user, SetUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [openModal, setOpenModal] = useState(false);
   const [modalType, setModalType] = useState(null);
 
@@ -52,6 +53,9 @@ function App() {
         <main id="main-container">
           {" "}
           <Switch>
+            <Route path="/users/:name">
+              <UserProfile user={user} />
+            </Route>
             <Route path="/s/:subID/posts/:postID">
               <PostContainer user={user} />
             </Route>

@@ -1,38 +1,29 @@
 import "./Sidebar.css";
 import { Link, useRouteMatch } from "react-router-dom";
+import SidebarItem from "../SidebarItem";
+import moment from "moment";
 
 const Sidebar = ({ sub }) => {
   let { url } = useRouteMatch();
   sub = sub ? sub : { name: "Home", description: "Your homepage" };
   return (
     <div id="sidebar-container">
-      <div className="sidebar-item">
-        <header className="sidebar-item-header">
-          {" "}
-          <h2>{sub.name}</h2>
-        </header>
-        <main className="sidebar-item-content">
-          {" "}
-          <p>{sub.description}</p>
-        </main>
-        <footer className="sidebar-item-footer">{sub.dateCreated}</footer>
-      </div>
-      <div className="sidebar-item">
-        <header className="sidebar-item-header">
-          <h2>Add Content</h2>
-        </header>
-        <main className="sidebar-item-content">
-          {" "}
-          <Link to={`${url}/submit`}>
-            {" "}
-            <button>Create Post</button>
+      <SidebarItem
+        heading="About Community"
+        footing={"Created: " + moment(sub.dateCreated).format("MMMM Do YYYY")}
+      >
+        <p>{sub.description}</p>
+      </SidebarItem>
+      <SidebarItem heading="Create Content">
+        <div className="button-box">
+          <Link to={`${url}/submit`} className="button-filled">
+            CREATE POST
           </Link>
-          <Link to="/newSub">
-            {" "}
-            <button>Create Community</button>
+          <Link to="/newSub" className="button-outline">
+            CREATE COMMUNITY
           </Link>
-        </main>
-      </div>
+        </div>
+      </SidebarItem>
     </div>
   );
 };

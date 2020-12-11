@@ -20,6 +20,10 @@ const Sub = () => {
 
   return (
     <div className="sub-container">
+      <header className="sub-header">
+        <h1>{subData ? subData.name : null}</h1>
+        <button>Subscribe</button>
+      </header>
       {subData ? (
         <div>
           <main className="sub-page">

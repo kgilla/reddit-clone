@@ -1,6 +1,16 @@
 import "./FormGroup.css";
 
-const FormGroup = ({ name, type, handleChange, value, error, children }) => {
+const FormGroup = ({
+  name,
+  type,
+  handleChange,
+  value,
+  placeholder,
+  error,
+  style,
+  id,
+  children,
+}) => {
   return (
     <div className="form-group">
       {error ? <div className="error">{error}</div> : null}
@@ -13,6 +23,7 @@ const FormGroup = ({ name, type, handleChange, value, error, children }) => {
           name={name}
           value={value}
           onChange={handleChange}
+          placeholder={placeholder}
         ></textarea>
       ) : (
         <input
@@ -21,6 +32,9 @@ const FormGroup = ({ name, type, handleChange, value, error, children }) => {
           name={name}
           value={value}
           onChange={handleChange}
+          placeholder={placeholder}
+          id={id}
+          style={style}
         ></input>
       )}
     </div>

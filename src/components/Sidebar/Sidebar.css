@@ -5,31 +5,9 @@
   gap: 2em;
 }
 
-.sidebar-item {
-  border: 0.1em solid #ccc;
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.sidebar-item-header,
-.sidebar-item-content,
-.sidebar-item-footer {
-  padding: 0.5em;
-}
-
-.sidebar-item-content,
-.sidebar-item-footer {
-  background-color: #fff;
-}
-
-.sidebar-item-header {
-  background-color: #303f9f;
-  color: #fff;
-}
-
-.sidebar-item-content {
-}
-
-.sidebar-item-footer {
-  border-top: 0.1em solid #ddd;
+.button-box {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  gap: 1em;
 }

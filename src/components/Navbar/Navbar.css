@@ -1,8 +1,9 @@
 #nav-container {
   position: fixed;
   width: 100%;
+  border-bottom: 1px solid #eee;
   background-color: #fff;
-  z-index: 4;
+  z-index: 10;
 }
 
 #top-nav {
@@ -33,6 +34,21 @@
 #nav-brand {
   font-size: 1.2em;
   font-weight: 700;
-  color: #ba4a00;
+  color: var(--orange);
   text-decoration: none;
+}
+
+.nav-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5em 2em;
+  font-size: 0.8em;
+}
+
+.nav-icon {
+  height: 1.25em;
+  width: 1.25em;
+  margin-right: 0.25em;
+  color: var(--blue);
 }

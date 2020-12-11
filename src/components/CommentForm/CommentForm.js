@@ -2,8 +2,9 @@ import { useState } from "react";
 import { fetchPostData } from "../../api";
 import { useParams } from "react-router-dom";
 import FormGroup from "../FormGroup";
+import "./CommentForm.css";
 
-const CommentForm = ({ user, parent, handleNewComment }) => {
+const CommentForm = ({ user, parent, handleNewComment, handleClick }) => {
   const { subID, postID } = useParams();
   const [content, setContent] = useState("");
 
@@ -26,16 +27,29 @@ const CommentForm = ({ user, parent, handleNewComment }) => {
   };
 
   return (
-    <form>
+    <form className="comment-form">
+      {parent ? null : <span>Leave a comment</span>}
       <FormGroup
         name="content"
         type="textarea"
         handleChange={handleChange}
         value={content}
-      >
-        Comment
-      </FormGroup>
-      <button onClick={handleSubmit}>Submit</button>
+        placeholder="What are your thoughts?"
+      ></FormGroup>
+      <div className="form-button-container">
+        {parent ? (
+          <button
+            className="comment-form-button"
+            id="cancel-form"
+            onClick={handleClick}
+          >
+            Cancel
+          </button>
+        ) : null}
+        <button className="comment-form-button" onClick={handleSubmit}>
+          Comment
+        </button>
+      </div>
     </form>
   );
 };

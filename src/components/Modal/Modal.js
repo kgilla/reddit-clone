@@ -1,5 +1,6 @@
 import Login from "./Login";
 import Signup from "./Signup";
+import { CloseOutline } from "@styled-icons/evaicons-outline";
 import "./Modal.css";
 
 const Modal = ({ type, removeModal, storeUser }) => {
@@ -21,7 +22,7 @@ const Modal = ({ type, removeModal, storeUser }) => {
           <Signup removeModal={removeModal} />
         )}
         <button className="modal-close" onClick={handleClick}>
-          X
+          <CloseOutline className="modal-close-icon" />
         </button>
       </div>
     </div>

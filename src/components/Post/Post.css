@@ -1,48 +1,37 @@
 .post-container {
   position: relative;
   display: flex;
-  border: 0.1em solid #aaa;
+  padding: 0.5em 0;
+  border: 0.1em solid #ccc;
   border-radius: 4px;
   background-color: #fff;
   z-index: 0;
 }
 
-.score-box {
-  width: 50px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.score-arrow {
-  width: 25px;
-  color: #ccc;
-  z-index: 6;
-}
-
-.score-arrow:hover {
-  color: orange;
-  cursor: pointer;
-}
-
 .card-header,
 .card-main,
 .card-footer {
-  padding: 0.5em;
+  padding: 4px 0.5em;
   width: 100%;
 }
 
 .card-header,
 .card-footer {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  display: grid;
+  grid-template-columns: auto auto auto 1fr;
+  gap: 0.5em;
   font-size: 0.8em;
   color: #888;
 }
 
-.card-footer {
+.post-title {
+  color: #222;
+  font-size: 1.2em;
+}
+
+.post-content {
+  color: #444;
+  font-size: 1em;
 }
 
 .post-link {
@@ -56,4 +45,33 @@
 
 .post-link:hover {
   border: 0.1em solid #444;
+}
+
+.score-box {
+  width: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 0.5em;
+}
+
+.score-arrow {
+  width: 25px;
+  color: #aaa;
+  z-index: 6;
+}
+
+.score-arrow:hover {
+  background-color: #eee;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#up-arrow:hover {
+  color: var(--orange);
+}
+
+#down-arrow:hover {
+  color: var(--blue);
 }
