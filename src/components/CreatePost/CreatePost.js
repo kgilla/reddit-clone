@@ -84,7 +84,9 @@ const CreatePost = ({ user }) => {
         >
           Body
         </FormGroup>
-        <button onClick={handleSubmit}>Submit</button>
+        <button onClick={handleSubmit} className="button-filled">
+          Submit
+        </button>
         {postCreated ? (
           <Redirect to={`/s/${sub}/posts/${postCreated._id}`} />
         ) : null}

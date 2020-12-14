@@ -63,7 +63,7 @@ function App() {
               <CreatePost user={user} />
             </Route>
             <Route path="/s/:subID">
-              <Sub />
+              <Sub user={user} />
             </Route>
             <Route path="/submit">
               <CreatePost user={user} />

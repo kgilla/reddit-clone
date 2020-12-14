@@ -41,7 +41,7 @@ const Login = ({ sendUserUp, removeModal }) => {
 
   return (
     <form className="modal-form">
-      <h2>Login</h2>
+      <h2 className="form-heading">Login</h2>
       <FormGroup
         name="username"
         type="text"

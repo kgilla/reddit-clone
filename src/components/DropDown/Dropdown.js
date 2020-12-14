@@ -22,7 +22,11 @@ const Dropdown = ({ subs, showDropdown, changeShowDropdown }) => {
         onClick={handleClick}
         style={
           showDropdown
-            ? { border: "1px solid #eee", borderBottom: "0 solid #fff" }
+            ? {
+                border: "1px solid #eee",
+                borderBottom: "0 solid #fff",
+                borderRadius: "4px 4px 0 0",
+              }
             : null
         }
       >

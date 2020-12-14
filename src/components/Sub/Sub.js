@@ -4,8 +4,9 @@ import { useParams } from "react-router-dom";
 import { fetchGetData } from "../../api";
 import Post from "../Post";
 import Sidebar from "../Sidebar";
+import SubHeader from "../SubHeader";
 
-const Sub = () => {
+const Sub = ({ user }) => {
   const { subID } = useParams();
   const [subData, setSubData] = useState(null);
 
@@ -20,12 +21,9 @@ const Sub = () => {
 
   return (
     <div className="sub-container">
-      <header className="sub-header">
-        <h1>{subData ? subData.name : null}</h1>
-        <button>Subscribe</button>
-      </header>
       {subData ? (
         <div>
+          <SubHeader subData={subData} user={user} />
           <main className="sub-page">
             <div id="posts-container">
               {subData.posts.map((post) => (

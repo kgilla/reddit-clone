@@ -1,0 +1,23 @@
+.subscribe-button-container {
+  grid-column: 3/4;
+  width: 200px;
+  margin-left: 32px;
+}
+
+.subscribe-button {
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 1em;
+}
+
+.unsubscribe {
+  border: 1px solid var(--blue);
+  background-color: #fff;
+  color: var(--blue);
+}
+
+.subscribe {
+  background-color: var(--blue);
+  border: 1px solid #aaa;
+  color: #fff;
+}

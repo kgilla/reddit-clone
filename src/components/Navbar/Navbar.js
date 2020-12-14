@@ -14,7 +14,8 @@ const Navbar = ({ openModal, user, logout }) => {
         const URL = `http://localhost:3000/api/s/`;
         const response = await fetch(URL);
         const data = await response.json();
-        setSubs(data.allSubs);
+        console.log(data);
+        setSubs(data.subs);
       } catch (err) {
         console.log(err);
       }

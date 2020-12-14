@@ -5,6 +5,8 @@
 
 #posts-container {
   width: 640px;
+  display: flex;
+  flex-direction: column;
 }
 
 .sub-header {
