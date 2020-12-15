@@ -1,4 +1,6 @@
 #color-input {
   width: 100%;
-  height: 5em;
+  max-width: 200px;
+  height: 50px;
+  padding: 0;
 }

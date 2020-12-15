@@ -15,20 +15,27 @@ const Dropdown = ({ subs, showDropdown, changeShowDropdown }) => {
     setSelectedSub(sub);
   };
 
+  const createData = (href, title) => {
+    return {
+      href,
+      title,
+      onClick: handleClick,
+      changeSelectedSub,
+    };
+  };
+
+  const dropdownStyle = {
+    border: "1px solid #eee",
+    borderBottom: "0 solid #fff",
+    borderRadius: "4px 4px 0 0",
+  };
+
   return (
     <div id="nav-subs">
       <button
         id="sub-nav-button"
         onClick={handleClick}
-        style={
-          showDropdown
-            ? {
-                border: "1px solid #eee",
-                borderBottom: "0 solid #fff",
-                borderRadius: "4px 4px 0 0",
-              }
-            : null
-        }
+        style={showDropdown ? dropdownStyle : null}
       >
         {selectedSub ? selectedSub : "Communities"}
       </button>
@@ -36,29 +43,14 @@ const Dropdown = ({ subs, showDropdown, changeShowDropdown }) => {
         <div id="sub-dropdown">
           <div className="dropdown-section">
             <h6 className="dropdown-heading">My Feeds</h6>
-            <DropdownItem
-              href="/home"
-              onClick={handleClick}
-              changeSelectedSub={changeSelectedSub}
-              icon={<TrendingUp className="dropdown-item-icon" />}
-            >
-              Home
+            <DropdownItem data={createData("/home", "Home")}>
+              <TrendingUp className="dropdown-item-icon" />
             </DropdownItem>
-            <DropdownItem
-              href="/s/all"
-              onClick={handleClick}
-              changeSelectedSub={changeSelectedSub}
-              icon={<SpaceShip className="dropdown-item-icon" />}
-            >
-              All
+            <DropdownItem data={createData("/s/all", "All")}>
+              <SpaceShip className="dropdown-item-icon" />
             </DropdownItem>
-            <DropdownItem
-              href="/s/browse"
-              onClick={handleClick}
-              changeSelectedSub={changeSelectedSub}
-              icon={<TrendingUp className="dropdown-item-icon" />}
-            >
-              Browse Communities
+            <DropdownItem data={createData("/s/browse", "Browse Communities")}>
+              <TrendingUp className="dropdown-item-icon" />
             </DropdownItem>
           </div>
           <div className="dropdown-section">
@@ -67,33 +59,20 @@ const Dropdown = ({ subs, showDropdown, changeShowDropdown }) => {
               ? subs.map((sub) => (
                   <DropdownItem
                     key={sub._id}
-                    href={`/s/${sub._id}`}
-                    onClick={handleClick}
-                    changeSelectedSub={changeSelectedSub}
-                    icon={<SpaceShip className="dropdown-item-icon" />}
+                    data={createData(`/s/${sub._id}`, sub.name)}
                   >
-                    {sub.name}{" "}
+                    <SpaceShip className="dropdown-item-icon" />
                   </DropdownItem>
                 ))
               : null}
           </div>
           <div className="dropdown-section">
             <h6 className="dropdown-heading">Other</h6>
-            <DropdownItem
-              href="/submit"
-              onClick={handleClick}
-              changeSelectedSub={changeSelectedSub}
-              icon={<SpaceShip className="dropdown-item-icon" />}
-            >
-              Create Post
+            <DropdownItem data={createData("/submit", "Create Post")}>
+              <SpaceShip className="dropdown-item-icon" />
             </DropdownItem>
-            <DropdownItem
-              href="/submit"
-              onClick={handleClick}
-              changeSelectedSub={changeSelectedSub}
-              icon={<SpaceShip className="dropdown-item-icon" />}
-            >
-              Create Community
+            <DropdownItem data={createData("/s/create", "Create Community")}>
+              <SpaceShip className="dropdown-item-icon" />
             </DropdownItem>
           </div>
         </div>

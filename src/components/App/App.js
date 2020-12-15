@@ -77,6 +77,9 @@ function App() {
             <Route path="/s/:subID/submit">
               <PostForm user={user} token={token} />
             </Route>
+            <Route path="/s/create">
+              <SubForm user={user} token={token} />
+            </Route>
             <Route path="/s/browse">
               <SubIndex user={user} token={token} />
             </Route>
@@ -85,9 +88,6 @@ function App() {
             </Route>
             <Route path="/submit">
               <PostForm user={user} token={token} />
-            </Route>
-            <Route path="s/create">
-              <SubForm user={user} token={token} />
             </Route>
             <Route path="/login">
               <LoginForm />

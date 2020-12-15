@@ -17,8 +17,11 @@ const PostForm = ({ user, token }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchGetData("http://localhost:3000/api/s/");
-      setSubs(data.allSubs);
+      const response = await fetchGetData(
+        "http://localhost:3000/api/s/user",
+        token
+      );
+      setSubs(response.subs);
     };
     fetchData();
   }, []);
@@ -56,13 +59,9 @@ const PostForm = ({ user, token }) => {
             <label className="form-group-label" htmlFor="sub">
               Community
             </label>
-            <select name="sub" onChange={handleChange}>
+            <select name="sub" onChange={handleChange} defaultValue={subID}>
               {subs.map((sub) => (
-                <option
-                  key={sub._id}
-                  value={sub._id}
-                  selected={subID === sub._id ? true : null}
-                >
+                <option key={sub._id} value={sub._id}>
                   {sub.name}
                 </option>
               ))}

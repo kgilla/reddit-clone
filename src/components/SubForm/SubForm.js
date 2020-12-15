@@ -4,10 +4,10 @@ import FormGroup from "../FormGroup";
 import { Redirect } from "react-router-dom";
 import "./SubForm.css";
 
-const CreateSub = ({ user, token }) => {
+const SubForm = ({ user, token }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [color, setColor] = useState("");
+  const [color, setColor] = useState("#0079d3");
   const [allSubs, setAllSubs] = useState(null);
   // const [error, setError] = useState(null);
   const [subCreated, setSubCreated] = useState(null);
@@ -46,8 +46,8 @@ const CreateSub = ({ user, token }) => {
   };
 
   return (
-    <div class="form-container">
-      <div class="form-picture"></div>
+    <div className="form-container">
+      <div className="form-picture"></div>
       <form className="form-left">
         <h2 className="form-heading">Create Community</h2>
         <FormGroup
@@ -88,4 +88,4 @@ const CreateSub = ({ user, token }) => {
   );
 };
 
-export default CreateSub;
+export default SubForm;
