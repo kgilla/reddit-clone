@@ -12,3 +12,9 @@ things to do:
 Future things:
 
 - sorting for posts and comments
+
+to do today.
+hook up post and sub forms / add errors and partial validators.
+make sub index page where subs can be joined quickly and browsed to via.
+hook up homepage and all pages with respective sidebars
+flesh out user profile.

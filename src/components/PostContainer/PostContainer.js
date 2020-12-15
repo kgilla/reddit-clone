@@ -6,25 +6,30 @@ import { fetchGetData } from "../../api";
 import Comments from "../Comments";
 import Post from "../Post";
 import Sidebar from "../Sidebar";
+import Loader from "../Loader";
 
 const PostContainer = ({ user }) => {
   const { subID, postID } = useParams();
   const [post, setPost] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       const response = await fetchGetData(
         `http://localhost:3000/api/s/${subID}/posts/${postID}`
       );
-      console.log(response.post);
       setPost(response.post);
+      setIsLoading(false);
     };
     fetchData();
   }, []);
 
   return (
     <div>
-      {post ? (
+      {isLoading ? (
+        <Loader />
+      ) : post ? (
         <div id="post-container">
           <div id="post-container-left">
             <Post post={post} user={user} />

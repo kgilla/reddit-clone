@@ -52,6 +52,14 @@ const Dropdown = ({ subs, showDropdown, changeShowDropdown }) => {
             >
               All
             </DropdownItem>
+            <DropdownItem
+              href="/s/browse"
+              onClick={handleClick}
+              changeSelectedSub={changeSelectedSub}
+              icon={<TrendingUp className="dropdown-item-icon" />}
+            >
+              Browse Communities
+            </DropdownItem>
           </div>
           <div className="dropdown-section">
             <h6 className="dropdown-heading">My Communities</h6>

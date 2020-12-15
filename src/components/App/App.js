@@ -12,6 +12,7 @@ import PostContainer from "../PostContainer";
 import SignupForm from "../SignupForm";
 import LoginForm from "../LoginForm";
 import UserProfile from "../UserProfile";
+import SubIndex from "../SubIndex";
 
 function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
@@ -76,13 +77,16 @@ function App() {
             <Route path="/s/:subID/submit">
               <PostForm user={user} token={token} />
             </Route>
+            <Route path="/s/browse">
+              <SubIndex user={user} token={token} />
+            </Route>
             <Route path="/s/:subID">
               <Sub user={user} updateUser={updateUser} token={token} />
             </Route>
             <Route path="/submit">
               <PostForm user={user} token={token} />
             </Route>
-            <Route path="/new">
+            <Route path="s/create">
               <SubForm user={user} token={token} />
             </Route>
             <Route path="/login">

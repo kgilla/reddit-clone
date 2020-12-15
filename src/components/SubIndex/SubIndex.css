@@ -1,0 +1,31 @@
+#sub-index-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 1em auto;
+  padding: 2em;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+#sub-index-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#sub-index {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1em;
+}
+
+.sub-preview-link {
+  text-decoration: none;
+  color: #444;
+}
+
+.sub-preview {
+  padding: 1em;
+  border-bottom: 1px solid #aaa;
+}

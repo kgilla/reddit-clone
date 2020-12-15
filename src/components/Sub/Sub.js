@@ -5,23 +5,28 @@ import { fetchGetData } from "../../api";
 import Post from "../Post";
 import Sidebar from "../Sidebar";
 import SubHeader from "../SubHeader";
+import Loader from "../Loader";
 
 const Sub = ({ user, updateUser, token }) => {
   const { subID } = useParams();
   const [subData, setSubData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       const data = await fetchGetData(`http://localhost:3000/api/s/${subID}`);
-      console.log(data.sub);
       setSubData(data.sub);
+      setIsLoading(false);
     };
     fetchData();
   }, [subID]);
 
   return (
     <div className="sub-container">
-      {subData ? (
+      {isLoading ? (
+        <Loader />
+      ) : subData ? (
         <div>
           <SubHeader
             subData={subData}
