@@ -6,15 +6,16 @@ import Navbar from "../Navbar";
 import Home from "../Home";
 import Sub from "../Sub";
 import Modal from "../Modal";
-import CreatePost from "../CreatePost";
-import CreateSub from "../CreateSub";
+import PostForm from "../PostForm";
+import SubForm from "../SubForm";
 import PostContainer from "../PostContainer";
-import Signup from "../Modal/Signup";
-import Login from "../Modal/Login";
+import SignupForm from "../SignupForm";
+import LoginForm from "../LoginForm";
 import UserProfile from "../UserProfile";
 
 function App() {
-  const [user, SetUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const [token, setToken] = useState(JSON.parse(localStorage.getItem("token")));
   const [openModal, setOpenModal] = useState(false);
   const [modalType, setModalType] = useState(null);
 
@@ -29,14 +30,22 @@ function App() {
   };
 
   const storeUser = (user) => {
-    console.log(user);
-    localStorage.setItem("user", JSON.stringify(user));
-    SetUser(user);
+    localStorage.setItem("user", JSON.stringify(user.user));
+    localStorage.setItem("token", JSON.stringify(user.token));
+    setUser(user.user);
+    setToken(user.token);
+  };
+
+  const updateUser = (newUser) => {
+    console.log(newUser);
+    setUser(newUser);
   };
 
   const handleLogout = () => {
-    SetUser(null);
+    setUser(null);
+    setToken(null);
     localStorage.removeItem("user");
+    localStorage.removeItem("token");
   };
 
   return (
@@ -49,36 +58,41 @@ function App() {
         />
       ) : null}
       <Router>
-        <Navbar openModal={handleOpenModal} user={user} logout={handleLogout} />
+        <Navbar
+          openModal={handleOpenModal}
+          user={user}
+          token={token}
+          logout={handleLogout}
+        />
         <main id="main-container">
           {" "}
           <Switch>
             <Route path="/users/:name">
-              <UserProfile user={user} />
+              <UserProfile user={user} token={token} />
             </Route>
             <Route path="/s/:subID/posts/:postID">
-              <PostContainer user={user} />
+              <PostContainer user={user} token={token} />
             </Route>
             <Route path="/s/:subID/submit">
-              <CreatePost user={user} />
+              <PostForm user={user} token={token} />
             </Route>
             <Route path="/s/:subID">
-              <Sub user={user} />
+              <Sub user={user} updateUser={updateUser} token={token} />
             </Route>
             <Route path="/submit">
-              <CreatePost user={user} />
+              <PostForm user={user} token={token} />
             </Route>
-            <Route path="/newSub">
-              <CreateSub user={user} />
+            <Route path="/new">
+              <SubForm user={user} token={token} />
             </Route>
             <Route path="/login">
-              <Login />
+              <LoginForm />
             </Route>
             <Route path="/signup">
-              <Signup />
+              <SignupForm />
             </Route>
             <Route path="/">
-              <Home />
+              <Home user={user} token={token} />
             </Route>
           </Switch>
         </main>

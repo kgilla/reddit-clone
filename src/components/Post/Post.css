@@ -3,7 +3,7 @@
   display: flex;
   padding: 0.5em 0;
   margin: 0.25em 0;
-  border: 0.1em solid #ccc;
+  border: 1px solid #ccc;
   border-radius: 4px;
   background-color: #fff;
   z-index: 0;
@@ -35,6 +35,16 @@
   font-size: 1em;
 }
 
+.profile-link {
+  color: #888;
+  text-decoration: none;
+  z-index: 2;
+}
+
+.profile-link:hover {
+  text-decoration: underline;
+}
+
 .post-link {
   position: absolute;
   top: 0;
@@ -45,7 +55,9 @@
 }
 
 .post-link:hover {
-  border: 0.1em solid #444;
+  padding: 1px;
+  border: 0.1em solid #888;
+  border-radius: 4px;
 }
 
 .score-box {

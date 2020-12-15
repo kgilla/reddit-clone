@@ -1,17 +1,19 @@
-import FormGroup from "../FormGroup";
+import "./PostForm.css";
+
 import { fetchGetData, fetchPostData } from "../../api/index";
 import { useState, useEffect } from "react";
 import { Redirect, useParams } from "react-router-dom";
-import "./CreatePost.css";
 
-const CreatePost = ({ user }) => {
+import FormGroup from "../FormGroup";
+
+const PostForm = ({ user, token }) => {
   const { subID } = useParams();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [sub, setSub] = useState(subID);
   const [subs, setSubs] = useState(null);
   const [postCreated, setPostCreated] = useState(null);
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,7 +33,6 @@ const CreatePost = ({ user }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({ sub, title, content });
     const response = await fetchPostData(
       `http://localhost:3000/api/s/${sub}/posts/create`,
       {
@@ -39,7 +40,7 @@ const CreatePost = ({ user }) => {
         title,
         content,
       },
-      user.token
+      token
     );
     console.log(response);
     setPostCreated(response.savedPost);
@@ -95,4 +96,4 @@ const CreatePost = ({ user }) => {
   );
 };
 
-export default CreatePost;
+export default PostForm;

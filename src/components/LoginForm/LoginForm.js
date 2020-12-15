@@ -1,9 +1,9 @@
-import "./Login.css";
+import "./LoginForm.css";
 import { useState } from "react";
-import { fetchPostData } from "../../../api/index";
-import FormGroup from "../../FormGroup";
+import { fetchPostData } from "../../api/index";
+import FormGroup from "../FormGroup";
 
-const Login = ({ sendUserUp, removeModal }) => {
+const LoginForm = ({ sendUserUp, removeModal }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -71,4 +71,4 @@ const Login = ({ sendUserUp, removeModal }) => {
   );
 };
 
-export default Login;
+export default LoginForm;

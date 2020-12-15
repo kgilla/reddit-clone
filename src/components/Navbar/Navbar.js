@@ -1,38 +1,32 @@
 import "./Navbar.css";
 import { useState, useEffect } from "react";
+import { fetchGetData } from "../../api";
 import { Link } from "react-router-dom";
 import Dropdown from "../DropDown";
 import { User } from "@styled-icons/fa-solid";
 
-const Navbar = ({ openModal, user, logout }) => {
+const Navbar = ({ openModal, user, token, logout }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [subs, setSubs] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const URL = `http://localhost:3000/api/s/`;
-        const response = await fetch(URL);
-        const data = await response.json();
-        console.log(data);
-        setSubs(data.subs);
+        const response = await fetchGetData(
+          "http://localhost:3000/api/s/user",
+          token
+        );
+        console.log(response);
+        setSubs(response.subs);
       } catch (err) {
         console.log(err);
       }
     };
     fetchData();
-  }, []);
+  }, [user]);
 
   const handleShowChange = () => {
     showDropdown ? setShowDropdown(false) : setShowDropdown(true);
-  };
-
-  const handleClick = (e) => {
-    openModal(e.target.name);
-  };
-
-  const handleLogout = () => {
-    logout();
   };
 
   return (
@@ -53,12 +47,12 @@ const Navbar = ({ openModal, user, logout }) => {
         {user ? (
           <ul id="nav-buttons">
             <Link
-              to={`/users/${user.user.username}`}
+              to={`/users/${user.username}`}
               className="button-outline nav-button"
             >
               <User className="nav-icon" />
             </Link>
-            <button className="button-filled nav-button" onClick={handleLogout}>
+            <button className="button-filled nav-button" onClick={logout}>
               LOG OUT
             </button>
           </ul>
@@ -67,14 +61,14 @@ const Navbar = ({ openModal, user, logout }) => {
             <button
               name="signup"
               className="button-outline nav-button"
-              onClick={handleClick}
+              onClick={(e) => openModal(e.target.name)}
             >
               SIGN UP
             </button>
             <button
               name="login"
               className="button-filled nav-button"
-              onClick={handleClick}
+              onClick={(e) => openModal(e.target.name)}
             >
               LOG IN
             </button>

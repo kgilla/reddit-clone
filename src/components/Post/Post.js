@@ -25,7 +25,10 @@ const Post = ({ post, link }) => {
       <article>
         <header className="card-header">
           {post.author ? (
-            <Link to={`/users/${post.author.username}`}>
+            <Link
+              to={`/users/${post.author.username}`}
+              className="profile-link"
+            >
               {post.author.username}
             </Link>
           ) : (

@@ -1,10 +1,11 @@
 .subscribe-button-container {
   grid-column: 3/4;
-  width: 200px;
+  width: 100px;
   margin-left: 32px;
 }
 
 .subscribe-button {
+  padding: 0.5em 0;
   border-radius: 4px;
   font-family: inherit;
   font-size: 1em;

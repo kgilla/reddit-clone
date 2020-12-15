@@ -1,7 +1,11 @@
-const fetchGetData = async (url) => {
+const fetchGetData = async (url, token = "") => {
   try {
     const response = await fetch(url, {
       method: "get",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     });
     const data = await response.json();
     return data;
@@ -21,27 +25,26 @@ const fetchPostData = async (url, body, token) => {
       },
     });
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (err) {
     console.log(err);
   }
 };
 
-const fetchPutData = async (url, body) => {
+const fetchPutData = async (url, body, token) => {
   try {
     const response = await fetch(url, {
       method: "put",
       body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (err) {
-    console.log(err);
+    console.log({ error: err });
   }
 };
 
@@ -54,7 +57,6 @@ const fetchDeleteData = async (url) => {
       },
     });
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (err) {
     console.log(err);

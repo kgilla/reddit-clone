@@ -1,26 +1,26 @@
 import { useState, useEffect } from "react";
-import { fetchPostData, fetchPutData } from "../../api";
+import { fetchPutData } from "../../api";
 import "./SubscribeButton.css";
 
-const SubscribeButton = ({ user, subData }) => {
+const SubscribeButton = ({ user, token, subData, updateUser }) => {
   const [userSubscribed, setUserSubscribed] = useState(null);
 
   useEffect(() => {
     const isUserSubscribed = () => {
-      const response = subData.subscribers.some((sub) => sub === user.user._id);
+      const response = subData.subscribers.some((sub) => sub === user._id);
       setUserSubscribed(response);
     };
     isUserSubscribed();
-  }, [subData, user]);
+  }, [subData, user._id]);
 
   const subscribe = async () => {
     try {
-      const response = await fetchPostData(
+      const response = await fetchPutData(
         `http://localhost:3000/api/s/${subData._id}/subscribe`,
         { body: "" },
-        user.token
+        token
       );
-      console.log(response);
+      updateUser(response.user);
     } catch (err) {
       console.log(err);
     }
@@ -29,11 +29,11 @@ const SubscribeButton = ({ user, subData }) => {
   const unsubscribe = async () => {
     try {
       const response = await fetchPutData(
-        `http://localhost:3000/api/s/${subData._id / unsubscribe}`,
-        "",
-        user.token
+        `http://localhost:3000/api/s/${subData._id}/unsubscribe`,
+        { body: "" },
+        token
       );
-      console.log(response);
+      updateUser(response.user);
     } catch (err) {
       console.log(err);
     }

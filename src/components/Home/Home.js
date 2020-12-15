@@ -3,14 +3,16 @@ import { fetchGetData } from "../../api";
 import Post from "../Post";
 import Sidebar from "../Sidebar";
 
-const Home = ({ user }) => {
+const Home = ({ user, token }) => {
   const [posts, setPosts] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetchGetData("http://localhost:3000/api/s/all");
-      console.log(response);
-      setPosts(response.posts);
+      const response = await fetchGetData(
+        "http://localhost:3000/api/s/user",
+        token
+      );
+      console.log(response.posts);
     };
     fetchData();
   }, []);

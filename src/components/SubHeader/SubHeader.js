@@ -2,7 +2,7 @@ import "./SubHeader.css";
 
 import SubscribeButton from "../SubscribeButton";
 
-const SubHeader = ({ subData, user }) => {
+const SubHeader = ({ subData, user, updateUser, token }) => {
   return (
     <header className="sub-header-container">
       <div className="community-theme"></div>
@@ -14,7 +14,14 @@ const SubHeader = ({ subData, user }) => {
               <h1 className="sub-title">{subData.name}</h1>
               <span className="sub-address">{`s/${subData.name}`}</span>
             </div>
-            {user ? <SubscribeButton subData={subData} user={user} /> : null}
+            {user ? (
+              <SubscribeButton
+                subData={subData}
+                user={user}
+                token={token}
+                updateUser={updateUser}
+              />
+            ) : null}
           </div>
         </div>
       </div>

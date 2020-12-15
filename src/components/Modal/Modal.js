@@ -1,5 +1,5 @@
-import Login from "./Login";
-import Signup from "./Signup";
+import LoginForm from "../LoginForm";
+import SignupForm from "../SignupForm";
 import { CloseOutline } from "@styled-icons/evaicons-outline";
 import "./Modal.css";
 
@@ -17,9 +17,9 @@ const Modal = ({ type, removeModal, storeUser }) => {
       <div className="modal">
         <div className="form-art"></div>
         {type === "login" ? (
-          <Login sendUserUp={sendUserUp} removeModal={removeModal} />
+          <LoginForm sendUserUp={sendUserUp} removeModal={removeModal} />
         ) : (
-          <Signup removeModal={removeModal} />
+          <SignupForm removeModal={removeModal} />
         )}
         <button className="modal-close" onClick={handleClick}>
           <CloseOutline className="modal-close-icon" />

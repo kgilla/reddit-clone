@@ -1,5 +1,5 @@
 import "./Dropdown.css";
-import DropdownItem from "./DropdownItem";
+import DropdownItem from "../DropdownItem";
 import { useState } from "react";
 import { SpaceShip } from "@styled-icons/remix-fill";
 import { TrendingUp } from "@styled-icons/material";

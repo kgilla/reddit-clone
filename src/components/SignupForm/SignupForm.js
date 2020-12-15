@@ -1,8 +1,8 @@
-import "./Signup.css";
+import "./SignupForm.css";
 import { useState } from "react";
-import FormGroup from "../../FormGroup";
+import FormGroup from "../FormGroup";
 
-const Signup = () => {
+const SignupForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -54,4 +54,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default SignupForm;

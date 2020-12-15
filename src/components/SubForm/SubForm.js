@@ -1,24 +1,24 @@
 import { useState, useEffect } from "react";
-import { fetchGetData, fetchPostData } from "../../api";
+import { fetchGetData } from "../../api";
 import FormGroup from "../FormGroup";
 import { Redirect } from "react-router-dom";
-import "./CreateSub.css";
+import "./SubForm.css";
 
-const CreateSub = ({ user }) => {
+const CreateSub = ({ user, token }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [color, setColor] = useState("");
-  const [allSubs, setAllSubs] = useState(null);
-  const [error, setError] = useState(null);
+  // const [allSubs, setAllSubs] = useState(null);
+  // const [error, setError] = useState(null);
   const [subCreated, setSubCreated] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetchGetData("http://localhost:3000/api/s/");
-      setAllSubs(data.allSubs);
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const data = await fetchGetData("http://localhost:3000/api/s/");
+  //     setAllSubs(data.allSubs);
+  //   };
+  //   fetchData();
+  // }, []);
 
   const handleChange = (e) => {
     e.target.name === "name"
