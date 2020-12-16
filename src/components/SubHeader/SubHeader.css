@@ -33,6 +33,12 @@
   background-size: cover;
 }
 
+.small-sub-image {
+  height: 40px;
+  width: 40px;
+  margin-right: 0.5em;
+}
+
 .header-sub-container {
   display: flex;
   padding-left: 16px;

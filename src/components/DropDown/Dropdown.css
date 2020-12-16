@@ -1,18 +1,43 @@
 #nav-subs {
+  grid-column: 3/4;
   position: relative;
 }
 
 #sub-nav-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   position: relative;
   width: 100%;
   max-width: 270px;
-  height: 34px;
+  height: 40px;
   padding: 0.75em;
+  border: 1px solid #fff;
+  border-radius: 4px;
   outline: none;
   font-weight: 700;
   color: #222;
   background-color: #fff;
   text-align: center;
+}
+
+#sub-nav-button:hover {
+  border: 1px solid #ddd;
+  filter: none;
+}
+
+.dropdown-button-text {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: #666;
+  font-weight: 500;
+}
+
+.dropdown-button-icon {
+  height: 10px;
+  width: 10px;
+  color: #888;
 }
 
 #sub-dropdown {
@@ -49,7 +74,6 @@
 
 .dropdown-heading {
   padding: 8px 16px;
-  border-bottom: 1px solid #eee;
   color: #888;
   font-size: 0.7em;
   font-weight: 500;

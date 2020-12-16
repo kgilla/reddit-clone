@@ -11,6 +11,7 @@ import DropdownItem from "../DropdownItem";
 //icons
 import { SpaceShip } from "@styled-icons/remix-fill";
 import { TrendingUp } from "@styled-icons/material";
+import { DownArrow, Home } from "@styled-icons/boxicons-solid";
 
 const Dropdown = () => {
   const auth = useAuth();
@@ -67,7 +68,11 @@ const Dropdown = () => {
         onClick={handleClick}
         style={showDropdown ? dropdownStyle : null}
       >
-        {selectedSub ? selectedSub : "Communities"}
+        <span className="dropdown-button-text">
+          <SpaceShip className="dropdown-item-icon" />
+          {selectedSub ? selectedSub : "Communities"}
+        </span>
+        <DownArrow className="dropdown-button-icon" />
       </button>
       {showDropdown ? (
         <div>
@@ -75,11 +80,8 @@ const Dropdown = () => {
           <div id="sub-dropdown">
             <div className="dropdown-section">
               <h6 className="dropdown-heading">My Feeds</h6>
-              <DropdownItem data={createData("/home", "Home")}>
-                <TrendingUp className="dropdown-item-icon" />
-              </DropdownItem>
-              <DropdownItem data={createData("/s/all", "All")}>
-                <SpaceShip className="dropdown-item-icon" />
+              <DropdownItem data={createData("/", "Home")}>
+                <Home className="dropdown-item-icon" />
               </DropdownItem>
               <DropdownItem
                 data={createData("/s/browse", "Browse Communities")}

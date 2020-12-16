@@ -15,6 +15,7 @@ import LoginForm from "../LoginForm";
 import UserProfile from "../UserProfile";
 import SubIndex from "../SubIndex";
 import Flash from "../Flash";
+import PrivateRoute from "../PrivateRoute";
 
 function App() {
   const [openModal, setOpenModal] = useState(false);
@@ -48,21 +49,21 @@ function App() {
               <Route path="/s/:subID/posts/:postID">
                 <PostContainer />
               </Route>
-              <Route path="/s/:subID/submit">
+              <PrivateRoute path="/s/:subID/submit">
                 <PostForm />
-              </Route>
-              <Route path="/s/create">
+              </PrivateRoute>
+              <PrivateRoute path="/s/create">
                 <SubForm />
-              </Route>
+              </PrivateRoute>
               <Route path="/s/browse">
                 <SubIndex />
               </Route>
               <Route path="/s/:subID">
                 <Sub />
               </Route>
-              <Route path="/submit">
+              <PrivateRoute path="/submit">
                 <PostForm />
-              </Route>
+              </PrivateRoute>
               <Route path="/login">
                 <LoginForm />
               </Route>

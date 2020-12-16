@@ -1,11 +1,10 @@
-import "./PostForm.css";
-
 import { fetchGetData, fetchPostData } from "../../api/index";
 import { useState, useEffect } from "react";
 import { Redirect, useParams } from "react-router-dom";
 import { useAuth } from "../../hooks/use-auth";
 
 import FormGroup from "../FormGroup";
+import Form from "../Form";
 
 const PostForm = () => {
   const auth = useAuth();
@@ -53,49 +52,41 @@ const PostForm = () => {
   };
 
   return (
-    <div className="form-container">
-      <div className="form-picture"></div>
-      <form className="form-left">
-        <h2 className="form-heading">New Post</h2>
-        {subs ? (
-          <div className="form-group">
-            <label className="form-group-label" htmlFor="sub">
-              Community
-            </label>
-            <select name="sub" onChange={handleChange} defaultValue={subID}>
-              {subs.map((sub) => (
-                <option key={sub._id} value={sub._id}>
-                  {sub.name}
-                </option>
-              ))}
-            </select>
-          </div>
-        ) : null}
-        <FormGroup
-          name="title"
-          type="text"
-          handleChange={handleChange}
-          value={title}
-        >
-          Title
-        </FormGroup>
-        <FormGroup
-          name="content"
-          type="textarea"
-          handleChange={handleChange}
-          value={content}
-        >
-          Body
-        </FormGroup>
-        <button onClick={handleSubmit} className="button-filled">
-          Submit
-        </button>
-        {postCreated ? (
-          <Redirect to={`/s/${sub}/posts/${postCreated._id}`} />
-        ) : null}
-      </form>
-      {!auth.user ? <Redirect to={"/login"} /> : null}
-    </div>
+    <Form image="1" click={handleSubmit} btn="Create Post" title="New Post">
+      {subs ? (
+        <div className="form-group">
+          <label className="form-group-label" htmlFor="sub">
+            Community
+          </label>
+          <select name="sub" onChange={handleChange} defaultValue={subID}>
+            {subs.map((sub) => (
+              <option key={sub._id} value={sub._id}>
+                {sub.name}
+              </option>
+            ))}
+          </select>
+        </div>
+      ) : null}
+      <FormGroup
+        name="title"
+        type="text"
+        handleChange={handleChange}
+        value={title}
+      >
+        Title
+      </FormGroup>
+      <FormGroup
+        name="content"
+        type="textarea"
+        handleChange={handleChange}
+        value={content}
+      >
+        Body
+      </FormGroup>
+      {postCreated ? (
+        <Redirect to={`/s/${sub}/posts/${postCreated._id}`} />
+      ) : null}
+    </Form>
   );
 };
 

@@ -22,12 +22,12 @@ function useProvideAuth() {
         "http://localhost:3000/api/users/login",
         { username, password }
       );
-      if (response.user) {
+      if (response.errors) {
+        return { user: response.user, errors: response.errors };
+      } else if (response.user) {
         setUser(response.user);
         setToken(response.token);
         return { user: response.user };
-      } else {
-        return { user: response.user, message: response.message };
       }
     } catch (err) {
       console.log(err);
@@ -40,7 +40,12 @@ function useProvideAuth() {
         "http://localhost:3000/api/users/create",
         { username, password, email }
       );
-      return { user: response.user, message: response.message };
+      console.log(response);
+      return {
+        user: response.user,
+        message: response.message,
+        name: response.name,
+      };
     } catch (err) {
       console.log(err);
     }

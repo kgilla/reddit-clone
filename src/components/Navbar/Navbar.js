@@ -1,11 +1,17 @@
 import "./Navbar.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Dropdown from "../DropDown";
 import { User } from "@styled-icons/fa-solid";
 import { useAuth } from "../../hooks/use-auth";
 
-const Navbar = ({ openModal, user, token, logout }) => {
+const Navbar = () => {
   const auth = useAuth();
+  const history = useHistory();
+
+  const handleLogout = () => {
+    auth.logout();
+    history.push("/");
+  };
 
   return (
     <div id="nav-container">
@@ -14,7 +20,6 @@ const Navbar = ({ openModal, user, token, logout }) => {
           S/eddit
         </Link>
         {auth.user ? <Dropdown /> : null}
-        <input id="nav-search" type="search" placeholder="Search"></input>
         {auth.user ? (
           <ul id="nav-buttons">
             <Link
@@ -23,26 +28,18 @@ const Navbar = ({ openModal, user, token, logout }) => {
             >
               <User className="nav-icon" />
             </Link>
-            <button className="button-filled nav-button" onClick={auth.logout}>
+            <button className="button-filled nav-button" onClick={handleLogout}>
               LOG OUT
             </button>
           </ul>
         ) : (
           <ul id="nav-buttons">
-            <button
-              name="signup"
-              className="button-outline nav-button"
-              onClick={(e) => openModal(e.target.name)}
-            >
+            <Link to="/signup" className="button-outline">
               SIGN UP
-            </button>
-            <button
-              name="login"
-              className="button-filled nav-button"
-              onClick={(e) => openModal(e.target.name)}
-            >
+            </Link>
+            <Link to="/login" className="button-filled">
               LOG IN
-            </button>
+            </Link>
           </ul>
         )}
       </nav>
