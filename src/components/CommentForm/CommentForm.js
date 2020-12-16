@@ -40,14 +40,14 @@ const CommentForm = (props) => {
       <div className="form-button-container">
         {parent ? (
           <button
-            className="comment-form-button"
+            className="button-outline"
             id="cancel-form"
             onClick={handleClick}
           >
             Cancel
           </button>
         ) : null}
-        <button className="comment-form-button" onClick={handleSubmit}>
+        <button className="button-filled" onClick={handleSubmit}>
           Comment
         </button>
       </div>

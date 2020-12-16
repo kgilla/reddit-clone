@@ -1,9 +1,15 @@
-import "./LoginForm.css";
 import { useState } from "react";
-import { fetchPostData } from "../../api/index";
+import { useAuth } from "../../hooks/use-auth";
+import { useHistory, useLocation } from "react-router-dom";
+
+import Form from "../Form";
 import FormGroup from "../FormGroup";
 
-const LoginForm = ({ sendUserUp, removeModal }) => {
+const LoginForm = () => {
+  const auth = useAuth();
+  const history = useHistory();
+  let location = useLocation();
+  let { from } = location.state || { from: { pathname: "/" } };
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -17,10 +23,7 @@ const LoginForm = ({ sendUserUp, removeModal }) => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    const response = await fetchPostData(
-      "http://localhost:3000/api/users/login",
-      { username, password }
-    );
+    const response = await auth.login(username, password);
     handleResponse(response);
   };
 
@@ -32,16 +35,14 @@ const LoginForm = ({ sendUserUp, removeModal }) => {
   const handleResponse = (response) => {
     if (response.user) {
       clearFields();
-      removeModal();
-      sendUserUp(response);
+      history.replace(from);
     } else {
       setError({ name: response.name, message: response.message });
     }
   };
 
   return (
-    <form className="modal-form">
-      <h2 className="form-heading">Login</h2>
+    <Form image="1" click={handleClick} btn="Log In" title="Log In">
       <FormGroup
         name="username"
         type="text"
@@ -64,10 +65,7 @@ const LoginForm = ({ sendUserUp, removeModal }) => {
       >
         Password
       </FormGroup>
-      <button className="form-button" onClick={handleClick}>
-        Log In
-      </button>
-    </form>
+    </Form>
   );
 };
 

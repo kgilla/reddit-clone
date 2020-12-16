@@ -1,8 +1,11 @@
-import "./SignupForm.css";
 import { useState } from "react";
 import FormGroup from "../FormGroup";
+import Form from "../Form";
+import { useAuth } from "../../hooks/use-auth";
 
 const SignupForm = () => {
+  const auth = useAuth();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -15,14 +18,22 @@ const SignupForm = () => {
       : setEmail(e.target.value);
   };
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
-    console.log({ username, password, email });
+    const response = await auth.signup(username, password, email);
+    handleResponse(response);
+  };
+
+  const handleResponse = (response) => {
+    if (response.errors) {
+      console.log(response.errors);
+    } else if (response.user) {
+      console.log(response);
+    }
   };
 
   return (
-    <form className="modal-form">
-      <h2 className="form-heading">Signup</h2>
+    <Form image="1" click={handleClick} btn="Sign Up" title="Sign Up">
       <FormGroup
         name="username"
         type="text"
@@ -47,10 +58,7 @@ const SignupForm = () => {
       >
         Email
       </FormGroup>
-      <button className="form-button" onClick={handleClick}>
-        Sign Up
-      </button>
-    </form>
+    </Form>
   );
 };
 

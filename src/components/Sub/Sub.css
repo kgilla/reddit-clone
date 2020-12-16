@@ -4,29 +4,16 @@
 }
 
 #posts-container {
-  width: 640px;
+  width: 100%;
   display: flex;
   flex-direction: column;
-}
-
-.sub-header {
-  height: 60px;
-  display: flex;
-  align-items: center;
-  padding: 0 2em;
-  margin-bottom: 0.5em;
-  border-bottom: 0.1rem solid #ccc;
-  background-color: var(--blue);
-  color: #fff;
-  font-size: 1.4em;
-  font-weight: 700;
 }
 
 .sub-page {
   width: 100%;
   max-width: 1000px;
-  margin: 0.5em auto;
+  margin: 1.5em auto;
   display: grid;
   grid-template-columns: 1fr 0.5fr;
-  gap: 25px;
+  gap: 1.5em;
 }

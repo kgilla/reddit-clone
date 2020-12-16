@@ -1,0 +1,20 @@
+.flash-container {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  height: 2em;
+  min-width: 300px;
+  transform: translate(-50%, 0);
+  display: flex;
+  align-items: center;
+  padding: 1em;
+  border: 2px solid #888;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.flash-message {
+  font-size: 1em;
+  font-weight: 500;
+  color: #444;
+}

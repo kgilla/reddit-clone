@@ -15,7 +15,6 @@ const Modal = ({ type, removeModal, storeUser }) => {
   return (
     <div className="overlay">
       <div className="modal">
-        <div className="form-art"></div>
         {type === "login" ? (
           <LoginForm sendUserUp={sendUserUp} removeModal={removeModal} />
         ) : (

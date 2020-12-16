@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { fetchGetData } from "../../api";
 import FormGroup from "../FormGroup";
+import Form from "../Form";
 import { Redirect } from "react-router-dom";
 import "./SubForm.css";
 
@@ -46,45 +47,34 @@ const SubForm = ({ user, token }) => {
   };
 
   return (
-    <div className="form-container">
-      <div className="form-picture"></div>
-      <form className="form-left">
-        <h2 className="form-heading">Create Community</h2>
-        <FormGroup
-          name="name"
-          type="text"
-          handleChange={handleChange}
-          value={name}
-        >
-          Community Name
-        </FormGroup>
-        <FormGroup
-          name="description"
-          type="textarea"
-          handleChange={handleChange}
-          value={description}
-        >
-          Description
-        </FormGroup>
-        <FormGroup
-          name="color"
-          type="color"
-          id="color-input"
-          handleChange={handleChange}
-          value={color}
-        >
-          Community Color
-        </FormGroup>
-        <button
-          onClick={handleSubmit}
-          className="button-filled"
-          style={{ backgroundColor: `${color}` }}
-        >
-          Submit
-        </button>
-        {subCreated ? <Redirect to={`/s/${subCreated._id}`} /> : null}
-      </form>
-    </div>
+    <Form image="2" click={handleSubmit} btn="Submit" title="Create Community">
+      <FormGroup
+        name="name"
+        type="text"
+        handleChange={handleChange}
+        value={name}
+      >
+        Community Name
+      </FormGroup>
+      <FormGroup
+        name="description"
+        type="textarea"
+        handleChange={handleChange}
+        value={description}
+      >
+        Description
+      </FormGroup>
+      <FormGroup
+        name="color"
+        type="color"
+        id="color-input"
+        handleChange={handleChange}
+        value={color}
+      >
+        Community Color
+      </FormGroup>
+      {subCreated ? <Redirect to={`/s/${subCreated._id}`} /> : null}
+    </Form>
   );
 };
 

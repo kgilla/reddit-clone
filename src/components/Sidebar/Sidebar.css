@@ -2,7 +2,7 @@
   width: 312px;
   display: grid;
   grid-template-rows: auto auto 1fr;
-  gap: 2em;
+  gap: 1.5em;
 }
 
 .button-box {
@@ -10,4 +10,10 @@
   grid-template-columns: 1fr;
   justify-items: center;
   gap: 1em;
+}
+
+.small-image {
+  height: 40px;
+  width: 40px;
+  margin-right: 0.5em;
 }

@@ -1,26 +1,27 @@
 import { useState, useEffect } from "react";
 import { fetchPutData } from "../../api";
+import { useAuth } from "../../hooks/use-auth";
 import "./SubscribeButton.css";
 
-const SubscribeButton = ({ user, token, subData, updateUser }) => {
+const SubscribeButton = ({ subData }) => {
+  const auth = useAuth();
   const [userSubscribed, setUserSubscribed] = useState(null);
 
   useEffect(() => {
     const isUserSubscribed = () => {
-      const response = subData.subscribers.some((sub) => sub === user._id);
+      const response = subData.subscribers.some((sub) => sub === auth.user._id);
       setUserSubscribed(response);
     };
     isUserSubscribed();
-  }, [subData, user._id]);
+  }, [subData, auth.user._id]);
 
   const subscribe = async () => {
     try {
-      const response = await fetchPutData(
+      await fetchPutData(
         `http://localhost:3000/api/s/${subData._id}/subscribe`,
         { body: "" },
-        token
+        auth.token
       );
-      updateUser(response.user);
     } catch (err) {
       console.log(err);
     }
@@ -28,12 +29,11 @@ const SubscribeButton = ({ user, token, subData, updateUser }) => {
 
   const unsubscribe = async () => {
     try {
-      const response = await fetchPutData(
+      await fetchPutData(
         `http://localhost:3000/api/s/${subData._id}/unsubscribe`,
         { body: "" },
-        token
+        auth.token
       );
-      updateUser(response.user);
     } catch (err) {
       console.log(err);
     }
@@ -69,8 +69,8 @@ const SubscribeButton = ({ user, token, subData, updateUser }) => {
         onMouseLeave={handleMouseLeave}
         className={
           userSubscribed
-            ? "subscribe-button unsubscribe"
-            : "subscribe-button subscribe"
+            ? "button-outline subscribe-button"
+            : "button-filled subscribe-button"
         }
       >
         {userSubscribed ? "Joined" : "Join"}

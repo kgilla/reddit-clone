@@ -44,21 +44,30 @@ button {
 
 .button-filled,
 .button-outline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   max-width: 15em;
-  padding: 0.75em 1em;
-  border-radius: 4px;
-  outline: none;
-  font-size: 0.9em;
-  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
   text-decoration: none;
+  border-radius: 999px;
+  color: #fff;
+  height: 40px;
+  padding: 0 16px;
+  text-align: center;
   font-family: inherit;
-  font-weight: 500;
 }
 
-.button-filled:hover,
-.button-outline:hover {
+.button-filled:hover {
   filter: brightness(130%);
+  cursor: pointer;
+}
+
+.button-outline:hover {
+  filter: brightness(90%);
   cursor: pointer;
 }
 
