@@ -1,14 +1,44 @@
 import "./Dropdown.css";
+
+// functions
+import { useState, useEffect } from "react";
+import { fetchGetData } from "../../api";
+import { useAuth } from "../../hooks/use-auth";
+
+//components
 import DropdownItem from "../DropdownItem";
-import { useState } from "react";
+
+//icons
 import { SpaceShip } from "@styled-icons/remix-fill";
 import { TrendingUp } from "@styled-icons/material";
 
-const Dropdown = ({ subs, showDropdown, changeShowDropdown }) => {
+const Dropdown = () => {
+  const auth = useAuth();
+  const [subs, setSubs] = useState(null);
+  const [showDropdown, setShowDropdown] = useState(false);
   const [selectedSub, setSelectedSub] = useState(null);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetchGetData(
+          "http://localhost:3000/api/s/user",
+          auth.token
+        );
+        setSubs(response.subs);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    auth.token ? fetchData() : setSubs(null);
+  }, [auth.token, showDropdown]);
+
+  const handleShowChange = () => {
+    showDropdown ? setShowDropdown(false) : setShowDropdown(true);
+  };
+
   const handleClick = () => {
-    changeShowDropdown();
+    showDropdown ? setShowDropdown(false) : setShowDropdown(true);
   };
 
   const changeSelectedSub = (sub) => {
@@ -40,40 +70,45 @@ const Dropdown = ({ subs, showDropdown, changeShowDropdown }) => {
         {selectedSub ? selectedSub : "Communities"}
       </button>
       {showDropdown ? (
-        <div id="sub-dropdown">
-          <div className="dropdown-section">
-            <h6 className="dropdown-heading">My Feeds</h6>
-            <DropdownItem data={createData("/home", "Home")}>
-              <TrendingUp className="dropdown-item-icon" />
-            </DropdownItem>
-            <DropdownItem data={createData("/s/all", "All")}>
-              <SpaceShip className="dropdown-item-icon" />
-            </DropdownItem>
-            <DropdownItem data={createData("/s/browse", "Browse Communities")}>
-              <TrendingUp className="dropdown-item-icon" />
-            </DropdownItem>
-          </div>
-          <div className="dropdown-section">
-            <h6 className="dropdown-heading">My Communities</h6>
-            {subs.length > 0
-              ? subs.map((sub) => (
-                  <DropdownItem
-                    key={sub._id}
-                    data={createData(`/s/${sub._id}`, sub.name)}
-                  >
-                    <SpaceShip className="dropdown-item-icon" />
-                  </DropdownItem>
-                ))
-              : null}
-          </div>
-          <div className="dropdown-section">
-            <h6 className="dropdown-heading">Other</h6>
-            <DropdownItem data={createData("/submit", "Create Post")}>
-              <SpaceShip className="dropdown-item-icon" />
-            </DropdownItem>
-            <DropdownItem data={createData("/s/create", "Create Community")}>
-              <SpaceShip className="dropdown-item-icon" />
-            </DropdownItem>
+        <div>
+          <div id="dropdown-overlay" onClick={handleShowChange}></div>
+          <div id="sub-dropdown">
+            <div className="dropdown-section">
+              <h6 className="dropdown-heading">My Feeds</h6>
+              <DropdownItem data={createData("/home", "Home")}>
+                <TrendingUp className="dropdown-item-icon" />
+              </DropdownItem>
+              <DropdownItem data={createData("/s/all", "All")}>
+                <SpaceShip className="dropdown-item-icon" />
+              </DropdownItem>
+              <DropdownItem
+                data={createData("/s/browse", "Browse Communities")}
+              >
+                <TrendingUp className="dropdown-item-icon" />
+              </DropdownItem>
+            </div>
+            <div className="dropdown-section">
+              <h6 className="dropdown-heading">My Communities</h6>
+              {subs.length > 0
+                ? subs.map((sub) => (
+                    <DropdownItem
+                      key={sub._id}
+                      data={createData(`/s/${sub._id}`, sub.name)}
+                    >
+                      <SpaceShip className="dropdown-item-icon" />
+                    </DropdownItem>
+                  ))
+                : null}
+            </div>
+            <div className="dropdown-section">
+              <h6 className="dropdown-heading">Other</h6>
+              <DropdownItem data={createData("/submit", "Create Post")}>
+                <SpaceShip className="dropdown-item-icon" />
+              </DropdownItem>
+              <DropdownItem data={createData("/s/create", "Create Community")}>
+                <SpaceShip className="dropdown-item-icon" />
+              </DropdownItem>
+            </div>
           </div>
         </div>
       ) : null}

@@ -23,7 +23,9 @@ const SubIndex = ({}) => {
     <div id="sub-index-container">
       <header id="sub-index-header">
         <h1>Browse Communities</h1>
-        <Link to="create">Create Community</Link>
+        <Link to="create" className="button-filled">
+          Create Community
+        </Link>
       </header>
       <div id="sub-index">
         {isLoading ? (

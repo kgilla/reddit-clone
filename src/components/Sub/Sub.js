@@ -7,7 +7,7 @@ import Sidebar from "../Sidebar";
 import SubHeader from "../SubHeader";
 import Loader from "../Loader";
 
-const Sub = ({ user, updateUser, token }) => {
+const Sub = () => {
   const { subID } = useParams();
   const [subData, setSubData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -28,12 +28,7 @@ const Sub = ({ user, updateUser, token }) => {
         <Loader />
       ) : subData ? (
         <div>
-          <SubHeader
-            subData={subData}
-            user={user}
-            updateUser={updateUser}
-            token={token}
-          />
+          <SubHeader subData={subData} />
           <main className="sub-page">
             <div id="posts-container">
               {subData.posts.map((post) => (

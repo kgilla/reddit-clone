@@ -6,7 +6,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 40;
+  z-index: 10;
 }
 
 .modal {
@@ -42,10 +42,6 @@
 
 .modal-form {
   padding: 2em;
-}
-
-.form-button {
-  font-size: 1em;
 }
 
 .form-art {

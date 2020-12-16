@@ -8,14 +8,3 @@
   place-self: end;
   display: flex;
 }
-
-.comment-form-button {
-  max-width: 10em;
-}
-
-#cancel-form {
-  margin-right: 1em;
-  border: 1px solid var(--blue);
-  background-color: #fff;
-  color: var(--blue);
-}

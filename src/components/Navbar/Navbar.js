@@ -1,33 +1,11 @@
 import "./Navbar.css";
-import { useState, useEffect } from "react";
-import { fetchGetData } from "../../api";
 import { Link } from "react-router-dom";
 import Dropdown from "../DropDown";
 import { User } from "@styled-icons/fa-solid";
+import { useAuth } from "../../hooks/use-auth";
 
 const Navbar = ({ openModal, user, token, logout }) => {
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [subs, setSubs] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetchGetData(
-          "http://localhost:3000/api/s/user",
-          token
-        );
-        console.log(response);
-        setSubs(response.subs);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-  }, [user]);
-
-  const handleShowChange = () => {
-    showDropdown ? setShowDropdown(false) : setShowDropdown(true);
-  };
+  const auth = useAuth();
 
   return (
     <div id="nav-container">
@@ -35,24 +13,17 @@ const Navbar = ({ openModal, user, token, logout }) => {
         <Link to="/" id="nav-brand">
           S/eddit
         </Link>
-        <Dropdown
-          subs={subs}
-          showDropdown={showDropdown}
-          changeShowDropdown={handleShowChange}
-        />
-        {showDropdown ? (
-          <div id="dropdown-overlay" onClick={handleShowChange}></div>
-        ) : null}
+        {auth.user ? <Dropdown /> : null}
         <input id="nav-search" type="search" placeholder="Search"></input>
-        {user ? (
+        {auth.user ? (
           <ul id="nav-buttons">
             <Link
-              to={`/users/${user.username}`}
+              to={`/users/${auth.user.username}`}
               className="button-outline nav-button"
             >
               <User className="nav-icon" />
             </Link>
-            <button className="button-filled nav-button" onClick={logout}>
+            <button className="button-filled nav-button" onClick={auth.logout}>
               LOG OUT
             </button>
           </ul>

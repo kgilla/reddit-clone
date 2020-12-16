@@ -3,11 +3,14 @@ import "./PostForm.css";
 import { fetchGetData, fetchPostData } from "../../api/index";
 import { useState, useEffect } from "react";
 import { Redirect, useParams } from "react-router-dom";
+import { useAuth } from "../../hooks/use-auth";
 
 import FormGroup from "../FormGroup";
 
-const PostForm = ({ user, token }) => {
-  const { subID } = useParams();
+const PostForm = () => {
+  const auth = useAuth();
+
+  const { subID } = useParams() || "";
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [sub, setSub] = useState(subID);
@@ -19,7 +22,7 @@ const PostForm = ({ user, token }) => {
     const fetchData = async () => {
       const response = await fetchGetData(
         "http://localhost:3000/api/s/user",
-        token
+        auth.token
       );
       setSubs(response.subs);
     };
@@ -43,15 +46,15 @@ const PostForm = ({ user, token }) => {
         title,
         content,
       },
-      token
+      auth.token
     );
     console.log(response);
     setPostCreated(response.savedPost);
   };
 
   return (
-    <div class="form-container">
-      <div class="form-picture"></div>
+    <div className="form-container">
+      <div className="form-picture"></div>
       <form className="form-left">
         <h2 className="form-heading">New Post</h2>
         {subs ? (
@@ -91,6 +94,7 @@ const PostForm = ({ user, token }) => {
           <Redirect to={`/s/${sub}/posts/${postCreated._id}`} />
         ) : null}
       </form>
+      {!auth.user ? <Redirect to={"/login"} /> : null}
     </div>
   );
 };

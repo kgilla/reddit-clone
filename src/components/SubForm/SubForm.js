@@ -84,6 +84,7 @@ const SubForm = ({ user, token }) => {
         </button>
         {subCreated ? <Redirect to={`/s/${subCreated._id}`} /> : null}
       </form>
+      {!user ? <Redirect to={"/login"} /> : null}
     </div>
   );
 };
