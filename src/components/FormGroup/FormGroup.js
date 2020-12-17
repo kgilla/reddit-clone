@@ -1,19 +1,19 @@
 import "./FormGroup.css";
 
-const FormGroup = ({
-  name,
-  type,
-  handleChange,
-  value,
-  placeholder,
-  error,
-  style,
-  id,
-  children,
-}) => {
+const FormGroup = (props) => {
+  const {
+    name,
+    type,
+    handleChange,
+    value,
+    placeholder,
+    autoComplete,
+    children,
+    error,
+  } = props;
+
   return (
     <div className="form-group">
-      {error ? <div className="error">{error}</div> : null}
       <label className="form-group-label" htmlFor="username">
         {children}
       </label>
@@ -33,10 +33,10 @@ const FormGroup = ({
           value={value}
           onChange={handleChange}
           placeholder={placeholder}
-          id={id}
-          style={style}
+          autoComplete={autoComplete}
         ></input>
       )}
+      {error ? <div className="error">{error}</div> : null}
     </div>
   );
 };

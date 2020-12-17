@@ -5,11 +5,12 @@ import { useHistory, useLocation } from "react-router-dom";
 import Form from "../Form";
 import FormGroup from "../FormGroup";
 
-const LoginForm = () => {
+const LoginForm = ({ changeMessage }) => {
   const auth = useAuth();
   const history = useHistory();
   let location = useLocation();
   let { from } = location.state || { from: { pathname: "/" } };
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -24,7 +25,8 @@ const LoginForm = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     const response = await auth.login(username, password);
-    handleResponse(response);
+    console.log(response);
+    // handleResponse(response);
   };
 
   const clearFields = () => {
@@ -33,11 +35,12 @@ const LoginForm = () => {
   };
 
   const handleResponse = (response) => {
-    if (response.user) {
+    if (!response.user) {
+      setError({ name: response.name, message: response.message });
+    } else if (response.user) {
       clearFields();
       history.replace(from);
-    } else {
-      setError({ name: response.name, message: response.message });
+      changeMessage(`Welcome back ${response.user.username}`);
     }
   };
 
@@ -46,22 +49,24 @@ const LoginForm = () => {
       <FormGroup
         name="username"
         type="text"
-        handleChange={handleChange}
-        value={username}
         error={
           error ? (error.name === "username" ? error.message : null) : null
         }
+        handleChange={handleChange}
+        value={username}
+        autoComplete="username"
       >
         Username
       </FormGroup>
       <FormGroup
         name="password"
         type="password"
-        handleChange={handleChange}
-        value={password}
         error={
           error ? (error.name === "password" ? error.message : null) : null
         }
+        handleChange={handleChange}
+        value={password}
+        autoComplete="current-password"
       >
         Password
       </FormGroup>

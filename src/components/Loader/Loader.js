@@ -1,6 +1,6 @@
 import "./Loader.css";
 
-const Loader = ({}) => {
+const Loader = () => {
   return (
     <div className="lds-facebook">
       <div></div>

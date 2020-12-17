@@ -4,7 +4,7 @@ import moment from "moment";
 import { ArrowUp, ArrowDown, Message } from "@styled-icons/entypo";
 import "./Comment.css";
 
-const Comment = ({ comment, user, handleNewComment, layer, children }) => {
+const Comment = ({ comment, handleNewComment, layer, children }) => {
   const [openForm, setOpenForm] = useState(false);
   const [score, setScore] = useState(comment.score);
 
@@ -51,7 +51,6 @@ const Comment = ({ comment, user, handleNewComment, layer, children }) => {
           </footer>
           {openForm ? (
             <CommentForm
-              user={user}
               parent={comment._id}
               handleNewComment={handleNewComment}
               handleClick={handleClick}

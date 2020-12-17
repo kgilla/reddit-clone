@@ -22,8 +22,8 @@ function useProvideAuth() {
         "http://localhost:3000/api/users/login",
         { username, password }
       );
-      if (response.errors) {
-        return { user: response.user, errors: response.errors };
+      if (!response.user) {
+        return response;
       } else if (response.user) {
         setUser(response.user);
         setToken(response.token);
@@ -40,7 +40,6 @@ function useProvideAuth() {
         "http://localhost:3000/api/users/create",
         { username, password, email }
       );
-      console.log(response);
       return {
         user: response.user,
         message: response.message,

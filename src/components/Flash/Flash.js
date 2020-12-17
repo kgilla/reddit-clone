@@ -2,7 +2,7 @@ import "./Flash.css";
 import { useState, useEffect } from "react";
 
 const Flash = ({ message }) => {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     setShow(true);
@@ -11,15 +11,12 @@ const Flash = ({ message }) => {
     }, 3000);
   }, [message]);
 
-  return (
-    <div>
-      {show ? (
-        <div className="flash-container">
-          <span className="flash-message">{message}</span>
-        </div>
-      ) : null}
+  return show ? (
+    <div className="flash-container">
+      <aside className="blue-bar"></aside>
+      <span className="flash-message">{message}</span>
     </div>
-  );
+  ) : null;
 };
 
 export default Flash;

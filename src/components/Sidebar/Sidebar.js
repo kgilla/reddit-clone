@@ -15,7 +15,7 @@ const Sidebar = ({ sub }) => {
     };
 
     fetchData();
-  });
+  }, []);
 
   sub = sub ? sub : { name: "Home", description: "Your homepage" };
   return (

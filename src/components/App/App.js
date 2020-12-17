@@ -16,31 +16,21 @@ import UserProfile from "../UserProfile";
 import SubIndex from "../SubIndex";
 import Flash from "../Flash";
 import PrivateRoute from "../PrivateRoute";
+import { Message } from "styled-icons/boxicons-regular";
 
 function App() {
-  const [openModal, setOpenModal] = useState(false);
-  const [modalType, setModalType] = useState(null);
   const [message, setMessage] = useState("Hey there fuck face!");
 
-  const handleOpenModal = (type) => {
-    setModalType(type);
-    setOpenModal(true);
-  };
-
-  const handleRemoveModal = () => {
-    setOpenModal(false);
-    setModalType(null);
+  const changeMessage = (newMessage) => {
+    setMessage(newMessage);
   };
 
   return (
     <div className="App">
       <ProvideAuth>
         {message ? <Flash message={message} /> : null}
-        {openModal ? (
-          <Modal type={modalType} removeModal={handleRemoveModal} />
-        ) : null}
         <Router>
-          <Navbar openModal={handleOpenModal} />
+          <Navbar />
           <main id="main-container">
             <Switch>
               <Route path="/users/:name">
@@ -65,10 +55,10 @@ function App() {
                 <PostForm />
               </PrivateRoute>
               <Route path="/login">
-                <LoginForm />
+                <LoginForm changeMessage={changeMessage} />
               </Route>
               <Route path="/signup">
-                <SignupForm />
+                <SignupForm changeMessage={changeMessage} />
               </Route>
               <Route path="/">
                 <Home />

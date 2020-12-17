@@ -19,29 +19,34 @@ const Navbar = () => {
         <Link to="/" id="nav-brand">
           S/eddit
         </Link>
-        {auth.user ? <Dropdown /> : null}
-        {auth.user ? (
-          <ul id="nav-buttons">
-            <Link
-              to={`/users/${auth.user.username}`}
-              className="button-outline nav-button"
-            >
-              <User className="nav-icon" />
-            </Link>
-            <button className="button-filled nav-button" onClick={handleLogout}>
-              LOG OUT
-            </button>
-          </ul>
-        ) : (
-          <ul id="nav-buttons">
-            <Link to="/signup" className="button-outline">
-              SIGN UP
-            </Link>
-            <Link to="/login" className="button-filled">
-              LOG IN
-            </Link>
-          </ul>
-        )}
+        <div id="nav-sub-container">
+          {auth.user ? <Dropdown /> : null}
+          {auth.user ? (
+            <ul id="nav-buttons">
+              <Link
+                to={`/users/${auth.user.username}`}
+                className="button-outline nav-button"
+              >
+                <User className="nav-icon" />
+              </Link>
+              <button
+                className="button-filled nav-button"
+                onClick={handleLogout}
+              >
+                LOG OUT
+              </button>
+            </ul>
+          ) : (
+            <ul id="nav-buttons">
+              <Link to="/signup" className="button-outline">
+                SIGN UP
+              </Link>
+              <Link to="/login" className="button-filled">
+                LOG IN
+              </Link>
+            </ul>
+          )}
+        </div>
       </nav>
     </div>
   );

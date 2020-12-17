@@ -23,7 +23,7 @@ const PostContainer = ({ user }) => {
       setIsLoading(false);
     };
     fetchData();
-  }, []);
+  }, [postID]);
 
   return (
     <div>

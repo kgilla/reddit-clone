@@ -9,6 +9,7 @@ const SignupForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     e.target.name === "username"
@@ -18,17 +19,20 @@ const SignupForm = () => {
       : setEmail(e.target.value);
   };
 
+  const handleBlur = (e) => {};
+
   const handleClick = async (e) => {
     e.preventDefault();
     const response = await auth.signup(username, password, email);
     handleResponse(response);
   };
 
-  const handleResponse = (response) => {
+  const handleResponse = async (response) => {
     if (response.errors) {
       console.log(response.errors);
     } else if (response.user) {
       console.log(response);
+      const response = await auth.login(username, password);
     }
   };
 

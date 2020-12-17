@@ -1,6 +1,7 @@
 .post-container {
   position: relative;
-  display: flex;
+  display: grid;
+  grid-template-columns: 50px 1fr;
   padding: 0.5em 0;
   margin-bottom: 0.5em;
   border: 1px solid #ccc;

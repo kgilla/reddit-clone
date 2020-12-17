@@ -3,9 +3,11 @@ import { fetchPostData } from "../../api";
 import { useParams } from "react-router-dom";
 import FormGroup from "../FormGroup";
 import "./CommentForm.css";
+import { useAuth } from "../../hooks/use-auth";
 
 const CommentForm = (props) => {
-  const { token, parent, handleNewComment, handleClick } = props;
+  const auth = useAuth();
+  const { parent, handleNewComment, handleClick } = props;
   const { subID, postID } = useParams();
   const [content, setContent] = useState("");
 
@@ -19,7 +21,7 @@ const CommentForm = (props) => {
       const response = await fetchPostData(
         `http://localhost:3000/api/s/${subID}/posts/${postID}/comments/create`,
         { content, parent },
-        token
+        auth.token
       );
       handleNewComment(response.comment);
     } catch (err) {

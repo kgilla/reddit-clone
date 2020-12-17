@@ -9,17 +9,17 @@ const Home = () => {
   const [posts, setPosts] = useState(null);
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await fetchGetData(
-          "http://localhost:3000/api/s/user/posts/home",
-          auth.token
-        );
-        setPosts(response.posts);
-      } catch (err) {
-        console.log(err);
-      }
-    };
+    // const fetchUserData = async () => {
+    //   try {
+    //     const response = await fetchGetData(
+    //       "http://localhost:3000/api/s/user/posts/home",
+    //       auth.token
+    //     );
+    //     setPosts(response.posts);
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // };
 
     const fetchAllData = async () => {
       try {
@@ -32,8 +32,8 @@ const Home = () => {
       }
     };
 
-    auth.user ? fetchUserData() : fetchAllData();
-  }, [auth.token]);
+    fetchAllData();
+  }, []);
 
   return (
     <div className="sub-container">
