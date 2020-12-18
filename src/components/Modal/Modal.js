@@ -1,5 +1,5 @@
 import LoginForm from "../LoginForm";
-import SignupForm from "../SignupForm";
+import SignupForm from "../Forms/SignupForm";
 import { CloseOutline } from "@styled-icons/evaicons-outline";
 import "./Modal.css";
 

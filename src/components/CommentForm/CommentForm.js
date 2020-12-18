@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { fetchPostData } from "../../api";
 import { useParams } from "react-router-dom";
-import FormGroup from "../FormGroup";
 import "./CommentForm.css";
 import { useAuth } from "../../hooks/use-auth";
 
@@ -32,13 +31,7 @@ const CommentForm = (props) => {
   return (
     <form className="comment-form">
       {parent ? null : <span>Leave a comment</span>}
-      <FormGroup
-        name="content"
-        type="textarea"
-        handleChange={handleChange}
-        value={content}
-        placeholder="What are your thoughts?"
-      ></FormGroup>
+
       <div className="form-button-container">
         {parent ? (
           <button

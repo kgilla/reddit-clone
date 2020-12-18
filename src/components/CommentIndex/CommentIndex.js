@@ -1,9 +1,9 @@
-import "./Comments.css";
+import "./CommentIndex.css";
 import { useState } from "react";
-import Comment from "./Comment";
+import Comment from "../Comment";
 import CommentForm from "../CommentForm";
 
-const Comments = ({ postComments, user, token }) => {
+const CommentIndex = ({ postComments, user, token }) => {
   const [comments, setComments] = useState(postComments);
   console.log(postComments);
 
@@ -39,4 +39,4 @@ const Comments = ({ postComments, user, token }) => {
   );
 };
 
-export default Comments;
+export default CommentIndex;

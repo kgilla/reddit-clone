@@ -1,67 +1,68 @@
-import { useState } from "react";
-import FormGroup from "../FormGroup";
-import Form from "../Form";
 import { useAuth } from "../../hooks/use-auth";
+import { useHistory } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { Input, Form } from "../FormComponents";
 
-const SignupForm = () => {
+const schema = yup.object().shape({
+  username: yup
+    .string()
+    .required()
+    .min(3)
+    .max(20)
+    .trim()
+    .matches(/^[_a-zA-Z0-9]*$/, {
+      message: "cannot contain special characters or spaces",
+    }),
+  password: yup.string().required().min(6).max(40),
+  email: yup.string().required().email(),
+});
+
+const SignupForm = ({ changeMessage }) => {
   const auth = useAuth();
+  const history = useHistory();
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState(null);
-
-  const handleChange = (e) => {
-    e.target.name === "username"
-      ? setUsername(e.target.value)
-      : e.target.name === "password"
-      ? setPassword(e.target.value)
-      : setEmail(e.target.value);
-  };
-
-  const handleBlur = (e) => {};
-
-  const handleClick = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (data) => {
+    const { username, password, email } = data;
     const response = await auth.signup(username, password, email);
-    handleResponse(response);
-  };
-
-  const handleResponse = async (response) => {
-    if (response.errors) {
-      console.log(response.errors);
-    } else if (response.user) {
-      console.log(response);
-      const response = await auth.login(username, password);
+    if (response.user) {
+      changeMessage("Account created successfully, please log in.");
+      history.push("/login");
+    } else {
+      console.log("something went wrong");
     }
   };
 
   return (
-    <Form image="1" click={handleClick} btn="Sign Up" title="Sign Up">
-      <FormGroup
+    <Form handleSubmit={handleSubmit(onSubmit)} title="Sign Up">
+      <Input
         name="username"
+        label="Username"
         type="text"
-        handleChange={handleChange}
-        value={username}
-      >
-        Username
-      </FormGroup>
-      <FormGroup
+        placeholder="3-20 characters"
+        ref={register}
+        error={errors.username ? errors.username.message : null}
+      />
+      <Input
         name="password"
+        label="Password"
         type="text"
-        handleChange={handleChange}
-        value={password}
-      >
-        Password
-      </FormGroup>
-      <FormGroup
+        placeholder="min 6 characters"
+        ref={register}
+        error={errors.password ? errors.password.message : null}
+      />
+      <Input
         name="email"
-        type="email"
-        handleChange={handleChange}
-        value={email}
-      >
-        Email
-      </FormGroup>
+        label="Email"
+        type="text"
+        placeholder="example@example.com"
+        ref={register}
+        error={errors.email ? errors.email.message : null}
+      />
     </Form>
   );
 };

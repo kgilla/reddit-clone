@@ -6,7 +6,6 @@ import { ProvideAuth } from "../../hooks/use-auth";
 import Navbar from "../Navbar";
 import Home from "../Home";
 import Sub from "../Sub";
-import Modal from "../Modal";
 import PostForm from "../PostForm";
 import SubForm from "../SubForm";
 import PostContainer from "../PostContainer";
@@ -16,7 +15,6 @@ import UserProfile from "../UserProfile";
 import SubIndex from "../SubIndex";
 import Flash from "../Flash";
 import PrivateRoute from "../PrivateRoute";
-import { Message } from "styled-icons/boxicons-regular";
 
 function App() {
   const [message, setMessage] = useState("Hey there fuck face!");
@@ -43,7 +41,7 @@ function App() {
                 <PostForm />
               </PrivateRoute>
               <PrivateRoute path="/s/create">
-                <SubForm />
+                <SubForm changeMessage={changeMessage} />
               </PrivateRoute>
               <Route path="/s/browse">
                 <SubIndex />
@@ -52,7 +50,7 @@ function App() {
                 <Sub />
               </Route>
               <PrivateRoute path="/submit">
-                <PostForm />
+                <PostForm changeMessage={changeMessage} />
               </PrivateRoute>
               <Route path="/login">
                 <LoginForm changeMessage={changeMessage} />

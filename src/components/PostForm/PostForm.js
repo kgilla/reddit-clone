@@ -1,21 +1,40 @@
 import { fetchGetData, fetchPostData } from "../../api/index";
 import { useState, useEffect } from "react";
-import { Redirect, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { useAuth } from "../../hooks/use-auth";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { Input, Textarea, Form, Select } from "../FormComponents";
 
-import FormGroup from "../FormGroup";
-import Form from "../Form";
+const schema = yup.object().shape({
+  title: yup
+    .string()
+    .required()
+    .min(3)
+    .max(300)
+    .trim()
+    .matches(/^[ a-zA-Z0-9]*$/, {
+      message: "cannot contain special characters",
+    }),
+  content: yup.string().required().min(6).max(40),
+});
 
 const PostForm = () => {
   const auth = useAuth();
+  const history = useHistory();
+
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   const { subID } = useParams() || "";
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [sub, setSub] = useState(subID);
   const [subs, setSubs] = useState(null);
-  const [postCreated, setPostCreated] = useState(null);
-  // const [error, setError] = useState(null);
+
+  const onSubmit = (data) => {
+    console.log(data);
+    history.push(`/s/${data.sub}/`);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,64 +47,47 @@ const PostForm = () => {
     fetchData();
   }, []);
 
-  const handleChange = (e) => {
-    e.target.name === "title"
-      ? setTitle(e.target.value)
-      : e.target.name === "content"
-      ? setContent(e.target.value)
-      : setSub(e.target.value);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const response = await fetchPostData(
-      `http://localhost:3000/api/s/${sub}/posts/create`,
-      {
-        sub,
-        title,
-        content,
-      },
-      auth.token
-    );
-    console.log(response);
-    setPostCreated(response.savedPost);
-  };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const response = await fetchPostData(
+  //     `http://localhost:3000/api/s/${sub}/posts/create`,
+  //     {
+  //       sub,
+  //       title,
+  //       content,
+  //     },
+  //     auth.token
+  //   );
+  //   console.log(response);
+  //   setPostCreated(response.savedPost);
+  // };
 
   return (
-    <Form image="1" click={handleSubmit} btn="Create Post" title="New Post">
+    <Form handleSubmit={handleSubmit(onSubmit)} title="New Post">
       {subs ? (
-        <div className="form-group">
-          <label className="form-group-label" htmlFor="sub">
-            Community
-          </label>
-          <select name="sub" onChange={handleChange} defaultValue={subID}>
-            {subs.map((sub) => (
-              <option key={sub._id} value={sub._id}>
-                {sub.name}
-              </option>
-            ))}
-          </select>
-        </div>
+        <Select
+          name="sub"
+          label="Community"
+          defaultValue={subID}
+          optionsArray={subs}
+          ref={register}
+          error={errors.sub ? errors.sub.message : null}
+        />
       ) : null}
-      <FormGroup
+      <Input
         name="title"
         type="text"
-        handleChange={handleChange}
-        value={title}
-      >
-        Title
-      </FormGroup>
-      <FormGroup
+        label="Title"
+        placeholder=""
+        ref={register}
+        error={errors.title ? errors.title.message : null}
+      />
+      <Textarea
         name="content"
-        type="textarea"
-        handleChange={handleChange}
-        value={content}
-      >
-        Body
-      </FormGroup>
-      {postCreated ? (
-        <Redirect to={`/s/${sub}/posts/${postCreated._id}`} />
-      ) : null}
+        label="Content"
+        ref={register}
+        error={errors.content ? errors.content.message : null}
+      />
     </Form>
   );
 };

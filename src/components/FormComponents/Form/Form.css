@@ -1,0 +1,66 @@
+.form-container {
+  height: calc(100vh - 48px);
+  display: grid;
+  grid-template-columns: 0.5fr 600px 0.5fr;
+  background-color: #fff;
+}
+
+.form-art {
+  height: 100%;
+  min-height: 400px;
+  width: 100%;
+  max-width: 600px;
+  overflow: hidden;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.art1 {
+  background-image: url("../../../images/benn-mcguinness-vWbBC7G2BQQ-unsplash.jpg");
+}
+
+.art2 {
+  background-image: url("../../../images/benn-mcguinness-vWbBC7G2BQQ-unsplash.jpg");
+}
+
+select {
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #444;
+}
+
+option {
+  color: #fff;
+  background-color: #fff;
+}
+
+.form-left {
+  max-width: 40em;
+  padding: 1em;
+}
+
+.form-heading {
+  padding: 1em 0;
+  border-bottom: 1px solid #eee;
+  color: #444;
+  font-size: 1.2em;
+  font-weight: 500;
+}
+
+.error-block {
+  padding: 0.5em;
+  margin-top: 0.5em;
+  border: 1px solid red;
+  border-radius: 4px;
+  background-color: #ffebee;
+  color: red;
+}
+
+input[type="color"] {
+  padding: 0px;
+  height: 40px;
+  width: 20%;
+}

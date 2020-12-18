@@ -1,75 +1,54 @@
 import { useState } from "react";
 import { useAuth } from "../../hooks/use-auth";
 import { useHistory, useLocation } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { Form, Input } from "../FormComponents";
 
-import Form from "../Form";
-import FormGroup from "../FormGroup";
+const schema = yup.object().shape({
+  username: yup.string().required().min(3).max(20).trim(),
+  password: yup.string().required().min(6).max(40).trim(),
+});
 
 const LoginForm = ({ changeMessage }) => {
-  const auth = useAuth();
+  const [error, setError] = useState(null);
   const history = useHistory();
   let location = useLocation();
   let { from } = location.state || { from: { pathname: "/" } };
+  const auth = useAuth();
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
-
-  const handleChange = (e) => {
-    setError(null);
-    e.target.name === "username"
-      ? setUsername(e.target.value)
-      : setPassword(e.target.value);
-  };
-
-  const handleClick = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (data) => {
+    const { username, password } = data;
     const response = await auth.login(username, password);
     console.log(response);
-    // handleResponse(response);
-  };
-
-  const clearFields = () => {
-    setUsername("");
-    setPassword("");
-  };
-
-  const handleResponse = (response) => {
-    if (!response.user) {
-      setError({ name: response.name, message: response.message });
-    } else if (response.user) {
-      clearFields();
+    if (!response.user) setError(response.message);
+    if (response.user) {
       history.replace(from);
       changeMessage(`Welcome back ${response.user.username}`);
     }
   };
 
   return (
-    <Form image="1" click={handleClick} btn="Log In" title="Log In">
-      <FormGroup
+    <Form handleSubmit={handleSubmit(onSubmit)} title="Log In" error={error}>
+      <Input
         name="username"
+        label="Username"
         type="text"
-        error={
-          error ? (error.name === "username" ? error.message : null) : null
-        }
-        handleChange={handleChange}
-        value={username}
-        autoComplete="username"
-      >
-        Username
-      </FormGroup>
-      <FormGroup
+        placeholder=""
+        ref={register}
+        error={errors.username ? errors.username.message : null}
+      />
+      <Input
         name="password"
+        label="Password"
         type="password"
-        error={
-          error ? (error.name === "password" ? error.message : null) : null
-        }
-        handleChange={handleChange}
-        value={password}
-        autoComplete="current-password"
-      >
-        Password
-      </FormGroup>
+        ref={register}
+        error={errors.password ? errors.password.message : null}
+      />
     </Form>
   );
 };

@@ -1,4 +1,4 @@
-import CommentForm from "../../CommentForm";
+import CommentForm from "../CommentForm";
 import { useState } from "react";
 import moment from "moment";
 import { ArrowUp, ArrowDown, Message } from "@styled-icons/entypo";

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { fetchGetData } from "../../api";
 
-import Comments from "../Comments";
+import Comments from "../CommentIndex";
 import Post from "../Post";
 import Sidebar from "../Sidebar";
 import Loader from "../Loader";
