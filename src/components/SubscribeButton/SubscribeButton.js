@@ -17,7 +17,7 @@ const SubscribeButton = ({ subData }) => {
 
   const subscribe = async () => {
     try {
-      await fetchPutData(
+      const response = await fetchPutData(
         `http://localhost:3000/api/s/${subData._id}/subscribe`,
         { body: "" },
         auth.token
@@ -29,7 +29,7 @@ const SubscribeButton = ({ subData }) => {
 
   const unsubscribe = async () => {
     try {
-      await fetchPutData(
+      const response = await fetchPutData(
         `http://localhost:3000/api/s/${subData._id}/unsubscribe`,
         { body: "" },
         auth.token

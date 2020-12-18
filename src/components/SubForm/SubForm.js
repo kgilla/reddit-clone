@@ -20,7 +20,7 @@ const schema = yup.object().shape({
   description: yup.string().required().min(6).max(600),
 });
 
-const SubForm = ({ user, token }) => {
+const SubForm = () => {
   const [allSubs, setAllSubs] = useState(null);
   const auth = useAuth();
   const history = useHistory();

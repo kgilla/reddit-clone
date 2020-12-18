@@ -29,6 +29,13 @@
   grid-template-columns: 1fr 1fr;
 }
 
+.nav-button {
+  line-height: 17px;
+  height: 32px;
+  min-width: 32px;
+  padding: 0 32px;
+}
+
 #nav-brand {
   font-size: 1.4em;
   font-weight: 700;

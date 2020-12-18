@@ -1,10 +1,12 @@
 import CommentForm from "../CommentForm";
 import { useState } from "react";
+import { useAuth } from "../../hooks/use-auth";
 import moment from "moment";
 import { ArrowUp, ArrowDown, Message } from "@styled-icons/entypo";
 import "./Comment.css";
 
 const Comment = ({ comment, handleNewComment, layer, children }) => {
+  const auth = useAuth();
   const [openForm, setOpenForm] = useState(false);
   const [score, setScore] = useState(comment.score);
 
@@ -48,6 +50,7 @@ const Comment = ({ comment, handleNewComment, layer, children }) => {
                 Reply
               </button>
             ) : null}
+            {auth.user._id === comment.author._id ? <span>Edit</span> : null}
           </footer>
           {openForm ? (
             <CommentForm

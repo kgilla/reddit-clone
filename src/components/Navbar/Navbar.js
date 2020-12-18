@@ -33,16 +33,16 @@ const Navbar = () => {
                 className="button-filled nav-button"
                 onClick={handleLogout}
               >
-                LOG OUT
+                Log Out
               </button>
             </ul>
           ) : (
             <ul id="nav-buttons">
-              <Link to="/signup" className="button-outline">
-                SIGN UP
+              <Link to="/signup" className="button-outline nav-button">
+                Sign Up
               </Link>
-              <Link to="/login" className="button-filled">
-                LOG IN
+              <Link to="/login" className="button-filled nav-button">
+                Log In
               </Link>
             </ul>
           )}

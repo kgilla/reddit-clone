@@ -1,4 +1,4 @@
-import { fetchGetData, fetchPostData } from "../../api/index";
+import { fetchGetData, createPost } from "../../api/index";
 import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useAuth } from "../../hooks/use-auth";
@@ -8,32 +8,31 @@ import * as yup from "yup";
 import { Input, Textarea, Form, Select } from "../FormComponents";
 
 const schema = yup.object().shape({
-  title: yup
-    .string()
-    .required()
-    .min(3)
-    .max(300)
-    .trim()
-    .matches(/^[ a-zA-Z0-9]*$/, {
-      message: "cannot contain special characters",
-    }),
-  content: yup.string().required().min(6).max(40),
+  title: yup.string().required().min(3).max(300).trim(),
+  content: yup.string().max(2000).trim(),
 });
 
-const PostForm = () => {
+const PostForm = ({ changeMessage }) => {
   const auth = useAuth();
   const history = useHistory();
+  const { subID } = useParams() || "";
 
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
 
-  const { subID } = useParams() || "";
   const [subs, setSubs] = useState(null);
+  const [error, setError] = useState(null);
 
-  const onSubmit = (data) => {
-    console.log(data);
-    history.push(`/s/${data.sub}/`);
+  const onSubmit = async (data) => {
+    const response = await createPost(data, auth.token);
+    console.log(response);
+    if (response.savedPost) {
+      changeMessage(response.message);
+      history.push(`/s/${data.sub}/posts/${response.savedPost._id}`);
+    } else {
+      setError("Something went wrong");
+    }
   };
 
   useEffect(() => {
@@ -47,23 +46,8 @@ const PostForm = () => {
     fetchData();
   }, []);
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const response = await fetchPostData(
-  //     `http://localhost:3000/api/s/${sub}/posts/create`,
-  //     {
-  //       sub,
-  //       title,
-  //       content,
-  //     },
-  //     auth.token
-  //   );
-  //   console.log(response);
-  //   setPostCreated(response.savedPost);
-  // };
-
   return (
-    <Form handleSubmit={handleSubmit(onSubmit)} title="New Post">
+    <Form handleSubmit={handleSubmit(onSubmit)} title="New Post" error={error}>
       {subs ? (
         <Select
           name="sub"
@@ -78,13 +62,14 @@ const PostForm = () => {
         name="title"
         type="text"
         label="Title"
-        placeholder=""
+        placeholder="What did you want everyone to know about?"
         ref={register}
         error={errors.title ? errors.title.message : null}
       />
       <Textarea
         name="content"
         label="Content"
+        placeholder="optional"
         ref={register}
         error={errors.content ? errors.content.message : null}
       />

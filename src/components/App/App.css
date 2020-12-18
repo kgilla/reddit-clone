@@ -49,25 +49,25 @@ button {
   justify-content: center;
   width: 100%;
   max-width: 15em;
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 500;
   line-height: 18px;
   text-decoration: none;
   border-radius: 999px;
   color: #fff;
   height: 40px;
-  padding: 0 16px;
+  padding: 0 32px;
   text-align: center;
   font-family: inherit;
 }
 
 .button-filled:hover {
-  filter: brightness(130%);
+  filter: brightness(110%);
   cursor: pointer;
 }
 
 .button-outline:hover {
-  filter: brightness(90%);
+  background-color: #e3f2fd;
   cursor: pointer;
 }
 

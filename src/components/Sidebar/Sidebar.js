@@ -54,10 +54,10 @@ const Sidebar = ({ sub }) => {
       <SidebarItem heading="Create Content">
         <div className="button-box">
           <Link to="/submit" className="button-filled">
-            CREATE POST
+            Create Post
           </Link>
           <Link to="/s/create" className="button-outline">
-            CREATE COMMUNITY
+            Create Community
           </Link>
         </div>
       </SidebarItem>

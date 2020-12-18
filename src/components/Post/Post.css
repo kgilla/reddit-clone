@@ -21,6 +21,7 @@
 .card-footer {
   display: grid;
   grid-template-columns: auto auto auto 1fr;
+  align-items: center;
   gap: 0.5em;
   font-size: 0.8em;
   color: #888;
@@ -37,9 +38,10 @@
 }
 
 .profile-link {
+  position: relative;
   color: #888;
   text-decoration: none;
-  z-index: 2;
+  z-index: 4;
 }
 
 .profile-link:hover {
@@ -59,6 +61,21 @@
   padding: 1px;
   border: 0.1em solid #888;
   border-radius: 4px;
+}
+
+.sub-link {
+  position: relative;
+  margin-right: 1em;
+  color: #222;
+  font-size: 1em;
+  font-weight: 600;
+  text-decoration: none;
+  z-index: 4;
+}
+
+.sub-link:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .score-box {

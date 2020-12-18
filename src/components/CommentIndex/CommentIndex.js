@@ -25,6 +25,7 @@ const CommentIndex = ({ postComments, user, token }) => {
 
   return (
     <div id="comments-container">
+      <h2>Leave A Comment</h2>
       <div>
         <CommentForm
           handleNewComment={handleNewComment}

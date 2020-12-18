@@ -2,9 +2,11 @@ import "./Post.css";
 import { Link } from "react-router-dom";
 import { ArrowUp, ArrowDown } from "@styled-icons/entypo";
 import { useState } from "react";
+import { useAuth } from "../../hooks/use-auth";
 import moment from "moment";
 
 const Post = ({ post, link }) => {
+  const auth = useAuth();
   const [score, setScore] = useState(post.score);
 
   return (
@@ -24,16 +26,23 @@ const Post = ({ post, link }) => {
       </div>
       <article>
         <header className="card-header">
-          {post.author ? (
-            <Link
-              to={`/users/${post.author.username}`}
-              className="profile-link"
-            >
-              {post.author.username}
-            </Link>
-          ) : (
-            <span className="card-item">[Deleted]</span>
-          )}
+          <Link to={`/s/${post.sub._id}`} className="sub-link">
+            {post.sub.name}
+          </Link>
+          <span className="header-item">
+            Posted by{" "}
+            {post.author ? (
+              <Link
+                to={`/users/${post.author.username}`}
+                className="profile-link"
+              >
+                {post.author.username}
+              </Link>
+            ) : (
+              "[Deleted]"
+            )}
+          </span>
+
           <span className="card-item">
             ~ {moment(post.dateCreated).startOf("hour").fromNow()}
           </span>
@@ -48,6 +57,7 @@ const Post = ({ post, link }) => {
               ? "1 Comment"
               : post.commentCount + " Comments"}
           </span>
+          {auth.user._id === post.author._id ? <span>Edit</span> : null}
         </footer>
       </article>
       {link ? (

@@ -40,11 +40,7 @@ function useProvideAuth() {
         "http://localhost:3000/api/users/create",
         { username, password, email }
       );
-      return {
-        user: response.user,
-        message: response.message,
-        name: response.name,
-      };
+      return response;
     } catch (err) {
       console.log(err);
     }

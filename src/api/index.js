@@ -63,4 +63,19 @@ const fetchDeleteData = async (url) => {
   }
 };
 
-export { fetchGetData, fetchPostData, fetchPutData, fetchDeleteData };
+const createPost = async (body, token) => {
+  const response = await fetchPostData(
+    `http://localhost:3000/api/s/${body.sub}/posts/create`,
+    body,
+    token
+  );
+  return response;
+};
+
+export {
+  fetchGetData,
+  fetchPostData,
+  fetchPutData,
+  fetchDeleteData,
+  createPost,
+};

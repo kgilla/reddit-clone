@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useAuth } from "../../hooks/use-auth";
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -20,6 +21,7 @@ const schema = yup.object().shape({
 });
 
 const SignupForm = ({ changeMessage }) => {
+  const [error, setError] = useState(null);
   const auth = useAuth();
   const history = useHistory();
   const { register, handleSubmit, errors } = useForm({
@@ -28,22 +30,29 @@ const SignupForm = ({ changeMessage }) => {
 
   const onSubmit = async (data) => {
     const { username, password, email } = data;
-    const response = await auth.signup(username, password, email);
-    if (response.user) {
-      changeMessage("Account created successfully, please log in.");
-      history.push("/login");
-    } else {
-      console.log("something went wrong");
+    try {
+      const response = await auth.signup(username, password, email);
+      if (response.user) {
+        changeMessage("Account created successfully! Please log in.");
+        history.push("/login");
+      } else if (response.errors) {
+        console.log(response);
+        setError(response.errors[0].msg);
+      } else {
+        setError("Something went wrong.");
+      }
+    } catch (err) {
+      setError(err);
     }
   };
 
   return (
-    <Form handleSubmit={handleSubmit(onSubmit)} title="Sign Up">
+    <Form handleSubmit={handleSubmit(onSubmit)} title="Sign Up" error={error}>
       <Input
         name="username"
         label="Username"
         type="text"
-        placeholder="3-20 characters"
+        placeholder=""
         ref={register}
         error={errors.username ? errors.username.message : null}
       />
@@ -51,7 +60,7 @@ const SignupForm = ({ changeMessage }) => {
         name="password"
         label="Password"
         type="text"
-        placeholder="min 6 characters"
+        placeholder=""
         ref={register}
         error={errors.password ? errors.password.message : null}
       />
