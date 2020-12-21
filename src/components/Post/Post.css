@@ -13,7 +13,7 @@
 .card-header,
 .card-main,
 .card-footer {
-  padding: 4px 0.5em;
+  padding: 4px 8px;
   width: 100%;
 }
 
@@ -21,10 +21,30 @@
 .card-footer {
   display: grid;
   grid-template-columns: auto auto auto 1fr;
-  align-items: center;
-  gap: 1em;
+  gap: 8px;
   font-size: 0.8em;
   color: #888;
+}
+
+.header-item {
+  border: none;
+  background-color: #fff;
+  padding: 0;
+  color: #888;
+  font-weight: 300;
+  text-decoration: none;
+}
+
+.footer-item {
+  display: flex;
+  align-items: center;
+  height: 1.25em;
+  border: none;
+  background-color: #fff;
+  padding: 0;
+  color: #888;
+  font-weight: 500;
+  text-decoration: none;
 }
 
 .post-title {

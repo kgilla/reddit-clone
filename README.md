@@ -2,9 +2,9 @@ things to do:
 
 <!-- - flesh out creation forms for error and success handling -->
 
-- add update features for all models
-- add deletion features for all models and deal with assorted cleanup
-- flesh out user profile page and add more features
+- add update features for all models -- missing sub
+- add deletion features for all models and deal with assorted cleanup -- missing sub
+- flesh out user profile page and add more features -- user update and deletiong
 - add image hosting for posts, subs, users etc.
 - add karma score system for both comments and posts
 

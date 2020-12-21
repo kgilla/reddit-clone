@@ -14,12 +14,20 @@
 }
 
 .footer-button {
+  display: flex;
+  align-items: center;
   height: 1.25em;
   border: none;
   background-color: #fff;
   padding: 0;
   color: #888;
   font-weight: 500;
+  text-decoration: none;
+  z-index: 6;
+}
+
+.footer-button:hover {
+  text-decoration: underline;
 }
 
 .footer-button-container {
@@ -31,7 +39,7 @@
 .reply-bubble {
   height: 1.25em;
   width: 1.25em;
-  margin-right: 0.5em;
+  margin-right: 0.25em;
   color: #888;
 }
 

@@ -31,11 +31,11 @@ function App() {
           <Navbar />
           <main id="main-container">
             <Switch>
-              <Route path="/users/:name">
+              <Route path="/users/:username">
                 <UserProfile />
               </Route>
               <PrivateRoute path="/s/:subID/posts/:postID/update">
-                <PostForm edit={true} />
+                <PostForm edit={true} changeMessage={changeMessage} />
               </PrivateRoute>
               <Route path="/s/:subID/posts/:postID">
                 <PostContainer changeMessage={changeMessage} />

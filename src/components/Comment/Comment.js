@@ -59,15 +59,15 @@ const Comment = ({
         </div>
         <article>
           <header className="card-header">
-            <span className="card-item">{comment.author.username}</span>
-            <span className="card-item">
+            <span className="header-item">{comment.author.username}</span>
+            <span className="header-item">
               {score === 1 ? `${score} point` : `${score} points`}
             </span>
-            <span className="card-item">
+            <span className="header-item">
               - {moment(comment.dateCreated).startOf("hour").fromNow()}
             </span>
             {comment.dateEdited ? (
-              <span className="card-item edited-item">
+              <span className="header-item edited-item">
                 edited {moment(comment.dateEdited).startOf("hour").fromNow()}
               </span>
             ) : null}

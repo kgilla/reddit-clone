@@ -1,0 +1,21 @@
+.user-profile-container {
+  display: flex;
+}
+
+.user-details {
+  background-color: #fff;
+  width: 100%;
+  max-width: 400px;
+  margin-top: 80px;
+}
+
+.user-profile-content {
+  width: 100%;
+  max-width: 1000px;
+  background-color: #fff;
+}
+
+.comment-box {
+  border: 1px solid #aaa;
+  margin: 16px 0;
+}

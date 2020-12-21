@@ -1,15 +1,19 @@
 import "./Post.css";
 import { Link } from "react-router-dom";
-import { ArrowUp, ArrowDown } from "@styled-icons/entypo";
+import { ArrowUp, ArrowDown, Message } from "@styled-icons/entypo";
 import { useState } from "react";
 import { useAuth } from "../../hooks/use-auth";
 import moment from "moment";
 import ReactHtmlParser from "react-html-parser";
 
 const Post = ({ post, link }) => {
-  console.log(post);
   const auth = useAuth();
   const [score, setScore] = useState(post.score);
+
+  const handleClick = (e) => {
+    let result = window.confirm("Are you sure you want to delete this post?");
+    console.log(result);
+  };
 
   return (
     <div className="post-container">
@@ -44,23 +48,42 @@ const Post = ({ post, link }) => {
               "[Deleted]"
             )}
           </span>
-
-          <span className="card-item">
+          <span className="header-item">
             ~ {moment(post.dateCreated).startOf("hour").fromNow()}
           </span>
+          {post.dateEdited ? (
+            <span className="header-item edited-item">
+              edited {moment(post.dateEdited).startOf("hour").fromNow()}
+            </span>
+          ) : null}
         </header>
         <main className="card-main">
           <h2 className="post-title">{post.title}</h2>
           <p className="post-content">{ReactHtmlParser(post.content)}</p>
         </main>
         <footer className="card-footer">
-          <span className="card-item">
+          <span className="footer-item">
+            <Message className="reply-bubble" />
             {post.commentCount === 1
               ? "1 Comment"
               : post.commentCount + " Comments"}
           </span>
           {auth.user && auth.user._id === post.author._id ? (
-            <Link to={`/s/${post.sub._id}/posts/${post._id}/update`}>Edit</Link>
+            <div className="footer-button-container">
+              <Link
+                to={`/s/${post.sub._id}/posts/${post._id}/update`}
+                className="footer-button"
+              >
+                Edit
+              </Link>
+              <button
+                className="footer-button"
+                name="delete"
+                onClick={handleClick}
+              >
+                Delete
+              </button>
+            </div>
           ) : null}
         </footer>
       </article>
