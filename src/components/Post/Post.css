@@ -22,7 +22,7 @@
   display: grid;
   grid-template-columns: auto auto auto 1fr;
   align-items: center;
-  gap: 0.5em;
+  gap: 1em;
   font-size: 0.8em;
   color: #888;
 }
@@ -105,4 +105,8 @@
 
 #down-arrow:hover {
   color: var(--blue);
+}
+
+iframe {
+  max-width: 600px;
 }

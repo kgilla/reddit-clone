@@ -47,7 +47,12 @@ const SignupForm = ({ changeMessage }) => {
   };
 
   return (
-    <Form handleSubmit={handleSubmit(onSubmit)} title="Sign Up" error={error}>
+    <Form
+      handleSubmit={handleSubmit(onSubmit)}
+      title="Sign Up"
+      error={error}
+      art="2"
+    >
       <Input
         name="username"
         label="Username"

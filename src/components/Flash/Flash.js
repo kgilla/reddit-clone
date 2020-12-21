@@ -8,7 +8,7 @@ const Flash = ({ message }) => {
     setShow(true);
     setTimeout(() => {
       setShow(false);
-    }, 3000);
+    }, 5000);
   }, [message]);
 
   return show ? (

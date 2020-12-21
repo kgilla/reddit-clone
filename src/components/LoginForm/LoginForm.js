@@ -33,7 +33,12 @@ const LoginForm = ({ changeMessage }) => {
   };
 
   return (
-    <Form handleSubmit={handleSubmit(onSubmit)} title="Log In" error={error}>
+    <Form
+      handleSubmit={handleSubmit(onSubmit)}
+      title="Log In"
+      error={error}
+      art="2"
+    >
       <Input
         name="username"
         label="Username"

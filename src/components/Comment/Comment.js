@@ -5,13 +5,41 @@ import moment from "moment";
 import { ArrowUp, ArrowDown, Message } from "@styled-icons/entypo";
 import "./Comment.css";
 
-const Comment = ({ comment, handleNewComment, layer, children }) => {
+const Comment = ({
+  comment,
+  post,
+  refreshPost,
+  layer,
+  changeMessage,
+  children,
+}) => {
   const auth = useAuth();
   const [openForm, setOpenForm] = useState(false);
+  const [openEditForm, setOpenEditForm] = useState(false);
+  const [edit, setEdit] = useState(false);
   const [score, setScore] = useState(comment.score);
 
-  const handleClick = () => {
-    openForm ? setOpenForm(false) : setOpenForm(true);
+  const handleClick = (e) => {
+    if (e.target.name === "delete") {
+      handleDelete();
+    } else {
+      if (e.target.name === "edit") {
+        setEdit(true);
+      }
+      if (openForm) {
+        setOpenForm(false);
+        setEdit(false);
+      } else {
+        setOpenForm(true);
+      }
+    }
+  };
+
+  const handleDelete = () => {
+    let result = window.confirm(
+      "Are you sure you want to delete this comment?"
+    );
+    console.log(result);
   };
 
   return (
@@ -38,25 +66,49 @@ const Comment = ({ comment, handleNewComment, layer, children }) => {
             <span className="card-item">
               - {moment(comment.dateCreated).startOf("hour").fromNow()}
             </span>
+            {comment.dateEdited ? (
+              <span className="card-item edited-item">
+                edited {moment(comment.dateEdited).startOf("hour").fromNow()}
+              </span>
+            ) : null}
           </header>
           <main className="card-main">
-            {" "}
             <span>{comment.content}</span>
           </main>
           <footer className="card-footer">
             {layer < 6 ? (
-              <button onClick={handleClick} className="reply-button">
+              <button onClick={handleClick} className="footer-button">
                 <Message className="reply-bubble" />
                 Reply
               </button>
             ) : null}
-            {auth.user._id === comment.author._id ? <span>Edit</span> : null}
+            {auth.user && auth.user._id === comment.author._id ? (
+              <div className="footer-button-container">
+                <button
+                  className="footer-button"
+                  name="edit"
+                  onClick={handleClick}
+                >
+                  Edit
+                </button>
+                <button
+                  className="footer-button"
+                  name="delete"
+                  onClick={handleClick}
+                >
+                  Delete
+                </button>
+              </div>
+            ) : null}
           </footer>
           {openForm ? (
             <CommentForm
-              parent={comment._id}
-              handleNewComment={handleNewComment}
-              handleClick={handleClick}
+              post={post}
+              parentComment={comment}
+              refreshPost={refreshPost}
+              handleForm={handleClick}
+              changeMessage={changeMessage}
+              edit={edit}
             />
           ) : null}
         </article>

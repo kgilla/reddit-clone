@@ -12,12 +12,12 @@ const schema = yup.object().shape({
   content: yup.string().max(2000).trim(),
 });
 
-const PostForm = ({ changeMessage }) => {
+const PostForm = ({ changeMessage, edit }) => {
   const auth = useAuth();
   const history = useHistory();
-  const { subID } = useParams() || "";
+  const { subID, postID } = useParams() || "";
 
-  const { register, handleSubmit, errors } = useForm({
+  const { register, handleSubmit, errors, setValue } = useForm({
     resolver: yupResolver(schema),
   });
 
@@ -26,7 +26,6 @@ const PostForm = ({ changeMessage }) => {
 
   const onSubmit = async (data) => {
     const response = await createPost(data, auth.token);
-    console.log(response);
     if (response.savedPost) {
       changeMessage(response.message);
       history.push(`/s/${data.sub}/posts/${response.savedPost._id}`);
@@ -43,11 +42,30 @@ const PostForm = ({ changeMessage }) => {
       );
       setSubs(response.subs);
     };
-    fetchData();
+    if (!edit) fetchData();
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetchGetData(
+        `http://localhost:3000/api/s/${subID}/posts/${postID}`
+      );
+      console.log(response);
+      setValue("title", response.post.title, { shouldValidate: true });
+      setValue("content", response.post.content, { shouldValidate: true });
+    };
+    if (edit) {
+      fetchData();
+    }
+  }, [edit]);
+
   return (
-    <Form handleSubmit={handleSubmit(onSubmit)} title="New Post" error={error}>
+    <Form
+      handleSubmit={handleSubmit(onSubmit)}
+      title="New Post"
+      error={error}
+      art="1"
+    >
       {subs ? (
         <Select
           name="sub"

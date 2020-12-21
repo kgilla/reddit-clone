@@ -6,7 +6,10 @@ const SubHeader = ({ subData }) => {
   const auth = useAuth();
   return (
     <header className="sub-header-container">
-      <div className="community-theme"></div>
+      <div
+        className="community-theme"
+        style={subData.color ? { backgroundColor: subData.color } : null}
+      ></div>
       <div className="lower-header-container">
         <div className="header-main-container">
           <div className="sub-image"></div>

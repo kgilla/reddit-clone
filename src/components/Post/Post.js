@@ -4,8 +4,10 @@ import { ArrowUp, ArrowDown } from "@styled-icons/entypo";
 import { useState } from "react";
 import { useAuth } from "../../hooks/use-auth";
 import moment from "moment";
+import ReactHtmlParser from "react-html-parser";
 
 const Post = ({ post, link }) => {
+  console.log(post);
   const auth = useAuth();
   const [score, setScore] = useState(post.score);
 
@@ -49,7 +51,7 @@ const Post = ({ post, link }) => {
         </header>
         <main className="card-main">
           <h2 className="post-title">{post.title}</h2>
-          <p className="post-content">{post.content}</p>
+          <p className="post-content">{ReactHtmlParser(post.content)}</p>
         </main>
         <footer className="card-footer">
           <span className="card-item">
@@ -57,12 +59,14 @@ const Post = ({ post, link }) => {
               ? "1 Comment"
               : post.commentCount + " Comments"}
           </span>
-          {auth.user._id === post.author._id ? <span>Edit</span> : null}
+          {auth.user && auth.user._id === post.author._id ? (
+            <Link to={`/s/${post.sub._id}/posts/${post._id}/update`}>Edit</Link>
+          ) : null}
         </footer>
       </article>
       {link ? (
         <Link
-          to={`/s/${post.sub}/posts/${post._id}`}
+          to={`/s/${post.sub._id}/posts/${post._id}`}
           className="post-link"
         ></Link>
       ) : null}

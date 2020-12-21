@@ -1,4 +1,5 @@
 import "./Sidebar.css";
+import { useAuth } from "../../hooks/use-auth";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { fetchGetData } from "../../api";
@@ -6,6 +7,7 @@ import SidebarItem from "../SidebarItem";
 import moment from "moment";
 
 const Sidebar = ({ sub }) => {
+  const auth = useAuth();
   const [subs, setSubs] = useState(null);
 
   useEffect(() => {
@@ -26,6 +28,18 @@ const Sidebar = ({ sub }) => {
       >
         <p>{sub.description}</p>
       </SidebarItem>
+      {auth.user ? (
+        <SidebarItem heading="Create Content">
+          <div className="button-box">
+            <Link to="/submit" className="button-filled">
+              Create Post
+            </Link>
+            <Link to="/s/create" className="button-outline">
+              Create Community
+            </Link>
+          </div>
+        </SidebarItem>
+      ) : null}
       <SidebarItem
         heading="Other Communities"
         footing={
@@ -50,16 +64,6 @@ const Sidebar = ({ sub }) => {
               </Link>
             ))
           : null}
-      </SidebarItem>
-      <SidebarItem heading="Create Content">
-        <div className="button-box">
-          <Link to="/submit" className="button-filled">
-            Create Post
-          </Link>
-          <Link to="/s/create" className="button-outline">
-            Create Community
-          </Link>
-        </div>
       </SidebarItem>
     </div>
   );

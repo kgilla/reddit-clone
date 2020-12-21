@@ -3,12 +3,12 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { fetchGetData } from "../../api";
 
-import Comments from "../CommentIndex";
+import CommentIndex from "../CommentIndex";
 import Post from "../Post";
 import Sidebar from "../Sidebar";
 import Loader from "../Loader";
 
-const PostContainer = ({ user }) => {
+const PostContainer = ({ changeMessage }) => {
   const { subID, postID } = useParams();
   const [post, setPost] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -25,6 +25,15 @@ const PostContainer = ({ user }) => {
     fetchData();
   }, [postID]);
 
+  const refreshPost = async () => {
+    setIsLoading(true);
+    const response = await fetchGetData(
+      `http://localhost:3000/api/s/${subID}/posts/${postID}`
+    );
+    setPost(response.post);
+    setIsLoading(false);
+  };
+
   return (
     <div>
       {isLoading ? (
@@ -32,8 +41,13 @@ const PostContainer = ({ user }) => {
       ) : post ? (
         <div id="post-container">
           <div id="post-container-left">
-            <Post post={post} user={user} />
-            <Comments postComments={post.comments} user={user} />
+            <Post post={post} />
+            <CommentIndex
+              comments={post.comments}
+              post={post}
+              refreshPost={refreshPost}
+              changeMessage={changeMessage}
+            />
           </div>
           <Sidebar sub={post.sub} />
         </div>

@@ -1,7 +1,7 @@
 import "./UserProfile.css";
 
-const UserProfile = ({ user }) => {
-  return <div>{user.username}</div>;
+const UserProfile = () => {
+  return <div>user profile page</div>;
 };
 
 export default UserProfile;

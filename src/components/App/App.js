@@ -17,7 +17,7 @@ import Flash from "../Flash";
 import PrivateRoute from "../PrivateRoute";
 
 function App() {
-  const [message, setMessage] = useState("Hey there fuck face!");
+  const [message, setMessage] = useState(null);
 
   const changeMessage = (newMessage) => {
     setMessage(newMessage);
@@ -34,8 +34,11 @@ function App() {
               <Route path="/users/:name">
                 <UserProfile />
               </Route>
+              <PrivateRoute path="/s/:subID/posts/:postID/update">
+                <PostForm edit={true} />
+              </PrivateRoute>
               <Route path="/s/:subID/posts/:postID">
-                <PostContainer />
+                <PostContainer changeMessage={changeMessage} />
               </Route>
               <PrivateRoute path="/s/:subID/submit">
                 <PostForm />

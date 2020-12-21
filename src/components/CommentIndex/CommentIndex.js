@@ -1,22 +1,17 @@
 import "./CommentIndex.css";
-import { useState } from "react";
 import Comment from "../Comment";
 import CommentForm from "../CommentForm";
 
-const CommentIndex = ({ postComments, user, token }) => {
-  const [comments, setComments] = useState(postComments);
-  console.log(postComments);
-
-  const handleNewComment = (comment) => {};
-
+const CommentIndex = ({ comments, post, refreshPost, changeMessage }) => {
   const renderAllComments = (comments, layer) => {
     return comments.map((comment) => (
       <Comment
         key={comment._id}
         comment={comment}
-        user={user}
-        handleNewComment={handleNewComment}
+        post={post}
+        refreshPost={refreshPost}
         layer={layer}
+        changeMessage={changeMessage}
       >
         {comment.replies ? renderAllComments(comment.replies, layer + 1) : null}
       </Comment>
@@ -28,9 +23,9 @@ const CommentIndex = ({ postComments, user, token }) => {
       <h2>Leave A Comment</h2>
       <div>
         <CommentForm
-          handleNewComment={handleNewComment}
-          user={user}
-          token={token}
+          post={post}
+          refreshPost={refreshPost}
+          changeMessage={changeMessage}
         />
       </div>
       <div id="comments-index">

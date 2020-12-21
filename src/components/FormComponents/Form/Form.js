@@ -1,9 +1,9 @@
 import "./Form.css";
 
-const Form = ({ handleSubmit, title, error, children }) => {
+const Form = ({ handleSubmit, title, error, art, children }) => {
   return (
     <div className="form-container">
-      <div className={"form-art art1"}></div>
+      <div className={`form-art art${art}`}></div>
       <form className="form-left" onSubmit={handleSubmit}>
         <h2 className="form-heading">{title}</h2>
         {error ? <div className="error-block">{error}</div> : null}

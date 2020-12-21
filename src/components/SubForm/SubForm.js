@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
-import { fetchGetData } from "../../api";
+import { fetchPostData } from "../../api";
 import { useAuth } from "../../hooks/use-auth";
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Input, Form, Textarea } from "../FormComponents";
@@ -20,40 +20,40 @@ const schema = yup.object().shape({
   description: yup.string().required().min(6).max(600),
 });
 
-const SubForm = () => {
-  const [allSubs, setAllSubs] = useState(null);
+const SubForm = ({ changeMessage }) => {
   const auth = useAuth();
   const history = useHistory();
+
+  const [error, setError] = useState(null);
 
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      const response = await fetchPostData(
+        `http://localhost:3000/api/s/create`,
+        data,
+        auth.token
+      );
+      if (response.errors) {
+        setError(response.errors[0].msg);
+      } else if (response.sub) changeMessage("New community created!");
+      history.push(`/s/${response.sub._id}`);
+    } catch (err) {
+      setError(err);
+      console.log("something wrong in sub creation");
+    }
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetchGetData("http://localhost:3000/api/s/");
-      setAllSubs(data.allSubs);
-    };
-    fetchData();
-  }, []);
-
-  // const response = await fetchPostData(
-  //   `http://localhost:3000/api/s/create`,
-  //   {
-  //     name,
-  //     description,
-  //     color,
-  //     image
-  //   },
-  //   user.token
-  // );
-
   return (
-    <Form handleSubmit={handleSubmit(onSubmit)} title="Create Community">
+    <Form
+      handleSubmit={handleSubmit(onSubmit)}
+      title="Create Community"
+      error={error}
+      art="1"
+    >
       <Input
         name="name"
         label="Community Name"
