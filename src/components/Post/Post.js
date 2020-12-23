@@ -1,35 +1,46 @@
 import "./Post.css";
 import { Link } from "react-router-dom";
-import { ArrowUp, ArrowDown, Message } from "@styled-icons/entypo";
-import { useState } from "react";
+import { Message } from "@styled-icons/entypo";
 import { useAuth } from "../../hooks/use-auth";
 import moment from "moment";
 import ReactHtmlParser from "react-html-parser";
+import Score from "../Score";
+import { useState } from "react";
+import { fetchPutData } from "../../api";
 
 const Post = ({ post, link }) => {
-  const auth = useAuth();
   const [score, setScore] = useState(post.score);
+  const auth = useAuth();
 
   const handleClick = (e) => {
     let result = window.confirm("Are you sure you want to delete this post?");
     console.log(result);
   };
 
+  const handleScoreChange = (direction, increment) => {
+    setScore((old) => (old += increment));
+    if (direction === "up") {
+      castVote(true);
+    } else if (direction === "down") {
+      castVote(false);
+    } else {
+      castVote(null);
+    }
+  };
+
+  const castVote = async (value) => {
+    const url = `http://localhost:3000/api/s/${post.sub._id}/posts/${post._id}/vote`;
+    await fetchPutData(url, { value }, auth.token);
+  };
+
   return (
     <div className="post-container">
-      <div className="score-box">
-        <ArrowUp
-          className="score-arrow"
-          id="up-arrow"
-          onClick={() => setScore((oldScore) => (oldScore += 1))}
-        />
-        {score}
-        <ArrowDown
-          className="score-arrow"
-          id="down-arrow"
-          onClick={() => setScore((oldScore) => (oldScore -= 1))}
-        />
-      </div>
+      <Score
+        score={score}
+        item={post}
+        type="post"
+        handleChoice={handleScoreChange}
+      />
       <article>
         <header className="card-header">
           <Link to={`/s/${post.sub._id}`} className="sub-link">

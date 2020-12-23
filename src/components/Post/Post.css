@@ -98,35 +98,6 @@
   cursor: pointer;
 }
 
-.score-box {
-  width: 50px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  margin-top: 0.5em;
-}
-
-.score-arrow {
-  width: 25px;
-  color: #aaa;
-  z-index: 6;
-}
-
-.score-arrow:hover {
-  background-color: #eee;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-#up-arrow:hover {
-  color: var(--orange);
-}
-
-#down-arrow:hover {
-  color: var(--blue);
-}
-
 iframe {
   max-width: 600px;
 }

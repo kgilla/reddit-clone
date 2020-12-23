@@ -41,9 +41,10 @@ const CommentForm = (props) => {
 
   const createComment = async (content) => {
     try {
+      parentComment ? console.log(true) : console.log(false);
       const response = await fetchPostData(
         `http://localhost:3000/api/s/${subID}/posts/${postID}/comments/create`,
-        { content, parent },
+        parentComment ? { content, parent: parentComment._id } : { content },
         auth.token
       );
       if (response.comment) {

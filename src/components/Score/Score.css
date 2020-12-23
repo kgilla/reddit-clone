@@ -1,0 +1,35 @@
+.score-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.invis-button {
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  border: none;
+  z-index: 2;
+}
+
+.score-arrow {
+  width: 25px;
+  color: #aaa;
+  z-index: 6;
+}
+
+.score-arrow:hover {
+  background-color: #eee;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.up-arrow:hover {
+  color: var(--orange);
+}
+
+.down-arrow:hover {
+  color: var(--blue);
+}
