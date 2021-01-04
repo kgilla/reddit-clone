@@ -1,6 +1,6 @@
 import "./Sub.css";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { fetchGetData } from "../../api";
 import Post from "../Post";
 import Sidebar from "../Sidebar";
@@ -22,25 +22,28 @@ const Sub = () => {
     fetchData();
   }, [subID]);
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : subData ? (
     <div className="sub-container">
-      {isLoading ? (
-        <Loader />
-      ) : subData ? (
-        <div>
-          <SubHeader subData={subData} />
-          <main className="sub-page">
-            <div id="posts-container">
-              {subData.posts.map((post) => (
-                <Post key={post._id} post={post} link="true" />
-              ))}
+      <SubHeader subData={subData} />
+      <main className="sub-page">
+        <div className="posts-container">
+          {subData.posts.length > 0 ? (
+            subData.posts.map((post) => (
+              <Post key={post._id} post={post} link="true" />
+            ))
+          ) : (
+            <div className="empty-sub">
+              <h1>No Posts Yet!</h1> <div>Picture</div>
+              <Link to="/submit">Create Post</Link>
             </div>
-            <Sidebar sub={subData} />
-          </main>
+          )}
         </div>
-      ) : null}
+        <Sidebar sub={subData} />
+      </main>
     </div>
-  );
+  ) : null;
 };
 
 export default Sub;

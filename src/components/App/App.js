@@ -8,7 +8,7 @@ import Home from "../Home";
 import Sub from "../Sub";
 import PostForm from "../PostForm";
 import SubForm from "../SubForm";
-import PostContainer from "../PostContainer";
+import PostDetails from "../PostDetails";
 import SignupForm from "../SignupForm";
 import LoginForm from "../LoginForm";
 import UserProfile from "../UserProfile";
@@ -38,7 +38,7 @@ function App() {
                 <PostForm edit={true} changeMessage={changeMessage} />
               </PrivateRoute>
               <Route path="/s/:subID/posts/:postID">
-                <PostContainer changeMessage={changeMessage} />
+                <PostDetails changeMessage={changeMessage} />
               </Route>
               <PrivateRoute path="/s/:subID/submit">
                 <PostForm />
@@ -61,6 +61,9 @@ function App() {
               <Route path="/signup">
                 <SignupForm changeMessage={changeMessage} />
               </Route>
+              <PrivateRoute path="/home">
+                <Home />
+              </PrivateRoute>
               <Route path="/">
                 <Home />
               </Route>

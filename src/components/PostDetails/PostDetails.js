@@ -1,4 +1,4 @@
-import "./PostContainer.css";
+import "./PostDetails.css";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { fetchGetData } from "../../api";
@@ -8,7 +8,7 @@ import Post from "../Post";
 import Sidebar from "../Sidebar";
 import Loader from "../Loader";
 
-const PostContainer = ({ changeMessage }) => {
+const PostDetails = ({ changeMessage }) => {
   const { subID, postID } = useParams();
   const [post, setPost] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -39,8 +39,8 @@ const PostContainer = ({ changeMessage }) => {
       {isLoading ? (
         <Loader />
       ) : post ? (
-        <div id="post-container">
-          <div id="post-container-left">
+        <div className="post-details-container">
+          <div className="post-details">
             <Post post={post} />
             <CommentIndex
               comments={post.comments}
@@ -56,4 +56,4 @@ const PostContainer = ({ changeMessage }) => {
   );
 };
 
-export default PostContainer;
+export default PostDetails;

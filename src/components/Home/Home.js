@@ -3,6 +3,7 @@ import { fetchGetData } from "../../api";
 import { useAuth } from "../../hooks/use-auth";
 import Post from "../Post";
 import Sidebar from "../Sidebar";
+import Loader from "../Loader";
 
 const Home = () => {
   const auth = useAuth();
@@ -39,7 +40,7 @@ const Home = () => {
     <div className="sub-container">
       {posts ? (
         <main className="sub-page">
-          <div id="posts-container">
+          <div className="posts-container">
             {posts.map((post) => (
               <Post key={post._id} post={post} link={true} />
             ))}
@@ -51,7 +52,9 @@ const Home = () => {
             }}
           />
         </main>
-      ) : null}
+      ) : (
+        <Loader />
+      )}
     </div>
   );
 };

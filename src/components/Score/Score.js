@@ -34,7 +34,7 @@ const Score = ({ score, item, type, handleChoice }) => {
   };
 
   return (
-    <div className="score-box">
+    <div className={type === "post" ? "post-score-box" : "score-box"}>
       <button
         name="up"
         onClick={auth.user ? handleClick : null}

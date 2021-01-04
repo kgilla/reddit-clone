@@ -1,8 +1,13 @@
-.score-box {
+.score-box,
+.post-score-box {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+}
+
+.post-score-box {
+  border-right: 1px solid #eee;
 }
 
 .invis-button {

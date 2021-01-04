@@ -6,7 +6,6 @@ things to do:
 - add deletion features for all models and deal with assorted cleanup -- missing sub
 - flesh out user profile page and add more features -- user update and deletiong
 - add image hosting for posts, subs, users etc.
-- add karma score system for both comments and posts
 
 Future things:
 
