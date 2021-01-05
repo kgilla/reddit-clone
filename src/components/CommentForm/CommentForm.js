@@ -1,12 +1,12 @@
 import "./CommentForm.css";
 import { fetchPostData, fetchPutData } from "../../api";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useAuth } from "../../hooks/use-auth";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Textarea } from "../FormComponents";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 const schema = yup.object().shape({
   content: yup.string().required().min(1).max(600),
@@ -14,14 +14,7 @@ const schema = yup.object().shape({
 
 const CommentForm = (props) => {
   const auth = useAuth();
-  const {
-    parentComment,
-    post,
-    refreshPost,
-    handleForm,
-    changeMessage,
-    edit,
-  } = props;
+  const { parentComment, refreshPost, handleForm, changeMessage, edit } = props;
   const { subID, postID } = useParams();
   const parent = parentComment ? parentComment._id : null;
   const { register, handleSubmit, errors, setValue } = useForm({
@@ -32,7 +25,7 @@ const CommentForm = (props) => {
     if (edit) {
       setValue("content", parentComment.content, { shouldValidate: true });
     }
-  }, [parentComment]);
+  }, [parentComment, edit, setValue]);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -58,19 +51,14 @@ const CommentForm = (props) => {
 
   const updateComment = async (content) => {
     try {
-      await fetch(
-        `http://localhost:3000/api/s/${subID}/posts/${postID}/comments/${parent}/update`,
-        {
-          method: "put",
-          body: JSON.stringify({ content }),
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${auth.token}`,
-          },
-        }
-      );
-      changeMessage("Comment edited successfully");
-      refreshPost();
+      const url = `http://localhost:3000/api/s/${subID}/posts/${postID}/comments/${parent}/update`;
+      const response = await fetchPutData(url, { content }, auth.token);
+      if (response.ok) {
+        changeMessage("Comment edited successfully");
+        refreshPost();
+      } else {
+        changeMessage("Oops! Something went wrong.");
+      }
     } catch (err) {
       console.log(err);
     }
@@ -81,7 +69,7 @@ const CommentForm = (props) => {
     edit ? updateComment(content) : createComment(content);
   };
 
-  return (
+  return auth.user ? (
     <form className="comment-form" onSubmit={handleSubmit(onSubmit)}>
       <Textarea
         name="content"
@@ -104,6 +92,18 @@ const CommentForm = (props) => {
         </button>
       </div>
     </form>
+  ) : (
+    <div className="no-user-box">
+      <span>Log in or sign up to leave a comment</span>
+      <ul id="nav-buttons">
+        <Link to="/signup" className="button-outline nav-button">
+          Sign Up
+        </Link>
+        <Link to="/login" className="button-filled nav-button">
+          Log In
+        </Link>
+      </ul>
+    </div>
   );
 };
 

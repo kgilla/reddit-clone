@@ -6,15 +6,19 @@ import moment from "moment";
 import ReactHtmlParser from "react-html-parser";
 import Score from "../Score";
 import { useState } from "react";
-import { fetchPutData } from "../../api";
+import { fetchPutData, fetchDeleteData } from "../../api";
 
 const Post = ({ post, link }) => {
   const [score, setScore] = useState(post.score);
   const auth = useAuth();
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     let result = window.confirm("Are you sure you want to delete this post?");
-    console.log(result);
+    if (result) {
+      const url = `http://localhost:3000/api/s/${post.sub._id}/posts/${post._id}/delete`;
+      const response = await fetchDeleteData(url, auth.token);
+      console.log(response);
+    }
   };
 
   const handleScoreChange = (direction, increment) => {
@@ -72,31 +76,33 @@ const Post = ({ post, link }) => {
           <h2 className="post-title">{post.title}</h2>
           <p className="post-content">{ReactHtmlParser(post.content)}</p>
         </main>
-        <footer className="card-footer">
-          <span className="footer-item">
-            <Message className="reply-bubble" />
-            {post.commentCount === 1
-              ? "1 Comment"
-              : post.commentCount + " Comments"}
-          </span>
-          {auth.user && auth.user._id === post.author._id ? (
-            <div className="footer-button-container">
-              <Link
-                to={`/s/${post.sub._id}/posts/${post._id}/update`}
-                className="footer-button"
-              >
-                Edit
-              </Link>
-              <button
-                className="footer-button"
-                name="delete"
-                onClick={handleClick}
-              >
-                Delete
-              </button>
-            </div>
-          ) : null}
-        </footer>
+        {auth.user ? (
+          <footer className="card-footer">
+            <span className="footer-item">
+              <Message className="reply-bubble" />
+              {post.commentCount === 1
+                ? "1 Comment"
+                : post.commentCount + " Comments"}
+            </span>
+            {auth.user && auth.user._id === post.author._id ? (
+              <div className="footer-button-container">
+                <Link
+                  to={`/s/${post.sub._id}/posts/${post._id}/update`}
+                  className="footer-button"
+                >
+                  Edit
+                </Link>
+                <button
+                  className="footer-button"
+                  name="delete"
+                  onClick={handleClick}
+                >
+                  Delete
+                </button>
+              </div>
+            ) : null}
+          </footer>
+        ) : null}
       </article>
       {link ? (
         <Link

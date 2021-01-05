@@ -9,14 +9,16 @@ import Loader from "../Loader";
 
 const Sub = () => {
   const { subID } = useParams();
-  const [subData, setSubData] = useState(null);
+  const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      const data = await fetchGetData(`http://localhost:3000/api/s/${subID}`);
-      setSubData(data.sub);
+      const response = await fetchGetData(
+        `http://localhost:3000/api/s/${subID}`
+      );
+      setData({ sub: response.sub, posts: response.posts });
       setIsLoading(false);
     };
     fetchData();
@@ -24,13 +26,13 @@ const Sub = () => {
 
   return isLoading ? (
     <Loader />
-  ) : subData ? (
+  ) : data ? (
     <div className="sub-container">
-      <SubHeader subData={subData} />
+      <SubHeader subData={data.sub} />
       <main className="sub-page">
         <div className="posts-container">
-          {subData.posts.length > 0 ? (
-            subData.posts.map((post) => (
+          {data.posts.length > 0 ? (
+            data.posts.map((post) => (
               <Post key={post._id} post={post} link="true" />
             ))
           ) : (
@@ -40,7 +42,7 @@ const Sub = () => {
             </div>
           )}
         </div>
-        <Sidebar sub={subData} />
+        <Sidebar sub={data.sub} />
       </main>
     </div>
   ) : null;

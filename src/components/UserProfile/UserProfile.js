@@ -2,7 +2,7 @@ import "./UserProfile.css";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Loader from "../Loader";
-import { useAuth } from "../../hooks/use-auth";
+// import { useAuth } from "../../hooks/use-auth";
 import { useWindowSize } from "../../hooks/use-window-size";
 import { fetchGetData } from "../../api";
 import Post from "../Post";
@@ -10,7 +10,7 @@ import Comment from "../Comment";
 import Sidebar from "../Sidebar";
 
 const UserProfile = () => {
-  const auth = useAuth();
+  // const auth = useAuth();
   const size = useWindowSize();
   const { username } = useParams() || "";
   const [content, setContent] = useState("posts");

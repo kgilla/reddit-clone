@@ -1,12 +1,10 @@
 .post-details-container {
-  width: 100%;
   max-width: 1000px;
   display: grid;
   gap: 1em;
 }
 
 .post-details {
-  width: 100%;
   display: flex;
   flex-direction: column;
 }

@@ -52,6 +52,7 @@ const SignupForm = ({ changeMessage }) => {
       title="Sign Up"
       error={error}
       art="2"
+      button="Create Account"
     >
       <Input
         name="username"

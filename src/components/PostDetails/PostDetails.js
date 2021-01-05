@@ -23,7 +23,7 @@ const PostDetails = ({ changeMessage }) => {
       setIsLoading(false);
     };
     fetchData();
-  }, [postID]);
+  }, [postID, subID]);
 
   const refreshPost = async () => {
     setIsLoading(true);

@@ -4,17 +4,16 @@
   align-items: center;
 }
 
-.posts-container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-}
-
 .sub-page {
   max-width: 1000px;
+  width: 100%;
   display: grid;
   gap: 1.5em;
+}
+
+.posts-container {
+  display: flex;
+  flex-direction: column;
 }
 
 .empty-sub {
@@ -36,7 +35,7 @@
 @media (min-width: 576px) {
   .sub-page {
     grid-template-columns: 1fr;
-    margin: 1.5em 0;
+    margin: 1.5em;
   }
 }
 

@@ -9,15 +9,17 @@ const SubscribeButton = ({ subData }) => {
 
   useEffect(() => {
     const isUserSubscribed = () => {
-      const response = subData.subscribers.some((sub) => sub === auth.user._id);
+      const response = auth.user.subscriptions.some(
+        (sub) => sub === subData._id
+      );
       setUserSubscribed(response);
     };
     isUserSubscribed();
-  }, [subData, auth.user._id]);
+  }, [subData, auth.user._id, auth.user.subscriptions]);
 
   const subscribe = async () => {
     try {
-      const response = await fetchPutData(
+      await fetchPutData(
         `http://localhost:3000/api/s/${subData._id}/subscribe`,
         { body: "" },
         auth.token
@@ -29,7 +31,7 @@ const SubscribeButton = ({ subData }) => {
 
   const unsubscribe = async () => {
     try {
-      const response = await fetchPutData(
+      await fetchPutData(
         `http://localhost:3000/api/s/${subData._id}/unsubscribe`,
         { body: "" },
         auth.token

@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Input, Textarea, Form, Select } from "../FormComponents";
-import { Data } from "styled-icons/boxicons-regular";
 
 const schema = yup.object().shape({
   title: yup.string().required().min(3).max(300).trim(),
@@ -25,49 +24,6 @@ const PostForm = ({ changeMessage, edit }) => {
   const [subs, setSubs] = useState(null);
   const [error, setError] = useState(null);
 
-  const onSubmit = (data) => {
-    edit ? updatePost(data) : createPost(data);
-  };
-
-  const createPost = async (data) => {
-    const response = await fetchPostData(
-      `http://localhost:3000/api/s/${subID}/posts/create`,
-      data,
-      auth.token
-    );
-    if (response.savedPost) {
-      changeMessage(response.message);
-      history.push(`/s/${data.sub}/posts/${response.savedPost._id}`);
-    } else {
-      setError("Something went wrong");
-    }
-  };
-
-  const updatePost = async (data) => {
-    try {
-      const response = await fetch(
-        `http://localhost:3000/api/s/${subID}/posts/${postID}/update`,
-        {
-          method: "put",
-          body: JSON.stringify(data),
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${auth.token}`,
-          },
-        }
-      );
-      console.log(response);
-      if (response.ok || response.status === 204) {
-        changeMessage("Post updated successfully");
-        history.push(`/s/${data.sub}/posts/${postID}`);
-      } else {
-        setError("Something went wrong");
-      }
-    } catch (err) {
-      console.log({ message: "something went wrong", error: err });
-    }
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetchGetData(
@@ -77,7 +33,7 @@ const PostForm = ({ changeMessage, edit }) => {
       setSubs(response.subs);
     };
     if (!edit) fetchData();
-  }, []);
+  }, [auth.token, edit]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -91,7 +47,41 @@ const PostForm = ({ changeMessage, edit }) => {
     if (edit) {
       fetchData();
     }
-  }, [edit]);
+  }, [edit, postID, setValue, subID]);
+
+  const onSubmit = (data) => {
+    edit ? updatePost(data) : createPost(data);
+  };
+
+  const createPost = async (data) => {
+    const response = await fetchPostData(
+      `http://localhost:3000/api/s/${subID}/posts/create`,
+      data,
+      auth.token
+    );
+    if (response.post) {
+      changeMessage(response.message);
+      history.push(`/s/${data.sub}/posts/${response.savedPost._id}`);
+    } else {
+      console.log(response);
+      setError("Something went wrong");
+    }
+  };
+
+  const updatePost = async (data) => {
+    try {
+      const url = `http://localhost:3000/api/s/${subID}/posts/${postID}/update`;
+      const response = await fetchPutData(url, data, auth.token);
+      if (response.ok) {
+        changeMessage("Post updated successfully");
+        history.push(`/s/${data.sub}/posts/${postID}`);
+      } else {
+        setError("Something went wrong");
+      }
+    } catch (err) {
+      console.log({ message: "something went wrong", error: err });
+    }
+  };
 
   return (
     <Form
@@ -99,6 +89,7 @@ const PostForm = ({ changeMessage, edit }) => {
       title={edit ? "Edit Post" : "Create Post"}
       error={error}
       art="1"
+      button="Create Post"
     >
       {subs ? (
         <Select

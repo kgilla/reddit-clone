@@ -1,6 +1,7 @@
 import CommentForm from "../CommentForm";
 import { useState } from "react";
 import { useAuth } from "../../hooks/use-auth";
+import { Link } from "react-router-dom";
 import Score from "../Score";
 import moment from "moment";
 import { Message } from "@styled-icons/entypo";
@@ -70,7 +71,12 @@ const Comment = ({
         />
         <article>
           <header className="card-header">
-            <span className="header-item">{comment.author.username}</span>
+            <Link
+              className="profile-link"
+              to={`/users/${comment.author.username}`}
+            >
+              {comment.author.username}
+            </Link>
             <span className="header-item">
               {score === 1 ? score + " point" : score + " points"}
             </span>
@@ -86,32 +92,34 @@ const Comment = ({
           <main className="card-main">
             <span>{comment.content}</span>
           </main>
-          <footer className="card-footer">
-            {layer < 6 ? (
-              <button onClick={handleClick} className="footer-button">
-                <Message className="reply-bubble" />
-                Reply
-              </button>
-            ) : null}
-            {auth.user && auth.user._id === comment.author._id ? (
-              <div className="footer-button-container">
-                <button
-                  className="footer-button"
-                  name="edit"
-                  onClick={handleClick}
-                >
-                  Edit
+          {auth.user ? (
+            <footer className="card-footer">
+              {layer < 6 ? (
+                <button onClick={handleClick} className="footer-button">
+                  <Message className="reply-bubble" />
+                  Reply
                 </button>
-                <button
-                  className="footer-button"
-                  name="delete"
-                  onClick={handleClick}
-                >
-                  Delete
-                </button>
-              </div>
-            ) : null}
-          </footer>
+              ) : null}
+              {auth.user && auth.user._id === comment.author._id ? (
+                <div className="footer-button-container">
+                  <button
+                    className="footer-button"
+                    name="edit"
+                    onClick={handleClick}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="footer-button"
+                    name="delete"
+                    onClick={handleClick}
+                  >
+                    Delete
+                  </button>
+                </div>
+              ) : null}
+            </footer>
+          ) : null}
           {openForm ? (
             <CommentForm
               post={post}

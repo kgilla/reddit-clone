@@ -5,7 +5,7 @@ import "./SubIndex.css";
 
 import Loader from "../Loader";
 
-const SubIndex = ({}) => {
+const SubIndex = () => {
   const [subs, setSubs] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 

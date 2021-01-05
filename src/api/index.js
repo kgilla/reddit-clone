@@ -41,23 +41,22 @@ const fetchPutData = async (url, body, token) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    const data = await response.json();
-    return data;
+    return response;
   } catch (err) {
     console.log({ error: err });
   }
 };
 
-const fetchDeleteData = async (url) => {
+const fetchDeleteData = async (url, token) => {
   try {
     const response = await fetch(url, {
       method: "delete",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
-    const data = await response.json();
-    return data;
+    return response;
   } catch (err) {
     console.log(err);
   }

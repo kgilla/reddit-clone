@@ -20,7 +20,7 @@ const schema = yup.object().shape({
   description: yup.string().required().min(6).max(600),
 });
 
-const SubForm = ({ changeMessage }) => {
+const SubForm = ({ changeMessage, edit }) => {
   const auth = useAuth();
   const history = useHistory();
 
@@ -53,6 +53,7 @@ const SubForm = ({ changeMessage }) => {
       title="Create Community"
       error={error}
       art="1"
+      button="Create Community"
     >
       <Input
         name="name"

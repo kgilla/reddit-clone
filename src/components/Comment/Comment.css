@@ -24,6 +24,7 @@
   font-weight: 500;
   text-decoration: none;
   z-index: 6;
+  font-size: 12px;
 }
 
 .footer-button:hover {

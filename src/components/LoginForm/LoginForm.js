@@ -38,6 +38,7 @@ const LoginForm = ({ changeMessage }) => {
       title="Log In"
       error={error}
       art="2"
+      button="Log In"
     >
       <Input
         name="username"

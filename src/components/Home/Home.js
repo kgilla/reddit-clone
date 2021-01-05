@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { fetchGetData } from "../../api";
-import { useAuth } from "../../hooks/use-auth";
+// import { useAuth } from "../../hooks/use-auth";
 import Post from "../Post";
 import Sidebar from "../Sidebar";
 import Loader from "../Loader";
 
 const Home = () => {
-  const auth = useAuth();
+  // const auth = useAuth();
   const [posts, setPosts] = useState(null);
 
   useEffect(() => {

@@ -1,11 +1,13 @@
 .form-container {
   height: calc(100vh - 48px);
   display: grid;
-  grid-template-columns: 0.5fr 600px 0.5fr;
+  width: 100%;
+  grid-template-columns: 300px 1fr;
   background-color: #fff;
 }
 
 .form-art {
+  grid-column: 1/2;
   height: 100%;
   min-height: 400px;
   width: 100%;
@@ -37,7 +39,8 @@ option {
   background-color: #fff;
 }
 
-.form-left {
+.formy-form {
+  grid-column: 2/3;
   max-width: 40em;
   padding: 1em;
 }
