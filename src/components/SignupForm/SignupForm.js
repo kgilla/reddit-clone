@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../../hooks/use-auth";
+import { useFlash } from "../../hooks/use-flash-message";
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -20,9 +21,10 @@ const schema = yup.object().shape({
   email: yup.string().required().email(),
 });
 
-const SignupForm = ({ changeMessage }) => {
+const SignupForm = () => {
   const [error, setError] = useState(null);
   const auth = useAuth();
+  const flash = useFlash();
   const history = useHistory();
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
@@ -33,7 +35,7 @@ const SignupForm = ({ changeMessage }) => {
     try {
       const response = await auth.signup(username, password, email);
       if (response.user) {
-        changeMessage("Account created successfully! Please log in.");
+        flash.changeMessage("Account created successfully! Please log in.");
         history.push("/login");
       } else if (response.errors) {
         console.log(response);

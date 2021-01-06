@@ -1,5 +1,6 @@
 import { fetchPostData } from "../../api";
 import { useAuth } from "../../hooks/use-auth";
+import { useFlash } from "../../hooks/use-flash-message";
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
@@ -20,8 +21,9 @@ const schema = yup.object().shape({
   description: yup.string().required().min(6).max(600),
 });
 
-const SubForm = ({ changeMessage, edit }) => {
+const SubForm = ({ edit }) => {
   const auth = useAuth();
+  const flash = useFlash();
   const history = useHistory();
 
   const [error, setError] = useState(null);
@@ -39,7 +41,7 @@ const SubForm = ({ changeMessage, edit }) => {
       );
       if (response.errors) {
         setError(response.errors[0].msg);
-      } else if (response.sub) changeMessage("New community created!");
+      } else if (response.sub) flash.changeMessage("New community created!");
       history.push(`/s/${response.sub._id}`);
     } catch (err) {
       setError(err);

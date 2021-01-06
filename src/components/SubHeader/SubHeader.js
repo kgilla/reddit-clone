@@ -19,7 +19,7 @@ const SubHeader = ({ subData }) => {
               <span className="sub-address">{`s/${subData.name}`}</span>
             </div>
             {auth.user ? <SubscribeButton subData={subData} /> : null}
-            {subData.creator === auth.user._id ? (
+            {auth.user && subData.creator === auth.user._id ? (
               <button className="button-filled nav-button">
                 Edit Community
               </button>

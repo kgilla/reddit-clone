@@ -2,6 +2,7 @@ import "./CommentForm.css";
 import { fetchPostData, fetchPutData } from "../../api";
 import { useParams, Link } from "react-router-dom";
 import { useAuth } from "../../hooks/use-auth";
+import { useFlash } from "../../hooks/use-flash-message";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -14,7 +15,8 @@ const schema = yup.object().shape({
 
 const CommentForm = (props) => {
   const auth = useAuth();
-  const { parentComment, refreshPost, handleForm, changeMessage, edit } = props;
+  const flash = useFlash();
+  const { parentComment, refreshPost, handleForm, edit } = props;
   const { subID, postID } = useParams();
   const parent = parentComment ? parentComment._id : null;
   const { register, handleSubmit, errors, setValue } = useForm({
@@ -41,7 +43,7 @@ const CommentForm = (props) => {
         auth.token
       );
       if (response.comment) {
-        changeMessage("Comment created successfully");
+        flash.changeMessage("Comment created successfully");
         refreshPost();
       }
     } catch (err) {
@@ -54,10 +56,10 @@ const CommentForm = (props) => {
       const url = `http://localhost:3000/api/s/${subID}/posts/${postID}/comments/${parent}/update`;
       const response = await fetchPutData(url, { content }, auth.token);
       if (response.ok) {
-        changeMessage("Comment edited successfully");
+        flash.changeMessage("Comment edited successfully");
         refreshPost();
       } else {
-        changeMessage("Oops! Something went wrong.");
+        flash.changeMessage("Oops! Something went wrong.");
       }
     } catch (err) {
       console.log(err);

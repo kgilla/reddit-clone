@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
-import { useState } from "react";
 import { ProvideAuth } from "../../hooks/use-auth";
+import { ProvideFlash } from "../../hooks/use-flash-message";
 
 import Navbar from "../Navbar";
 import Home from "../Home";
@@ -17,59 +17,55 @@ import Flash from "../Flash";
 import PrivateRoute from "../PrivateRoute";
 
 function App() {
-  const [message, setMessage] = useState(null);
-
-  const changeMessage = (newMessage) => {
-    setMessage(newMessage);
-  };
-
   return (
     <div className="App">
       <ProvideAuth>
-        {message ? <Flash message={message} /> : null}
-        <Router>
-          <Navbar />
-          <main id="main-container">
-            <Switch>
-              <Route path="/users/:username">
-                <UserProfile />
-              </Route>
-              <PrivateRoute path="/s/:subID/posts/:postID/update">
-                <PostForm edit={true} changeMessage={changeMessage} />
-              </PrivateRoute>
-              <Route path="/s/:subID/posts/:postID">
-                <PostDetails changeMessage={changeMessage} />
-              </Route>
-              <PrivateRoute path="/s/:subID/submit">
-                <PostForm />
-              </PrivateRoute>
-              <PrivateRoute path="/s/create">
-                <SubForm changeMessage={changeMessage} />
-              </PrivateRoute>
-              <Route path="/s/browse">
-                <SubIndex />
-              </Route>
-              <Route path="/s/:subID">
-                <Sub />
-              </Route>
-              <PrivateRoute path="/submit">
-                <PostForm changeMessage={changeMessage} />
-              </PrivateRoute>
-              <Route path="/login">
-                <LoginForm changeMessage={changeMessage} />
-              </Route>
-              <Route path="/signup">
-                <SignupForm changeMessage={changeMessage} />
-              </Route>
-              <PrivateRoute path="/home">
-                <Home />
-              </PrivateRoute>
-              <Route path="/">
-                <Home />
-              </Route>
-            </Switch>
-          </main>
-        </Router>
+        <ProvideFlash>
+          <Flash />
+          <Router>
+            <Navbar />
+            <main id="main-container">
+              <Switch>
+                <Route path="/users/:username">
+                  <UserProfile />
+                </Route>
+                <PrivateRoute path="/s/:subID/posts/:postID/update">
+                  <PostForm edit={true} />
+                </PrivateRoute>
+                <Route path="/s/:subID/posts/:postID">
+                  <PostDetails />
+                </Route>
+                <PrivateRoute path="/s/:subID/submit">
+                  <PostForm />
+                </PrivateRoute>
+                <PrivateRoute path="/s/create">
+                  <SubForm />
+                </PrivateRoute>
+                <Route path="/s/browse">
+                  <SubIndex />
+                </Route>
+                <Route path="/s/:subID">
+                  <Sub />
+                </Route>
+                <PrivateRoute path="/submit">
+                  <PostForm />
+                </PrivateRoute>
+                <Route path="/login">
+                  <LoginForm />
+                </Route>
+                <Route path="/signup">
+                  <SignupForm />
+                </Route>
+                <PrivateRoute path="/home">
+                  <Home />
+                </PrivateRoute>
+                <Route path="/">
+                  <Home />
+                </Route>
+              </Switch>
+            </main>
+          </Router>
+        </ProvideFlash>
       </ProvideAuth>
     </div>
   );

@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { fetchPutData } from "../../api";
 import { useAuth } from "../../hooks/use-auth";
+import { useFlash } from "../../hooks/use-flash-message";
 import "./SubscribeButton.css";
 
 const SubscribeButton = ({ subData }) => {
   const auth = useAuth();
+  const flash = useFlash();
   const [userSubscribed, setUserSubscribed] = useState(null);
 
   useEffect(() => {
@@ -19,11 +21,16 @@ const SubscribeButton = ({ subData }) => {
 
   const subscribe = async () => {
     try {
-      await fetchPutData(
+      const response = await fetchPutData(
         `http://localhost:3000/api/s/${subData._id}/subscribe`,
         { body: "" },
         auth.token
       );
+      if (response.ok) {
+        flash.changeMessage(`Now subscribed to ${subData.name}`);
+      } else {
+        console.log("something went wrong");
+      }
     } catch (err) {
       console.log(err);
     }
@@ -31,11 +38,16 @@ const SubscribeButton = ({ subData }) => {
 
   const unsubscribe = async () => {
     try {
-      await fetchPutData(
+      const response = await fetchPutData(
         `http://localhost:3000/api/s/${subData._id}/unsubscribe`,
         { body: "" },
         auth.token
       );
+      if (response.ok) {
+        flash.changeMessage(`Unsubscribed from ${subData.name}`);
+      } else {
+        console.log("something went wrong");
+      }
     } catch (err) {
       console.log(err);
     }

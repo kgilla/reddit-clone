@@ -1,12 +1,14 @@
 .post-details-container {
   max-width: 1000px;
   display: grid;
-  gap: 1em;
+  gap: 16px;
 }
 
 .post-details {
-  display: flex;
-  flex-direction: column;
+  max-width: 1000px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
 }
 
 @media (min-width: 600px) {
@@ -17,7 +19,7 @@
   }
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 950px) {
   .post-details-container {
     grid-template-columns: 1fr 0.5fr;
     margin: 1em auto;

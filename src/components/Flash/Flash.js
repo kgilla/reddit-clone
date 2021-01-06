@@ -1,20 +1,13 @@
 import "./Flash.css";
-import { useState, useEffect } from "react";
+import { useFlash } from "../../hooks/use-flash-message";
 
-const Flash = ({ message }) => {
-  const [show, setShow] = useState(false);
+const Flash = () => {
+  const flash = useFlash();
 
-  useEffect(() => {
-    setShow(true);
-    setTimeout(() => {
-      setShow(false);
-    }, 5000);
-  }, [message]);
-
-  return show ? (
+  return flash.showMessage ? (
     <div className="flash-container">
       <aside className="blue-bar"></aside>
-      <span className="flash-message">{message}</span>
+      <span className="flash-message">{flash.message}</span>
     </div>
   ) : null;
 };

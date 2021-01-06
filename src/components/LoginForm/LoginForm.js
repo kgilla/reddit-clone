@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../../hooks/use-auth";
+import { useFlash } from "../../hooks/use-flash-message";
 import { useHistory, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -11,12 +12,13 @@ const schema = yup.object().shape({
   password: yup.string().required().min(6).max(40).trim(),
 });
 
-const LoginForm = ({ changeMessage }) => {
+const LoginForm = () => {
   const [error, setError] = useState(null);
   const history = useHistory();
   let location = useLocation();
   let { from } = location.state || { from: { pathname: "/" } };
   const auth = useAuth();
+  const flash = useFlash();
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
@@ -24,11 +26,10 @@ const LoginForm = ({ changeMessage }) => {
   const onSubmit = async (data) => {
     const { username, password } = data;
     const response = await auth.login(username, password);
-    console.log(response);
     if (!response.user) setError(response.message);
     if (response.user) {
       history.replace(from);
-      changeMessage(`Welcome back ${response.user.username}`);
+      flash.changeMessage(`Welcome back ${response.user.username}`);
     }
   };
 

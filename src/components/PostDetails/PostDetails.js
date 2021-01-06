@@ -8,7 +8,7 @@ import Post from "../Post";
 import Sidebar from "../Sidebar";
 import Loader from "../Loader";
 
-const PostDetails = ({ changeMessage }) => {
+const PostDetails = () => {
   const { subID, postID } = useParams();
   const [post, setPost] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -46,7 +46,6 @@ const PostDetails = ({ changeMessage }) => {
               comments={post.comments}
               post={post}
               refreshPost={refreshPost}
-              changeMessage={changeMessage}
             />
           </div>
           <Sidebar sub={post.sub} />

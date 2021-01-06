@@ -1,21 +1,16 @@
 import CommentForm from "../CommentForm";
 import { useState } from "react";
 import { useAuth } from "../../hooks/use-auth";
+import { useFlash } from "../../hooks/use-flash-message";
 import { Link } from "react-router-dom";
 import Score from "../Score";
 import moment from "moment";
 import { Message } from "@styled-icons/entypo";
-import { fetchPutData } from "../../api";
+import { fetchPutData, fetchDeleteData } from "../../api";
 import "./Comment.css";
 
-const Comment = ({
-  comment,
-  post,
-  refreshPost,
-  layer,
-  changeMessage,
-  children,
-}) => {
+const Comment = ({ comment, post, refreshPost, layer, children }) => {
+  const flash = useFlash();
   const auth = useAuth();
   const [openForm, setOpenForm] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -37,11 +32,21 @@ const Comment = ({
     }
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     let result = window.confirm(
       "Are you sure you want to delete this comment?"
     );
-    console.log(result);
+    if (result) {
+      const url = `http://localhost:3000/api/s/${post.sub._id}/posts/${post._id}/comments/${comment._id}/delete`;
+      const response = await fetchDeleteData(url, auth.token);
+      console.log(response);
+      if (response.ok) {
+        refreshPost();
+        flash.changeMessage("Comment Deleted");
+      } else {
+        flash.changeMessage("Oops! Something went wrong!");
+      }
+    }
   };
 
   const handleScoreChange = (direction, increment) => {
@@ -63,20 +68,26 @@ const Comment = ({
   return (
     <div className={comment.parent ? "comment-reply" : "comment-container"}>
       <div className="comment">
-        <Score
-          score={score}
-          item={comment}
-          type="comment"
-          handleChoice={handleScoreChange}
-        />
+        {comment.author ? (
+          <Score
+            score={score}
+            item={comment}
+            type="comment"
+            handleChoice={handleScoreChange}
+          />
+        ) : null}
         <article>
           <header className="card-header">
-            <Link
-              className="profile-link"
-              to={`/users/${comment.author.username}`}
-            >
-              {comment.author.username}
-            </Link>
+            {comment.author ? (
+              <Link
+                className="profile-link"
+                to={`/users/${comment.author.username}`}
+              >
+                {comment.author.username}
+              </Link>
+            ) : (
+              <span className="header-item">[deleted]</span>
+            )}
             <span className="header-item">
               {score === 1 ? score + " point" : score + " points"}
             </span>
@@ -90,9 +101,9 @@ const Comment = ({
             ) : null}
           </header>
           <main className="card-main">
-            <span>{comment.content}</span>
+            <span>{comment.content ? comment.content : "[deleted]"}</span>
           </main>
-          {auth.user ? (
+          {auth.user && comment.author ? (
             <footer className="card-footer">
               {layer < 6 ? (
                 <button onClick={handleClick} className="footer-button">
@@ -126,7 +137,6 @@ const Comment = ({
               parentComment={comment}
               refreshPost={refreshPost}
               handleForm={handleClick}
-              changeMessage={changeMessage}
               edit={edit}
             />
           ) : null}

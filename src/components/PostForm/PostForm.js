@@ -2,6 +2,7 @@ import { fetchGetData, fetchPostData, fetchPutData } from "../../api/index";
 import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useAuth } from "../../hooks/use-auth";
+import { useFlash } from "../../hooks/use-flash-message";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -12,8 +13,9 @@ const schema = yup.object().shape({
   content: yup.string().max(2000).trim(),
 });
 
-const PostForm = ({ changeMessage, edit }) => {
+const PostForm = ({ edit }) => {
   const auth = useAuth();
+  const flash = useFlash();
   const history = useHistory();
   const { subID, postID } = useParams() || "";
 
@@ -60,10 +62,9 @@ const PostForm = ({ changeMessage, edit }) => {
       auth.token
     );
     if (response.post) {
-      changeMessage(response.message);
-      history.push(`/s/${data.sub}/posts/${response.savedPost._id}`);
+      flash.changeMessage(response.message);
+      history.push(`/s/${data.sub}/posts/${response.post._id}`);
     } else {
-      console.log(response);
       setError("Something went wrong");
     }
   };
@@ -73,7 +74,7 @@ const PostForm = ({ changeMessage, edit }) => {
       const url = `http://localhost:3000/api/s/${subID}/posts/${postID}/update`;
       const response = await fetchPutData(url, data, auth.token);
       if (response.ok) {
-        changeMessage("Post updated successfully");
+        flash.changeMessage("Post updated successfully");
         history.push(`/s/${data.sub}/posts/${postID}`);
       } else {
         setError("Something went wrong");
