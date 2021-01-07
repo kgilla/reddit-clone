@@ -1,10 +1,9 @@
 import "./Post.css";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { Message } from "@styled-icons/entypo";
 import { useFlash } from "../../hooks/use-flash-message";
 import { useAuth } from "../../hooks/use-auth";
 import moment from "moment";
-import ReactHtmlParser from "react-html-parser";
 import Score from "../Score";
 import { useState } from "react";
 import { fetchPutData, fetchDeleteData } from "../../api";
@@ -14,6 +13,9 @@ const Post = ({ post, link }) => {
   const flash = useFlash();
   const auth = useAuth();
   const history = useHistory();
+  const location = useLocation();
+
+  console.log(location);
 
   const handleClick = async (e) => {
     let result = window.confirm("Are you sure you want to delete this post?");
@@ -82,7 +84,23 @@ const Post = ({ post, link }) => {
         </header>
         <main className="card-main">
           <h2 className="post-title">{post.title}</h2>
-          <p className="post-content">{ReactHtmlParser(post.content)}</p>
+          {post.type === "video" ? (
+            <iframe
+              width="806"
+              height="453"
+              src={`https://www.youtube.com/embed/${post.content}`}
+              frameborder="0"
+              allow="clipboard-write; encrypted-media;"
+              allowfullscreen
+            ></iframe>
+          ) : post.type === "link" ? (
+            <a href={post.content}>{post.content}</a>
+          ) : (
+            <p className="post-content">
+              {post.content}
+              {post.type}
+            </p>
+          )}
         </main>
         <footer className="card-footer">
           <span className="footer-item">

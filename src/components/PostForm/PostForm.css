@@ -1,0 +1,27 @@
+.type-selctor {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.type-selection {
+  width: 33.33333%;
+  padding: 16px;
+  background-color: #fff;
+  border: none;
+  font-size: 16px;
+  font-family: inherit;
+  font-weight: 500;
+  color: #888;
+  border-bottom: 2px solid #fff;
+  outline: none;
+}
+
+.type-selection:hover {
+  background-color: #eaf2f8;
+}
+
+.selected {
+  border-bottom: 2px solid var(--blue);
+  color: var(--blue);
+}

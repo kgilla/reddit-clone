@@ -15,23 +15,34 @@ const Sidebar = ({ sub, user, score }) => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetchGetData("http://localhost:3000/api/s/");
-      setSubs(response.subs);
+      shuffleArray(response.subs);
+      setSubs(response.subs.slice(0, 5));
     };
 
     fetchData();
   }, [sub]);
 
+  function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+  }
+
   const subSidebar = () => {
     return (
       <div id="sidebar-container">
         <SidebarItem
+          color={sub.color}
           heading="About Community"
           footing={"Created: " + moment(sub.dateCreated).format("MMMM Do YYYY")}
         >
           <p>{sub.description}</p>
         </SidebarItem>
         {auth.user ? (
-          <SidebarItem heading="Create Content">
+          <SidebarItem heading="Create Content" color={sub.color}>
             <div className="button-box">
               <Link to="/submit" className="button-filled">
                 Create Post
@@ -43,6 +54,7 @@ const Sidebar = ({ sub, user, score }) => {
           </SidebarItem>
         ) : null}
         <SidebarItem
+          color={sub.color}
           heading="Other Communities"
           footing={
             <div className="button-box">

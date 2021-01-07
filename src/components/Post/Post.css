@@ -3,6 +3,7 @@
   display: grid;
   grid-template-columns: 50px 1fr;
   padding: 0.5em 0;
+  margin-bottom: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
   background-color: #fff;
@@ -99,5 +100,5 @@
 
 iframe {
   width: 100%;
-  max-width: 600px;
+  max-width: 800px;
 }

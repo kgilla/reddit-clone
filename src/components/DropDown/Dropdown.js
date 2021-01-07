@@ -97,7 +97,12 @@ const Dropdown = () => {
                       key={sub._id}
                       data={createData(`/s/${sub._id}`, sub.name)}
                     >
-                      <SpaceShip className="dropdown-item-icon" />
+                      <div
+                        className="dropdown-item-circle"
+                        style={
+                          sub.color ? { backgroundColor: sub.color } : null
+                        }
+                      ></div>
                     </DropdownItem>
                   ))
                 : null}

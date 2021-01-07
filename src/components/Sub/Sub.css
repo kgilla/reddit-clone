@@ -6,14 +6,15 @@
 
 .sub-page {
   max-width: 1000px;
+  width: 100%;
   display: grid;
   gap: 1.5em;
 }
 
 .posts-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 8px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .empty-sub {

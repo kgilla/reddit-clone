@@ -17,6 +17,15 @@
   margin-right: 0.5em;
 }
 
+.dropdown-item-circle {
+  height: 20px;
+  width: 20px;
+  border: 1px solid #666;
+  border-radius: 100%;
+  background-color: var(--blue);
+  margin-right: 0.5em;
+}
+
 .dropdown-item-heading {
   color: #444;
   font-size: 1em;

@@ -29,6 +29,9 @@ function App() {
                 <Route path="/users/:username">
                   <UserProfile />
                 </Route>
+                <PrivateRoute path="/s/:subID/update">
+                  <SubForm edit={true} />
+                </PrivateRoute>
                 <PrivateRoute path="/s/:subID/posts/:postID/update">
                   <PostForm edit={true} />
                 </PrivateRoute>
