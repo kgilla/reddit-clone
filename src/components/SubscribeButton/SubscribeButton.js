@@ -13,12 +13,10 @@ const SubscribeButton = ({ subData }) => {
     const isUserSubscribed = () => {
       if (auth.user.subscriptions.some((sub) => sub === subData._id)) {
         setUserSubscribed(true);
-      } else if (localStorage.getItem(subData._id)) {
-        setUserSubscribed(true);
       }
     };
     isUserSubscribed();
-  });
+  }, [subData, auth.user]);
 
   const subscribe = async () => {
     try {
@@ -29,7 +27,7 @@ const SubscribeButton = ({ subData }) => {
       );
       if (response.ok) {
         flash.changeMessage(`Now subscribed to ${subData.name}`);
-        localStorage.setItem(subData._id, true);
+        auth.subscribe(subData._id);
       } else {
         console.log("something went wrong");
       }
@@ -47,7 +45,7 @@ const SubscribeButton = ({ subData }) => {
       );
       if (response.ok) {
         flash.changeMessage(`Unsubscribed from ${subData.name}`);
-        localStorage.removeItem(subData._id);
+        auth.unsubscribe(subData._id);
       } else {
         console.log("something went wrong");
       }

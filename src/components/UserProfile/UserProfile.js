@@ -51,7 +51,13 @@ const UserProfile = () => {
     return user.comments.map((comment) => (
       <div className="comment-box" key={comment._id}>
         <div>
-          {comment.post.title} posted by {comment.post.author.username}
+          {comment.post ? (
+            <span>
+              {comment.post.title} posted by {comment.post.author.username}
+            </span>
+          ) : (
+            <span>deleted</span>
+          )}
         </div>
         <Comment comment={comment} />
       </div>
@@ -60,11 +66,11 @@ const UserProfile = () => {
 
   return user ? (
     <div className="user-profile-container">
-      <nav className="profile-nav">
+      <nav className="type-selector">
         <button
           onClick={handleClick}
           name="posts"
-          className="profile-nav-button"
+          className="type-selection"
           style={
             content === "posts" ? { borderBottom: "2px solid #222" } : null
           }
@@ -74,7 +80,7 @@ const UserProfile = () => {
         <button
           onClick={handleClick}
           name="comments"
-          className="profile-nav-button"
+          className="type-selection"
           style={
             content === "comments" ? { borderBottom: "2px solid #222" } : null
           }

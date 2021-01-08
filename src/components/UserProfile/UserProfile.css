@@ -5,7 +5,7 @@
   grid-template-columns: 1fr 300px;
   grid-template-rows: 50px 1fr;
   gap: 24px;
-  margin: 1em;
+  margin: 1em auto;
 }
 
 .profile-nav {

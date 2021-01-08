@@ -51,6 +51,15 @@ function useProvideAuth() {
     setToken(null);
   };
 
+  const subscribe = (sub) => {
+    setUser({ user, subscriptions: [...user.subscriptions, sub] });
+  };
+
+  const unsubscribe = (sub) => {
+    const newSubs = user.subscriptions.filter((s) => s !== sub);
+    setUser({ user, subscriptions: newSubs });
+  };
+
   useEffect(() => {
     const unsubscribe = (user) => {
       if (user) {
@@ -69,5 +78,7 @@ function useProvideAuth() {
     login,
     signup,
     logout,
+    subscribe,
+    unsubscribe,
   };
 }
