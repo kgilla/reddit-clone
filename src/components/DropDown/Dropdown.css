@@ -1,22 +1,18 @@
 #nav-subs {
   grid-column: 3/4;
-  position: relative;
 }
 
 #sub-nav-button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
   width: 100%;
   max-width: 270px;
   height: 40px;
-  padding: 0.75em;
-  border: 1px solid #fff;
+  padding: 1.5em;
+  border: 1px solid #ddd;
   border-radius: 4px;
   outline: none;
-  font-weight: 700;
-  color: #222;
   background-color: #fff;
   text-align: center;
 }
@@ -24,6 +20,16 @@
 #sub-nav-button:hover {
   border: 1px solid #ddd;
   filter: none;
+}
+
+.profile-box {
+  background-color: var(--blue);
+  height: 60px;
+}
+
+.menu-icon {
+  color: #444;
+  height: 30px;
 }
 
 .dropdown-button-text {
@@ -35,27 +41,40 @@
 }
 
 .dropdown-button-icon {
-  height: 10px;
-  width: 10px;
+  height: 15px;
+  width: 15px;
   color: #888;
+}
+
+.dropdown-profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  height: 60px;
+  background-color: var(--blue);
+}
+
+.dropdown-username {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
 }
 
 #sub-dropdown {
   position: absolute;
-  top: 34px;
+  top: 0;
   right: 0;
-  width: 270px;
-  height: 482px;
-  margin-top: -1px;
-  overflow-y: scroll;
+  width: 300px;
+  height: 100vh;
   display: grid;
   grid-template-columns: 1fr;
   gap: 1em;
+  border-left: 1px solid #ddd;
   background-color: #fff;
-  border: 1px solid #eee;
-  border-top: 0 solid #fff;
-  border-radius: 0 0 4px 4px;
+  overflow-y: scroll;
   z-index: 1;
+  transition: all 0.2s ease-in-out;
 }
 
 .dropdown-section {
@@ -75,6 +94,56 @@
 .dropdown-heading {
   padding: 8px 16px;
   color: #888;
-  font-size: 0.7em;
+  font-size: 0.9em;
   font-weight: 500;
+}
+
+.dropdown-button-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logout-button {
+  margin-top: 16px;
+  width: 100%;
+}
+
+.dropdown-show {
+  animation: slide-in 0.3s ease-in-out;
+}
+
+.dropdown-hide {
+  animation: slide-out 0.3s ease-in-out;
+}
+
+.close-button {
+  padding: 0.5em;
+  margin: 0.5em;
+  border: none;
+  background-color: transparent;
+}
+
+.close-button-icon {
+  height: 2em;
+  width: 2em;
+  color: #fff;
+}
+
+@keyframes slide-in {
+  from {
+    right: -300px;
+  }
+  to {
+    right: 0px;
+  }
+}
+
+@keyframes slide-out {
+  from {
+    right: 0px;
+  }
+  to {
+    right: -300px;
+  }
 }

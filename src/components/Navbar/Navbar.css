@@ -19,14 +19,14 @@
 #nav-sub-container {
   display: flex;
   align-items: center;
-  position: relative;
 }
 
-#nav-buttons {
-  grid-column: 4/5;
+.nav-buttons {
   display: grid;
   gap: 1em;
   grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  align-content: center;
 }
 
 .nav-button {
@@ -43,9 +43,23 @@
   text-decoration: none;
 }
 
-.nav-icon {
-  height: 1.25em;
-  width: 1.25em;
-  margin-right: 0.25em;
-  color: var(--blue);
+@media (max-width: 575.9px) {
+  .sub-page {
+    grid-template-columns: 1fr;
+    margin: 1.5em 0;
+  }
+}
+
+@media (min-width: 576px) {
+  .sub-page {
+    grid-template-columns: 1fr;
+    margin: 1.5em;
+  }
+}
+
+@media (min-width: 950px) {
+  .sub-page {
+    grid-template-columns: 1fr 300px;
+    margin: 1.5em;
+  }
 }

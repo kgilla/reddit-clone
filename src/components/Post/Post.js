@@ -3,6 +3,7 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 import { Message } from "@styled-icons/entypo";
 import { useFlash } from "../../hooks/use-flash-message";
 import { useAuth } from "../../hooks/use-auth";
+import { useWindowSize } from "../../hooks/use-window-size";
 import moment from "moment";
 import Score from "../Score";
 import { useState } from "react";
@@ -12,10 +13,9 @@ const Post = ({ post, link }) => {
   const [score, setScore] = useState(post.score);
   const flash = useFlash();
   const auth = useAuth();
+  const windowSize = useWindowSize();
   const history = useHistory();
   const location = useLocation();
-
-  console.log(location);
 
   const handleClick = async (e) => {
     let result = window.confirm("Are you sure you want to delete this post?");
@@ -49,12 +49,14 @@ const Post = ({ post, link }) => {
 
   return (
     <div className="post-container">
-      <Score
-        score={score}
-        item={post}
-        type="post"
-        handleChoice={handleScoreChange}
-      />
+      {windowSize.width > 800 ? (
+        <Score
+          score={score}
+          item={post}
+          type="post"
+          handleChoice={handleScoreChange}
+        />
+      ) : null}
       <article>
         <header className="card-header">
           <Link to={`/s/${post.sub._id}`} className="sub-link">
@@ -86,6 +88,7 @@ const Post = ({ post, link }) => {
           <h2 className="post-title">{post.title}</h2>
           {post.type === "video" ? (
             <iframe
+              className="post-content-video"
               width="806"
               height="453"
               src={`https://www.youtube.com/embed/${post.content}`}
@@ -94,7 +97,13 @@ const Post = ({ post, link }) => {
               allowfullscreen
             ></iframe>
           ) : post.type === "link" ? (
-            <a href={post.content}>{post.content}</a>
+            <div>
+              {" "}
+              <br />
+              <a className="post-content-link" href={post.content}>
+                {post.content}
+              </a>
+            </div>
           ) : (
             <p className="post-content">
               {post.content}
@@ -103,6 +112,14 @@ const Post = ({ post, link }) => {
           )}
         </main>
         <footer className="card-footer">
+          {windowSize.width < 800 ? (
+            <Score
+              score={score}
+              item={post}
+              type="post"
+              handleChoice={handleScoreChange}
+            />
+          ) : null}
           <span className="footer-item">
             <Message className="reply-bubble" />
             {post.commentCount === 1
@@ -110,21 +127,17 @@ const Post = ({ post, link }) => {
               : post.commentCount + " Comments"}
           </span>
           {auth.user && auth.user._id === post.author._id ? (
-            <div className="footer-button-container">
-              <Link
-                to={`/s/${post.sub._id}/posts/${post._id}/update`}
-                className="footer-button"
-              >
-                Edit
-              </Link>
-              <button
-                className="footer-button"
-                name="delete"
-                onClick={handleClick}
-              >
-                Delete
-              </button>
-            </div>
+            <Link
+              to={`/s/${post.sub._id}/posts/${post._id}/update`}
+              className="footer-item"
+            >
+              Edit
+            </Link>
+          ) : null}
+          {auth.user && auth.user._id === post.author._id ? (
+            <button className="footer-item" name="delete" onClick={handleClick}>
+              Delete
+            </button>
           ) : null}
         </footer>
       </article>

@@ -11,13 +11,14 @@ const SubscribeButton = ({ subData }) => {
 
   useEffect(() => {
     const isUserSubscribed = () => {
-      const response = auth.user.subscriptions.some(
-        (sub) => sub === subData._id
-      );
-      setUserSubscribed(response);
+      if (auth.user.subscriptions.some((sub) => sub === subData._id)) {
+        setUserSubscribed(true);
+      } else if (localStorage.getItem(subData._id)) {
+        setUserSubscribed(true);
+      }
     };
     isUserSubscribed();
-  }, [subData, auth.user._id, auth.user.subscriptions]);
+  });
 
   const subscribe = async () => {
     try {
@@ -28,6 +29,7 @@ const SubscribeButton = ({ subData }) => {
       );
       if (response.ok) {
         flash.changeMessage(`Now subscribed to ${subData.name}`);
+        localStorage.setItem(subData._id, true);
       } else {
         console.log("something went wrong");
       }
@@ -45,6 +47,7 @@ const SubscribeButton = ({ subData }) => {
       );
       if (response.ok) {
         flash.changeMessage(`Unsubscribed from ${subData.name}`);
+        localStorage.removeItem(subData._id);
       } else {
         console.log("something went wrong");
       }

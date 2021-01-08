@@ -19,7 +19,7 @@ const CommentIndex = ({ comments, post, refreshPost }) => {
 
   return (
     <div id="comments-container">
-      <h2>Leave A Comment</h2>
+      <h3>Leave A Comment</h3>
       <div>
         <CommentForm post={post} refreshPost={refreshPost} />
       </div>

@@ -1,9 +1,12 @@
 .subscribe-button-container {
-  grid-column: 3/4;
+  position: relative;
   width: 100px;
   margin-left: 32px;
+  z-index: 5;
 }
 
 .subscribe-button {
+  position: relative;
   height: 32px;
+  z-index: 5;
 }

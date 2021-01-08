@@ -2,7 +2,7 @@
   height: calc(100vh - 48px);
   display: grid;
   width: 100%;
-  grid-template-columns: 300px 1fr;
+  grid-template-columns: auto 1fr;
   background-color: #fff;
 }
 
@@ -66,4 +66,22 @@ input[type="color"] {
   padding: 0px;
   height: 40px;
   width: 20%;
+}
+
+@media (max-width: 575.9px) {
+  .form-container {
+    grid-template-columns: 20px 1fr;
+  }
+}
+
+@media (min-width: 576px) {
+  .form-container {
+    grid-template-columns: 100px 1fr;
+  }
+}
+
+@media (min-width: 800px) {
+  .form-container {
+    grid-template-columns: 300px 1fr;
+  }
 }

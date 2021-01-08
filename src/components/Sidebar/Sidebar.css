@@ -46,3 +46,14 @@
   font-size: 0.8em;
   color: #888;
 }
+
+.sub-preview {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+}
+
+.sub-preview:hover {
+  text-decoration: underline;
+}

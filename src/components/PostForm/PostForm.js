@@ -1,7 +1,7 @@
 import "./PostForm.css";
 import { fetchGetData, fetchPostData, fetchPutData } from "../../api/index";
 import { useState, useEffect } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams, useLocation } from "react-router-dom";
 import { useAuth } from "../../hooks/use-auth";
 import { useFlash } from "../../hooks/use-flash-message";
 import { useForm } from "react-hook-form";
@@ -10,6 +10,8 @@ import * as yup from "yup";
 import { Input, Textarea, Form, Select } from "../FormComponents";
 
 const PostForm = ({ edit }) => {
+  const location = useLocation();
+  console.log(location);
   const auth = useAuth();
   const flash = useFlash();
   const history = useHistory();
@@ -244,7 +246,7 @@ const PostForm = ({ edit }) => {
         <Select
           name="sub"
           label="Community"
-          defaultValue={subID}
+          defaultValue={location ? location.state.subID : null}
           optionsArray={subs}
           ref={register}
           error={errors.sub ? errors.sub.message : null}

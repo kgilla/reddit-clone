@@ -45,7 +45,7 @@ const Score = ({ score, item, type, handleChoice }) => {
           style={choice === "up" ? { color: "var(--orange)" } : null}
         />
       </button>
-      {type === "post" ? score : null}
+      {type === "post" ? <span className="score-number">{score}</span> : null}
       <button
         name="down"
         onClick={auth.user ? handleClick : null}

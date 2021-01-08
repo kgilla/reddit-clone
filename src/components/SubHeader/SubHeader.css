@@ -5,7 +5,7 @@
 }
 
 .community-theme {
-  height: 70px;
+  height: 40px;
   background-color: purple;
 }
 
@@ -42,7 +42,6 @@
 
 .header-sub-container {
   display: flex;
-  padding-left: 16px;
   margin-top: 24px;
 }
 
@@ -63,4 +62,9 @@
   margin-top: 4px;
   font-size: 0.9em;
   color: #888;
+}
+
+.sub-header-buttons {
+  display: flex;
+  flex-direction: column;
 }

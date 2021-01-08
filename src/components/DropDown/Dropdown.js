@@ -11,13 +11,14 @@ import DropdownItem from "../DropdownItem";
 //icons
 import { SpaceShip } from "@styled-icons/remix-fill";
 import { TrendingUp } from "@styled-icons/material";
-import { DownArrow, Home } from "@styled-icons/boxicons-solid";
+import { Home } from "@styled-icons/boxicons-solid";
+import { User } from "@styled-icons/fa-solid";
+import { Menu, Close } from "@styled-icons/evaicons-solid";
 
-const Dropdown = () => {
+const Dropdown = ({ logout }) => {
   const auth = useAuth();
   const [subs, setSubs] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
-  const [selectedSub, setSelectedSub] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,16 +35,8 @@ const Dropdown = () => {
     auth.token ? fetchData() : setSubs(null);
   }, [auth.token, showDropdown]);
 
-  const handleShowChange = () => {
-    showDropdown ? setShowDropdown(false) : setShowDropdown(true);
-  };
-
   const handleClick = () => {
     showDropdown ? setShowDropdown(false) : setShowDropdown(true);
-  };
-
-  const changeSelectedSub = (sub) => {
-    setSelectedSub(sub);
   };
 
   const createData = (href, title) => {
@@ -51,7 +44,6 @@ const Dropdown = () => {
       href,
       title,
       onClick: handleClick,
-      changeSelectedSub,
     };
   };
 
@@ -68,18 +60,28 @@ const Dropdown = () => {
         onClick={handleClick}
         style={showDropdown ? dropdownStyle : null}
       >
-        <span className="dropdown-button-text">
-          <SpaceShip className="dropdown-item-icon" />
-          {selectedSub ? selectedSub : "Communities"}
-        </span>
-        <DownArrow className="dropdown-button-icon" />
+        <Menu className="menu-icon" />
       </button>
       {showDropdown ? (
         <div>
-          <div id="dropdown-overlay" onClick={handleShowChange}></div>
-          <div id="sub-dropdown">
+          <div id="dropdown-overlay" onClick={handleClick}></div>
+
+          <div
+            id="sub-dropdown"
+            className={showDropdown ? "dropdown-show" : "dropdown-hide"}
+          >
+            <header className="dropdown-profile-header">
+              <h5 className="dropdown-username">{auth.user.username}</h5>
+              <button className="close-button" onClick={handleClick}>
+                <Close className="close-button-icon" />
+              </button>
+            </header>
             <div className="dropdown-section">
-              <h6 className="dropdown-heading">My Feeds</h6>
+              <DropdownItem
+                data={createData(`/users/${auth.user.username}`, "Profile")}
+              >
+                <User className="dropdown-item-icon" />
+              </DropdownItem>
               <DropdownItem data={createData("/", "Home")}>
                 <Home className="dropdown-item-icon" />
               </DropdownItem>
@@ -116,6 +118,12 @@ const Dropdown = () => {
                 <SpaceShip className="dropdown-item-icon" />
               </DropdownItem>
             </div>
+            <div className="dropdown-button-box">
+              <button className="button-outline logout-button" onClick={logout}>
+                Logout
+              </button>
+            </div>
+            <br />
           </div>
         </div>
       ) : null}

@@ -12,7 +12,6 @@
 }
 
 .posts-container {
-  width: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -29,7 +28,7 @@
 @media (max-width: 575.9px) {
   .sub-page {
     grid-template-columns: 1fr;
-    margin: 1.5em 0;
+    margin: 8px 0;
   }
 }
 

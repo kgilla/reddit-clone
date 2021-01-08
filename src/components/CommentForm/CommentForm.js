@@ -97,14 +97,14 @@ const CommentForm = (props) => {
   ) : (
     <div className="no-user-box">
       <span>Log in or sign up to leave a comment</span>
-      <ul id="nav-buttons">
+      <div className="nav-buttons">
         <Link to="/signup" className="button-outline nav-button">
           Sign Up
         </Link>
         <Link to="/login" className="button-filled nav-button">
           Log In
         </Link>
-      </ul>
+      </div>
     </div>
   );
 };

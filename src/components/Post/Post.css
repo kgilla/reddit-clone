@@ -1,7 +1,6 @@
 .post-container {
   position: relative;
   display: grid;
-  grid-template-columns: 50px 1fr;
   padding: 0.5em 0;
   margin-bottom: 8px;
   border: 1px solid #ccc;
@@ -21,6 +20,8 @@
 .card-footer {
   display: grid;
   grid-template-columns: auto auto auto 1fr;
+  align-content: center;
+  align-items: center;
   gap: 8px;
   font-size: 0.8em;
   color: #888;
@@ -98,7 +99,33 @@
   cursor: pointer;
 }
 
+.post-content-link,
+.post-content-video {
+  position: relative;
+  z-index: 4;
+}
+
 iframe {
   width: 100%;
+  min-height: 300px;
+  height: auto;
   max-width: 800px;
+}
+
+@media (max-width: 575.9px) {
+  .post-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 576px) {
+  .post-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 800px) {
+  .post-container {
+    grid-template-columns: 50px 1fr;
+  }
 }

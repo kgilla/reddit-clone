@@ -35,16 +35,19 @@ const Sidebar = ({ sub, user, score }) => {
     return (
       <div id="sidebar-container">
         <SidebarItem
-          color={sub.color}
+          color={sub ? sub.color : null}
           heading="About Community"
           footing={"Created: " + moment(sub.dateCreated).format("MMMM Do YYYY")}
         >
           <p>{sub.description}</p>
         </SidebarItem>
         {auth.user ? (
-          <SidebarItem heading="Create Content" color={sub.color}>
+          <SidebarItem heading="Create Content" color={sub ? sub.color : null}>
             <div className="button-box">
-              <Link to="/submit" className="button-filled">
+              <Link
+                to={{ pathname: "/submit", state: { subID: sub._id } }}
+                className="button-filled"
+              >
                 Create Post
               </Link>
               <Link to="/s/create" className="button-outline">
@@ -54,7 +57,7 @@ const Sidebar = ({ sub, user, score }) => {
           </SidebarItem>
         ) : null}
         <SidebarItem
-          color={sub.color}
+          color={sub ? sub.color : null}
           heading="Other Communities"
           footing={
             <div className="button-box">
@@ -66,16 +69,15 @@ const Sidebar = ({ sub, user, score }) => {
         >
           {subs
             ? subs.map((sub) => (
-                <Link
-                  to={`/s/${sub._id}`}
-                  key={sub._id}
-                  className="sub-preview-link"
-                >
-                  <div className="sub-preview">
-                    <div className="small-sub-image sub-image"></div>
-                    {sub.name}
-                  </div>
-                </Link>
+                <div className="sub-preview">
+                  <div className="small-sub-image sub-image"></div>
+                  {sub.name}
+                  <Link
+                    to={`/s/${sub._id}`}
+                    key={sub._id}
+                    className="sub-preview-link"
+                  />
+                </div>
               ))
             : null}
         </SidebarItem>

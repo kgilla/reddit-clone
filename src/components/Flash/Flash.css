@@ -3,6 +3,7 @@
   bottom: 50px;
   left: 50%;
   height: 40px;
+  width: 60%;
   min-width: 200px;
   transform: translate(-50%, 0);
   display: flex;
