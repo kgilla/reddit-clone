@@ -1,7 +1,6 @@
 .subscribe-button-container {
   position: relative;
   width: 100px;
-  margin-left: 32px;
   z-index: 5;
 }
 

@@ -1,5 +1,5 @@
 import "./Post.css";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Message } from "@styled-icons/entypo";
 import { useFlash } from "../../hooks/use-flash-message";
 import { useAuth } from "../../hooks/use-auth";
@@ -8,23 +8,23 @@ import moment from "moment";
 import Score from "../Score";
 import { useState } from "react";
 import { fetchPutData, fetchDeleteData } from "../../api";
+import { baseUrl } from "../../config/const";
 
-const Post = ({ post, link }) => {
+const Post = ({ post, link, handleRemove }) => {
   const [score, setScore] = useState(post.score);
   const flash = useFlash();
   const auth = useAuth();
   const windowSize = useWindowSize();
   const history = useHistory();
-  const location = useLocation();
 
   const handleClick = async (e) => {
     let result = window.confirm("Are you sure you want to delete this post?");
     if (result) {
-      const url = `http://localhost:3000/api/s/${post.sub._id}/posts/${post._id}/delete`;
+      const url = `${baseUrl}/api/s/${post.sub._id}/posts/${post._id}/delete`;
       const response = await fetchDeleteData(url, auth.token);
       if (response.ok) {
         flash.changeMessage("Post deleted successfully!");
-        history.push("/");
+        handleRemove ? handleRemove(post._id) : history.push("/");
       } else {
         console.log("Not Okay.");
       }
@@ -43,8 +43,14 @@ const Post = ({ post, link }) => {
   };
 
   const castVote = async (value) => {
-    const url = `http://localhost:3000/api/s/${post.sub._id}/posts/${post._id}/vote`;
+    const url = `${baseUrl}/api/s/${post.sub._id}/posts/${post._id}/vote`;
     await fetchPutData(url, { value }, auth.token);
+  };
+
+  const youtubeParser = (url) => {
+    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+    var match = url.match(regExp);
+    return match && match[7].length === 11 ? match[7] : false;
   };
 
   return (
@@ -88,10 +94,13 @@ const Post = ({ post, link }) => {
           <h2 className="post-title">{post.title}</h2>
           {post.type === "video" ? (
             <iframe
+              title={post.title}
               className="post-content-video"
               width="806"
               height="453"
-              src={`https://www.youtube.com/embed/${post.content}`}
+              src={`https://www.youtube.com/embed/${youtubeParser(
+                post.content
+              )}`}
               frameborder="0"
               allow="clipboard-write; encrypted-media;"
               allowfullscreen
@@ -105,10 +114,7 @@ const Post = ({ post, link }) => {
               </a>
             </div>
           ) : (
-            <p className="post-content">
-              {post.content}
-              {post.type}
-            </p>
+            <p className="post-content">{post.content}</p>
           )}
         </main>
         <footer className="card-footer">
@@ -127,17 +133,21 @@ const Post = ({ post, link }) => {
               : post.commentCount + " Comments"}
           </span>
           {auth.user && auth.user._id === post.author._id ? (
-            <Link
-              to={`/s/${post.sub._id}/posts/${post._id}/update`}
-              className="footer-item"
-            >
-              Edit
-            </Link>
-          ) : null}
-          {auth.user && auth.user._id === post.author._id ? (
-            <button className="footer-item" name="delete" onClick={handleClick}>
-              Delete
-            </button>
+            <div className="user-options">
+              <Link
+                to={`/s/${post.sub._id}/posts/${post._id}/update`}
+                className="user-option"
+              >
+                Edit
+              </Link>
+              <button
+                className="user-option"
+                name="delete"
+                onClick={handleClick}
+              >
+                Delete
+              </button>
+            </div>
           ) : null}
         </footer>
       </article>

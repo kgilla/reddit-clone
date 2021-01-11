@@ -6,7 +6,7 @@
 
 .community-theme {
   height: 40px;
-  background-color: purple;
+  background-color: var(--blue);
 }
 
 .lower-header-container {
@@ -29,7 +29,7 @@
   width: 72px;
   border: 4px solid #fff;
   border-radius: 100%;
-  background-image: url("../../images/communityIcon.png");
+  background-image: url("../../images/spaceDude.jpg");
   background-position: center;
   background-size: cover;
 }
@@ -53,9 +53,9 @@
 }
 
 .sub-title {
-  font-size: 1.8em;
-  font-weight: 700;
-  color: #222;
+  font-size: 1.6em;
+  font-weight: 600;
+  color: #444;
 }
 
 .sub-address {
@@ -65,6 +65,47 @@
 }
 
 .sub-header-buttons {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 4px;
+}
+
+@media (max-width: 575.9px) {
+  .header-sub-container {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .sub-title {
+    font-size: 1.4em;
+    margin-bottom: 8px;
+  }
+
+  .sub-title-container,
+  .sub-header-buttons {
+    margin-left: 16px;
+  }
+}
+
+@media (min-width: 576px) {
+  .sub-title {
+    font-size: 1.4em;
+  }
+
+  .sub-title-container,
+  .sub-header-buttons {
+    margin-left: 16px;
+  }
+}
+
+@media (min-width: 800px) {
+  .sub-title {
+    font-size: 1.6em;
+  }
+
+  .sub-title-container,
+  .sub-header-buttons {
+    margin-left: 32px;
+  }
 }

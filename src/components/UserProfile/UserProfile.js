@@ -8,6 +8,7 @@ import { fetchGetData } from "../../api";
 import Post from "../Post";
 import Comment from "../Comment";
 import Sidebar from "../Sidebar";
+import { baseUrl } from "../../config/const";
 
 const UserProfile = () => {
   // const auth = useAuth();
@@ -19,10 +20,7 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetchGetData(
-          `http://localhost:3000/api/users/${username}`
-        );
-        console.log(response);
+        const response = await fetchGetData(`${baseUrl}/api/users/${username}`);
         setUser(response.user);
       } catch (err) {
         console.log(err);
@@ -43,8 +41,20 @@ const UserProfile = () => {
     e.target.name === "posts" ? setContent("posts") : setContent("comments");
   };
 
+  const removePost = (id) => {
+    const newPosts = user.posts.filter((post) => post._id !== id);
+    setUser({ ...user, posts: newPosts });
+  };
+
+  const removeComment = (id) => {
+    const newComments = user.comments.filter((comment) => comment._id !== id);
+    setUser({ ...user, comments: newComments });
+  };
+
   const mapPosts = () => {
-    return user.posts.map((post) => <Post key={post._id} post={post} />);
+    return user.posts.map((post) => (
+      <Post key={post._id} post={post} link="true" handleRemove={removePost} />
+    ));
   };
 
   const mapComments = () => {
@@ -59,14 +69,14 @@ const UserProfile = () => {
             <span>deleted</span>
           )}
         </div>
-        <Comment comment={comment} />
+        <Comment comment={comment} handleRemove={removeComment} />
       </div>
     ));
   };
 
   return user ? (
     <div className="user-profile-container">
-      <nav className="type-selector">
+      <nav className="profile-nav">
         <button
           onClick={handleClick}
           name="posts"

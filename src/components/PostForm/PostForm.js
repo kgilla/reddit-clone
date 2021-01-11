@@ -7,6 +7,7 @@ import { useFlash } from "../../hooks/use-flash-message";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { baseUrl } from "../../config/const";
 import { Input, Textarea, Form, Select } from "../FormComponents";
 
 const PostForm = ({ edit }) => {
@@ -80,10 +81,7 @@ const PostForm = ({ edit }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetchGetData(
-        "http://localhost:3000/api/s/user",
-        auth.token
-      );
+      const response = await fetchGetData(`${baseUrl}/api/s/user`, auth.token);
       setSubs(response.subs);
     };
     if (!edit) fetchData();
@@ -92,7 +90,7 @@ const PostForm = ({ edit }) => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetchGetData(
-        `http://localhost:3000/api/s/${subID}/posts/${postID}`
+        `${baseUrl}/api/s/${subID}/posts/${postID}`
       );
       console.log(response);
       if (response.post.type) {
@@ -103,8 +101,9 @@ const PostForm = ({ edit }) => {
       } else if (response.post.type && response.post.type === "link") {
         setValue("link", response.post.content, { shouldValidate: true });
       } else {
-        setValue("title", response.post.title, { shouldValidate: true });
+        setValue("content", response.post.content, { shouldValidate: true });
       }
+      setValue("title", response.post.title, { shouldValidate: true });
     };
     if (edit) {
       fetchData();
@@ -114,7 +113,6 @@ const PostForm = ({ edit }) => {
   const onSubmit = (data) => {
     let { title, sub, content, video, link } = data;
     if (type === "video") {
-      video = youtubeParser(data.video);
       data = { title, content: video, type, sub };
     } else if (type === "link") {
       data = { title, sub, type, content: link };
@@ -163,15 +161,9 @@ const PostForm = ({ edit }) => {
     );
   };
 
-  const youtubeParser = (url) => {
-    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-    var match = url.match(regExp);
-    return match && match[7].length == 11 ? match[7] : false;
-  };
-
   const createPost = async (data) => {
     const response = await fetchPostData(
-      `http://localhost:3000/api/s/${subID}/posts/create`,
+      `${baseUrl}/api/s/${subID}/posts/create`,
       data,
       auth.token
     );
@@ -185,7 +177,7 @@ const PostForm = ({ edit }) => {
 
   const updatePost = async (data) => {
     try {
-      const url = `http://localhost:3000/api/s/${subID}/posts/${postID}/update`;
+      const url = `${baseUrl}/api/s/${subID}/posts/${postID}/update`;
       const response = await fetchPutData(url, data, auth.token);
       if (response.ok) {
         flash.changeMessage("Post updated successfully");
@@ -246,7 +238,7 @@ const PostForm = ({ edit }) => {
         <Select
           name="sub"
           label="Community"
-          defaultValue={location ? location.state.subID : null}
+          defaultValue={location.state ? location.state.subID : null}
           optionsArray={subs}
           ref={register}
           error={errors.sub ? errors.sub.message : null}

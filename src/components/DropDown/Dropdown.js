@@ -4,6 +4,7 @@ import "./Dropdown.css";
 import { useState, useEffect } from "react";
 import { fetchGetData } from "../../api";
 import { useAuth } from "../../hooks/use-auth";
+import { baseUrl } from "../../config/const";
 
 //components
 import DropdownItem from "../DropdownItem";
@@ -12,6 +13,7 @@ import DropdownItem from "../DropdownItem";
 import { SpaceShip } from "@styled-icons/remix-fill";
 import { TrendingUp } from "@styled-icons/material";
 import { Home } from "@styled-icons/boxicons-solid";
+import { World } from "@styled-icons/boxicons-regular";
 import { User } from "@styled-icons/fa-solid";
 import { Menu, Close } from "@styled-icons/evaicons-solid";
 
@@ -24,7 +26,7 @@ const Dropdown = ({ logout }) => {
     const fetchData = async () => {
       try {
         const response = await fetchGetData(
-          "http://localhost:3000/api/s/user",
+          `${baseUrl}/api/s/user`,
           auth.token
         );
         setSubs(response.subs);
@@ -61,6 +63,7 @@ const Dropdown = ({ logout }) => {
         style={showDropdown ? dropdownStyle : null}
       >
         <Menu className="menu-icon" />
+        <span className="dropdown-button-text">Menu</span>
       </button>
       {showDropdown ? (
         <div>
@@ -84,6 +87,9 @@ const Dropdown = ({ logout }) => {
               </DropdownItem>
               <DropdownItem data={createData("/", "Home")}>
                 <Home className="dropdown-item-icon" />
+              </DropdownItem>
+              <DropdownItem data={createData("/s/all", "All")}>
+                <World className="dropdown-item-icon" />
               </DropdownItem>
               <DropdownItem
                 data={createData("/s/browse", "Browse Communities")}
@@ -123,7 +129,7 @@ const Dropdown = ({ logout }) => {
                 Logout
               </button>
             </div>
-            <br />
+            <div className="blue-box"></div>
           </div>
         </div>
       ) : null}

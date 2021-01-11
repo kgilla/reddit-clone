@@ -1,11 +1,12 @@
-.type-selctor {
+.type-selector {
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
 }
 
 .type-selection {
-  width: 33.33333%;
+  width: 100%;
   padding: 16px;
   background-color: #fff;
   border: none;
@@ -19,6 +20,7 @@
 
 .type-selection:hover {
   background-color: #eaf2f8;
+  border-bottom: 2px solid #eaf2f8;
 }
 
 .selected {

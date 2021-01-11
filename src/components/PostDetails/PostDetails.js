@@ -2,7 +2,7 @@ import "./PostDetails.css";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { fetchGetData } from "../../api";
-
+import { baseUrl } from "../../config/const";
 import CommentIndex from "../CommentIndex";
 import Post from "../Post";
 import Sidebar from "../Sidebar";
@@ -17,7 +17,7 @@ const PostDetails = () => {
     const fetchData = async () => {
       setIsLoading(true);
       const response = await fetchGetData(
-        `http://localhost:3000/api/s/${subID}/posts/${postID}`
+        `${baseUrl}/api/s/${subID}/posts/${postID}`
       );
       setPost(response.post);
       setIsLoading(false);
@@ -28,7 +28,7 @@ const PostDetails = () => {
   const refreshPost = async () => {
     setIsLoading(true);
     const response = await fetchGetData(
-      `http://localhost:3000/api/s/${subID}/posts/${postID}`
+      `${baseUrl}/api/s/${subID}/posts/${postID}`
     );
     setPost(response.post);
     setIsLoading(false);

@@ -3,8 +3,6 @@
   bottom: 50px;
   left: 50%;
   height: 40px;
-  width: 60%;
-  min-width: 200px;
   transform: translate(-50%, 0);
   display: flex;
   align-items: center;
@@ -25,6 +23,6 @@
   text-align: center;
   padding: 0 16px;
   font-size: 1em;
-  font-weight: 600;
+  font-weight: 500;
   color: #444;
 }

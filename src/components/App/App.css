@@ -63,7 +63,7 @@ h6 {
 }
 
 .button-filled {
-  border: 1px solid #ddd;
+  border: 1px solid var(--blue);
   background-color: var(--blue);
   color: #fff;
 }
@@ -76,6 +76,11 @@ h6 {
 
 button:hover {
   cursor: pointer;
+}
+
+.button-icon {
+  height: 20px;
+  color: #fff;
 }
 
 #main-container {

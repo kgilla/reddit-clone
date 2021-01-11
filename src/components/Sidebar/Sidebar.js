@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { fetchGetData } from "../../api";
 import SidebarItem from "../SidebarItem";
 import moment from "moment";
+import { baseUrl } from "../../config/const";
 
 const Sidebar = ({ sub, user, score }) => {
   const auth = useAuth();
@@ -14,7 +15,7 @@ const Sidebar = ({ sub, user, score }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetchGetData("http://localhost:3000/api/s/");
+      const response = await fetchGetData(`${baseUrl}/api/s/`);
       shuffleArray(response.subs);
       setSubs(response.subs.slice(0, 5));
     };
@@ -37,7 +38,11 @@ const Sidebar = ({ sub, user, score }) => {
         <SidebarItem
           color={sub ? sub.color : null}
           heading="About Community"
-          footing={"Created: " + moment(sub.dateCreated).format("MMMM Do YYYY")}
+          footing={
+            sub.dateCreated
+              ? "Created: " + moment(sub.dateCreated).format("MMMM Do YYYY")
+              : null
+          }
         >
           <p>{sub.description}</p>
         </SidebarItem>

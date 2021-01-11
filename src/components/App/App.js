@@ -5,6 +5,7 @@ import { ProvideFlash } from "../../hooks/use-flash-message";
 
 import Navbar from "../Navbar";
 import Home from "../Home";
+import All from "../All";
 import Sub from "../Sub";
 import PostForm from "../PostForm";
 import SubForm from "../SubForm";
@@ -46,6 +47,9 @@ function App() {
                 </PrivateRoute>
                 <Route path="/s/browse">
                   <SubIndex />
+                </Route>
+                <Route path="/s/all">
+                  <All />
                 </Route>
                 <Route path="/s/:subID">
                   <Sub />

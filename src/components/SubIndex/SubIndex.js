@@ -2,9 +2,8 @@ import { useState, useEffect } from "react";
 import { fetchGetData } from "../../api";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/use-auth";
-import moment from "moment";
 import "./SubIndex.css";
-
+import { baseUrl } from "../../config/const";
 import Loader from "../Loader";
 import SubscribeButton from "../SubscribeButton";
 
@@ -17,7 +16,7 @@ const SubIndex = () => {
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      const response = await fetchGetData("http://localhost:3000/api/s/");
+      const response = await fetchGetData(`${baseUrl}/api/s/`);
       setSubs(response.subs);
       setIsLoading(false);
     };
@@ -38,14 +37,15 @@ const SubIndex = () => {
         ) : subs ? (
           subs.map((sub) => (
             <div className="sub-preview-large">
-              <div
-                className="sub-circle"
-                style={sub.color ? { backgroundColor: sub.color } : null}
-              ></div>
-              <span className="sub-name preview-item">{sub.name}</span>
-              <span className="preview-item">
-                {sub.subscribers} Subscribers
-              </span>
+              <div className="preview-name-box">
+                {" "}
+                <div
+                  className="sub-circle"
+                  style={sub.color ? { backgroundColor: sub.color } : null}
+                ></div>
+                <span className="sub-name preview-item">{sub.name}</span>
+              </div>
+
               {auth.user ? <SubscribeButton subData={sub} /> : null}
               <Link
                 to={`${sub._id}`}

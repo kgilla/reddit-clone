@@ -7,25 +7,14 @@ import { useState, useEffect } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Input, Form, Textarea } from "../FormComponents";
+import { baseUrl } from "../../config/const";
 
 const SubForm = ({ edit }) => {
   const { subID } = useParams() || "";
   const auth = useAuth();
   const flash = useFlash();
   const history = useHistory();
-
   const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const getSubData = async () => {
-      const response = await fetchGetData(`http://localhost:3000/api/s/${subID}
-      `);
-      setValue("name", response.sub.name);
-      setValue("description", response.sub.description);
-      setValue("color", response.sub.color);
-    };
-    if (edit) getSubData();
-  }, [edit]);
 
   const makeSchema = () => {
     if (edit) {
@@ -52,6 +41,17 @@ const SubForm = ({ edit }) => {
     resolver: yupResolver(makeSchema()),
   });
 
+  useEffect(() => {
+    const getSubData = async () => {
+      const response = await fetchGetData(`${baseUrl}/api/s/${subID}
+      `);
+      setValue("name", response.sub.name);
+      setValue("description", response.sub.description);
+      setValue("color", response.sub.color);
+    };
+    if (edit) getSubData();
+  }, [edit, setValue, subID]);
+
   const onSubmit = (data) => {
     edit ? updateSub(data) : createSub(data);
   };
@@ -59,7 +59,7 @@ const SubForm = ({ edit }) => {
   const createSub = async (data) => {
     try {
       const response = await fetchPostData(
-        `http://localhost:3000/api/s/create`,
+        `${baseUrl}/api/s/create`,
         data,
         auth.token
       );
@@ -76,7 +76,7 @@ const SubForm = ({ edit }) => {
   const updateSub = async (data) => {
     try {
       const response = await fetchPutData(
-        `http://localhost:3000/api/s/${subID}/update`,
+        `${baseUrl}/api/s/${subID}/update`,
         data,
         auth.token
       );

@@ -2,6 +2,7 @@ import "./SubHeader.css";
 import { useAuth } from "../../hooks/use-auth";
 import { Link } from "react-router-dom";
 import SubscribeButton from "../SubscribeButton";
+import { Options2 } from "@styled-icons/evaicons-solid";
 
 const SubHeader = ({ subData }) => {
   const auth = useAuth();
@@ -20,14 +21,14 @@ const SubHeader = ({ subData }) => {
             </div>
             <div className="sub-header-buttons">
               {auth.user ? <SubscribeButton subData={subData} /> : null}
-              {/* {auth.user && subData.creator === auth.user._id ? (
+              {auth.user && subData.creator === auth.user._id ? (
                 <Link
                   to={`/s/${subData._id}/update`}
                   className="button-filled nav-button"
                 >
-                  Edit Community
+                  <Options2 className="button-icon" />
                 </Link>
-              ) : null} */}
+              ) : null}
             </div>
           </div>
         </div>

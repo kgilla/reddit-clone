@@ -8,6 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Textarea } from "../FormComponents";
 import { useEffect } from "react";
+import { baseUrl } from "../../config/const";
 
 const schema = yup.object().shape({
   content: yup.string().required().min(1).max(600),
@@ -38,7 +39,7 @@ const CommentForm = (props) => {
     try {
       parentComment ? console.log(true) : console.log(false);
       const response = await fetchPostData(
-        `http://localhost:3000/api/s/${subID}/posts/${postID}/comments/create`,
+        `${baseUrl}/api/s/${subID}/posts/${postID}/comments/create`,
         parentComment ? { content, parent: parentComment._id } : { content },
         auth.token
       );
@@ -53,7 +54,7 @@ const CommentForm = (props) => {
 
   const updateComment = async (content) => {
     try {
-      const url = `http://localhost:3000/api/s/${subID}/posts/${postID}/comments/${parent}/update`;
+      const url = `${baseUrl}/api/s/${subID}/posts/${postID}/comments/${parent}/update`;
       const response = await fetchPutData(url, { content }, auth.token);
       if (response.ok) {
         flash.changeMessage("Comment edited successfully");

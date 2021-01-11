@@ -7,9 +7,17 @@ import Score from "../Score";
 import moment from "moment";
 import { Message } from "@styled-icons/entypo";
 import { fetchPutData, fetchDeleteData } from "../../api";
+import { baseUrl } from "../../config/const";
 import "./Comment.css";
 
-const Comment = ({ comment, post, refreshPost, layer, children }) => {
+const Comment = ({
+  comment,
+  post,
+  refreshPost,
+  layer,
+  handleRemove,
+  children,
+}) => {
   const flash = useFlash();
   const auth = useAuth();
   const [openForm, setOpenForm] = useState(false);
@@ -37,11 +45,15 @@ const Comment = ({ comment, post, refreshPost, layer, children }) => {
       "Are you sure you want to delete this comment?"
     );
     if (result) {
-      const url = `http://localhost:3000/api/s/${post.sub._id}/posts/${post._id}/comments/${comment._id}/delete`;
+      const url = `${baseUrl}/api/s/${
+        post ? post.sub._id : comment.post.sub
+      }/posts/${post ? post._id : comment.post._id}/comments/${
+        comment._id
+      }/delete`;
       const response = await fetchDeleteData(url, auth.token);
       console.log(response);
       if (response.ok) {
-        refreshPost();
+        handleRemove ? handleRemove(comment._id) : refreshPost();
         flash.changeMessage("Comment Deleted");
       } else {
         flash.changeMessage("Oops! Something went wrong!");
@@ -61,7 +73,7 @@ const Comment = ({ comment, post, refreshPost, layer, children }) => {
   };
 
   const castVote = async (value) => {
-    const url = `http://localhost:3000/api/s/${post.sub._id}/posts/${post._id}/comments/${comment._id}/vote`;
+    const url = `${baseUrl}/api/s/${post.sub._id}/posts/${post._id}/comments/${comment._id}/vote`;
     await fetchPutData(url, { value }, auth.token);
   };
 

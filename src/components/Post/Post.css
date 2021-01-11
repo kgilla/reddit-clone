@@ -19,7 +19,7 @@
 .card-header,
 .card-footer {
   display: grid;
-  grid-template-columns: auto auto auto 1fr;
+  grid-template-columns: repeat(3, auto) 1fr;
   align-content: center;
   align-items: center;
   gap: 8px;
@@ -36,7 +36,8 @@
   text-decoration: none;
 }
 
-.footer-item {
+.footer-item,
+.user-option {
   display: flex;
   align-items: center;
   height: 1.25em;
@@ -44,7 +45,8 @@
   background-color: #fff;
   padding: 0;
   color: #888;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 400;
   text-decoration: none;
 }
 
@@ -86,7 +88,6 @@
 
 .sub-link {
   position: relative;
-  margin-right: 1em;
   color: #222;
   font-size: 1em;
   font-weight: 600;
@@ -95,6 +96,23 @@
 }
 
 .sub-link:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.user-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.user-option {
+  margin-right: 8px;
+  position: relative;
+  z-index: 4;
+}
+
+.user-option:hover {
   text-decoration: underline;
   cursor: pointer;
 }

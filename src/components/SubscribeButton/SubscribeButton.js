@@ -3,6 +3,7 @@ import { fetchPutData } from "../../api";
 import { useAuth } from "../../hooks/use-auth";
 import { useFlash } from "../../hooks/use-flash-message";
 import "./SubscribeButton.css";
+import { baseUrl } from "../../config/const";
 
 const SubscribeButton = ({ subData }) => {
   const auth = useAuth();
@@ -21,7 +22,7 @@ const SubscribeButton = ({ subData }) => {
   const subscribe = async () => {
     try {
       const response = await fetchPutData(
-        `http://localhost:3000/api/s/${subData._id}/subscribe`,
+        `${baseUrl}/api/s/${subData._id}/subscribe`,
         { body: "" },
         auth.token
       );
@@ -39,7 +40,7 @@ const SubscribeButton = ({ subData }) => {
   const unsubscribe = async () => {
     try {
       const response = await fetchPutData(
-        `http://localhost:3000/api/s/${subData._id}/unsubscribe`,
+        `${baseUrl}/api/s/${subData._id}/unsubscribe`,
         { body: "" },
         auth.token
       );

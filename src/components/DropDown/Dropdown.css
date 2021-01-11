@@ -35,9 +35,10 @@
 .dropdown-button-text {
   display: flex;
   align-items: center;
+  margin-left: 4px;
   font-size: 16px;
   color: #666;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .dropdown-button-icon {
@@ -70,7 +71,9 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 1em;
-  border-left: 1px solid #ddd;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-left: 1px solid var(--blue);
   background-color: #fff;
   overflow-y: scroll;
   z-index: 1;
@@ -128,6 +131,12 @@
   height: 2em;
   width: 2em;
   color: #fff;
+}
+
+.blue-box {
+  height: 30px;
+  width: 100%;
+  margin-top: 16px;
 }
 
 @keyframes slide-in {

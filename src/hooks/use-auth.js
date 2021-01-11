@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
 import { fetchPostData } from "../api";
+import { baseUrl } from "../config/const";
 
 const authContext = createContext();
 
@@ -18,10 +19,10 @@ function useProvideAuth() {
 
   const login = async (username, password) => {
     try {
-      const response = await fetchPostData(
-        "http://localhost:3000/api/users/login",
-        { username, password }
-      );
+      const response = await fetchPostData(`${baseUrl}/api/users/login`, {
+        username,
+        password,
+      });
       if (!response.user) {
         return response;
       } else if (response.user) {
@@ -36,10 +37,11 @@ function useProvideAuth() {
 
   const signup = async (username, password, email) => {
     try {
-      const response = await fetchPostData(
-        "http://localhost:3000/api/users/create",
-        { username, password, email }
-      );
+      const response = await fetchPostData(`${baseUrl}/api/users/create`, {
+        username,
+        password,
+        email,
+      });
       return response;
     } catch (err) {
       console.log(err);
@@ -52,12 +54,12 @@ function useProvideAuth() {
   };
 
   const subscribe = (sub) => {
-    setUser({ user, subscriptions: [...user.subscriptions, sub] });
+    setUser({ ...user, subscriptions: [...user.subscriptions, sub] });
   };
 
   const unsubscribe = (sub) => {
     const newSubs = user.subscriptions.filter((s) => s !== sub);
-    setUser({ user, subscriptions: newSubs });
+    setUser({ ...user, subscriptions: newSubs });
   };
 
   useEffect(() => {
