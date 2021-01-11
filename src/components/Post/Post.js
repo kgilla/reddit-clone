@@ -65,24 +65,22 @@ const Post = ({ post, link, handleRemove }) => {
       ) : null}
       <article>
         <header className="card-header">
-          <Link to={`/s/${post.sub._id}`} className="sub-link">
+          <Link to={`/s/${post.sub._id}`} className="header-item sub-link">
             {post.sub.name}
           </Link>
+          <span className="header-item">Posted by</span>
+          {post.author ? (
+            <Link
+              to={`/users/${post.author.username}`}
+              className="header-item profile-link"
+            >
+              {post.author.username}
+            </Link>
+          ) : (
+            "[Deleted]"
+          )}
           <span className="header-item">
-            Posted by{" "}
-            {post.author ? (
-              <Link
-                to={`/users/${post.author.username}`}
-                className="profile-link"
-              >
-                {post.author.username}
-              </Link>
-            ) : (
-              "[Deleted]"
-            )}
-          </span>
-          <span className="header-item">
-            ~ {moment(post.dateCreated).startOf("hour").fromNow()}
+            {moment(post.dateCreated).startOf("hour").fromNow()}
           </span>
           {post.dateEdited ? (
             <span className="header-item edited-item">
@@ -108,11 +106,16 @@ const Post = ({ post, link, handleRemove }) => {
           ) : post.type === "link" ? (
             <div>
               {" "}
-              <br />
               <a className="post-content-link" href={post.content}>
                 {post.content}
               </a>
             </div>
+          ) : post.type === "image" ? (
+            <img
+              className="post-image"
+              alt="Post Image"
+              src={post.content}
+            ></img>
           ) : (
             <p className="post-content">{post.content}</p>
           )}
@@ -126,28 +129,24 @@ const Post = ({ post, link, handleRemove }) => {
               handleChoice={handleScoreChange}
             />
           ) : null}
-          <span className="footer-item">
+          <span className="footer-item footer-reply">
             <Message className="reply-bubble" />
             {post.commentCount === 1
               ? "1 Comment"
               : post.commentCount + " Comments"}
           </span>
           {auth.user && auth.user._id === post.author._id ? (
-            <div className="user-options">
-              <Link
-                to={`/s/${post.sub._id}/posts/${post._id}/update`}
-                className="user-option"
-              >
-                Edit
-              </Link>
-              <button
-                className="user-option"
-                name="delete"
-                onClick={handleClick}
-              >
-                Delete
-              </button>
-            </div>
+            <Link
+              to={`/s/${post.sub._id}/posts/${post._id}/update`}
+              className="footer-item"
+            >
+              Edit
+            </Link>
+          ) : null}
+          {auth.user && auth.user._id === post.author._id ? (
+            <button className="footer-item" name="delete" onClick={handleClick}>
+              Delete
+            </button>
           ) : null}
         </footer>
       </article>

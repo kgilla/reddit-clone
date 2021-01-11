@@ -92,7 +92,7 @@ const Comment = ({
           <header className="card-header">
             {comment.author ? (
               <Link
-                className="profile-link"
+                className="header-item profile-link"
                 to={`/users/${comment.author.username}`}
               >
                 {comment.author.username}
@@ -118,7 +118,7 @@ const Comment = ({
           {auth.user && comment.author ? (
             <footer className="card-footer">
               {layer < 6 ? (
-                <button onClick={handleClick} className="footer-button">
+                <button onClick={handleClick} className="footer-item">
                   <Message className="reply-bubble" />
                   Reply
                 </button>
@@ -126,14 +126,14 @@ const Comment = ({
               {auth.user && auth.user._id === comment.author._id ? (
                 <div className="footer-button-container">
                   <button
-                    className="footer-button"
+                    className="footer-item"
                     name="edit"
                     onClick={handleClick}
                   >
                     Edit
                   </button>
                   <button
-                    className="footer-button"
+                    className="footer-item"
                     name="delete"
                     onClick={handleClick}
                   >

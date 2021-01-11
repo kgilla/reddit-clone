@@ -1,7 +1,7 @@
 .post-container {
   position: relative;
   display: grid;
-  padding: 0.5em 0;
+  padding: 4px;
   margin-bottom: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -12,52 +12,39 @@
 .card-header,
 .card-main,
 .card-footer {
-  padding: 4px 8px;
+  padding: 4px;
   width: 100%;
 }
 
 .card-header,
 .card-footer {
-  display: grid;
-  grid-template-columns: repeat(3, auto) 1fr;
-  align-content: center;
+  display: flex;
+  justify-content: flex-start;
   align-items: center;
-  gap: 8px;
-  font-size: 0.8em;
-  color: #888;
 }
 
-.header-item {
-  border: none;
-  background-color: #fff;
-  padding: 0;
-  color: #888;
-  font-weight: 300;
-  text-decoration: none;
-}
-
-.footer-item,
-.user-option {
+.header-item,
+.footer-item {
+  position: relative;
   display: flex;
   align-items: center;
-  height: 1.25em;
-  border: none;
-  background-color: #fff;
-  padding: 0;
-  color: #888;
-  font-size: 13px;
-  font-weight: 400;
+  height: 25px;
+  width: auto;
+  padding: 2px 0;
+  margin-right: 4px;
+  padding-right: 4px;
   text-decoration: none;
+  color: #888;
+  font-size: 14px;
+  text-align: left;
+  z-index: 4;
 }
 
-.post-title {
-  color: #222;
-  font-size: 1.2em;
-}
+/* Header */
 
-.post-content {
-  color: #444;
-  font-size: 1em;
+.header-item {
+  padding-right: 0;
+  font-weight: 300;
 }
 
 .profile-link {
@@ -67,8 +54,33 @@
   z-index: 4;
 }
 
+.sub-link {
+  position: relative;
+  margin-right: 8px;
+  color: #222;
+  font-weight: 600;
+  text-decoration: none;
+  z-index: 4;
+}
+
+.sub-link:hover,
 .profile-link:hover {
   text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Main  */
+
+.post-title {
+  margin-bottom: 8px;
+  color: #222;
+  font-size: 1.2em;
+}
+
+.post-content {
+  color: #444;
+  font-size: 1em;
+  margin: 4px 0;
 }
 
 .post-link {
@@ -80,41 +92,17 @@
   z-index: 1;
 }
 
+.post-image {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 500px;
+}
+
 .post-link:hover {
   padding: 1px;
   border: 0.1em solid #888;
   border-radius: 4px;
-}
-
-.sub-link {
-  position: relative;
-  color: #222;
-  font-size: 1em;
-  font-weight: 600;
-  text-decoration: none;
-  z-index: 4;
-}
-
-.sub-link:hover {
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.user-options {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-
-.user-option {
-  margin-right: 8px;
-  position: relative;
-  z-index: 4;
-}
-
-.user-option:hover {
-  text-decoration: underline;
-  cursor: pointer;
 }
 
 .post-content-link,
@@ -128,6 +116,22 @@ iframe {
   min-height: 300px;
   height: auto;
   max-width: 800px;
+}
+
+/* Footer */
+
+.footer-item {
+  padding: 4px;
+}
+
+.footer-item:hover {
+  background-color: #eee;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.footer-reply {
+  z-index: 0;
 }
 
 @media (max-width: 575.9px) {

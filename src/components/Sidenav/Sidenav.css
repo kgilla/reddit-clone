@@ -32,7 +32,7 @@
   height: 30px;
 }
 
-.dropdown-button-text {
+.sidenav-button-text {
   display: flex;
   align-items: center;
   margin-left: 4px;
@@ -41,13 +41,13 @@
   font-weight: 600;
 }
 
-.dropdown-button-icon {
+.sidenav-button-icon {
   height: 15px;
   width: 15px;
   color: #888;
 }
 
-.dropdown-profile-header {
+.sidenav-profile-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -56,13 +56,13 @@
   background-color: var(--blue);
 }
 
-.dropdown-username {
+.sidenav-username {
   font-size: 18px;
   font-weight: 700;
   color: #fff;
 }
 
-#sub-dropdown {
+#sub-sidenav {
   position: absolute;
   top: 0;
   right: 0;
@@ -80,28 +80,29 @@
   transition: all 0.2s ease-in-out;
 }
 
-.dropdown-section {
+.sidenav-section {
   display: flex;
   flex-direction: column;
 }
 
-#dropdown-overlay {
+#sidenav-overlay {
   position: fixed;
   height: 100vh;
   width: 100vw;
   left: 0;
   top: 0;
+  background-color: rgba(0, 0, 0, 0.7);
   z-index: 0;
 }
 
-.dropdown-heading {
+.sidenav-heading {
   padding: 8px 16px;
   color: #888;
   font-size: 0.9em;
   font-weight: 500;
 }
 
-.dropdown-button-box {
+.sidenav-button-box {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -112,11 +113,11 @@
   width: 100%;
 }
 
-.dropdown-show {
+.sidenav-show {
   animation: slide-in 0.3s ease-in-out;
 }
 
-.dropdown-hide {
+.sidenav-hide {
   animation: slide-out 0.3s ease-in-out;
 }
 

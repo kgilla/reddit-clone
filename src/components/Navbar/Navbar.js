@@ -1,6 +1,6 @@
 import "./Navbar.css";
 import { Link, useHistory } from "react-router-dom";
-import Dropdown from "../DropDown";
+import Sidenav from "../Sidenav";
 import { useAuth } from "../../hooks/use-auth";
 
 const Navbar = () => {
@@ -20,7 +20,7 @@ const Navbar = () => {
         </Link>
         <div id="nav-sub-container">
           {auth.user ? (
-            <Dropdown logout={handleLogout} />
+            <Sidenav logout={handleLogout} />
           ) : (
             <div className="nav-buttons">
               <Link to="/signup" className="button-outline nav-button">

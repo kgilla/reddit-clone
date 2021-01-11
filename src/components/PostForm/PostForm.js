@@ -35,6 +35,22 @@ const PostForm = ({ edit }) => {
             .trim(),
           content: yup.string().max(2000).trim(),
         })
+      : type === "image"
+      ? yup.object().shape({
+          title: yup
+            .string()
+            .required("Title is required")
+            .min(3)
+            .max(300)
+            .trim(),
+          image: yup
+            .string()
+            .url("Something doesn't look right")
+            .required("Valid URL is required")
+            .max(100)
+            .min(1)
+            .trim(),
+        })
       : type === "video"
       ? yup.object().shape({
           title: yup
@@ -97,11 +113,9 @@ const PostForm = ({ edit }) => {
         setType(response.post.type);
       }
       if (response.post.type && response.post.type === "video") {
-        setValue("video", response.post.content, { shouldValidate: true });
-      } else if (response.post.type && response.post.type === "link") {
-        setValue("link", response.post.content, { shouldValidate: true });
-      } else {
-        setValue("content", response.post.content, { shouldValidate: true });
+        setValue(response.post.type, response.post.content, {
+          shouldValidate: true,
+        });
       }
       setValue("title", response.post.title, { shouldValidate: true });
     };
@@ -111,9 +125,11 @@ const PostForm = ({ edit }) => {
   }, [edit, postID, setValue, subID]);
 
   const onSubmit = (data) => {
-    let { title, sub, content, video, link } = data;
+    let { title, sub, content, video, link, image } = data;
     if (type === "video") {
       data = { title, content: video, type, sub };
+    } else if (type === "image") {
+      data = { title, sub, type, content: image };
     } else if (type === "link") {
       data = { title, sub, type, content: link };
     } else {
@@ -140,7 +156,7 @@ const PostForm = ({ edit }) => {
         ref={register}
         error={errors.video ? errors.video.message : null}
       />
-    ) : (
+    ) : type === "link" ? (
       <div className="form-group">
         <label className="form-group-label" htmlFor="link">
           Link
@@ -156,6 +172,24 @@ const PostForm = ({ edit }) => {
         />
         {errors.link ? (
           <span className="error">{errors.link.message}</span>
+        ) : null}
+      </div>
+    ) : (
+      <div className="form-group">
+        <label className="form-group-label" htmlFor="image">
+          Image Link
+        </label>
+        <input
+          className={
+            errors.image ? "form-group-input-error" : "form-group-input"
+          }
+          name="image"
+          type="text"
+          placeholder="Please include the full url"
+          ref={register}
+        />
+        {errors.image ? (
+          <span className="error">{errors.image.message}</span>
         ) : null}
       </div>
     );
@@ -212,6 +246,17 @@ const PostForm = ({ edit }) => {
           }
         >
           Text
+        </button>
+        <button
+          type="button"
+          name="image"
+          onClick={changeType}
+          className={
+            type === "image" ? "type-selection selected" : "type-selection"
+          }
+        >
+          {" "}
+          Image
         </button>
         <button
           type="button"
