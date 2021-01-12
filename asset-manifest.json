@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/reddit-clone/static/css/main.6ec32709.chunk.css",
+    "main.css": "/reddit-clone/static/css/main.053d937c.chunk.css",
     "main.js": "/reddit-clone/static/js/main.5f35f43c.chunk.js",
     "main.js.map": "/reddit-clone/static/js/main.5f35f43c.chunk.js.map",
     "runtime-main.js": "/reddit-clone/static/js/runtime-main.9faea976.js",
@@ -10,7 +10,7 @@
     "static/js/3.16aeaeb4.chunk.js": "/reddit-clone/static/js/3.16aeaeb4.chunk.js",
     "static/js/3.16aeaeb4.chunk.js.map": "/reddit-clone/static/js/3.16aeaeb4.chunk.js.map",
     "index.html": "/reddit-clone/index.html",
-    "static/css/main.6ec32709.chunk.css.map": "/reddit-clone/static/css/main.6ec32709.chunk.css.map",
+    "static/css/main.053d937c.chunk.css.map": "/reddit-clone/static/css/main.053d937c.chunk.css.map",
     "static/js/2.3ec1ee5c.chunk.js.LICENSE.txt": "/reddit-clone/static/js/2.3ec1ee5c.chunk.js.LICENSE.txt",
     "static/media/Form.css": "/reddit-clone/static/media/jon-tyson-OdRHKuvoa4M-unsplash (1).1f103347.jpg",
     "static/media/SubHeader.css": "/reddit-clone/static/media/spaceDude.b0597cdd.jpg"
@@ -18,7 +18,7 @@
   "entrypoints": [
     "static/js/runtime-main.9faea976.js",
     "static/js/2.3ec1ee5c.chunk.js",
-    "static/css/main.6ec32709.chunk.css",
+    "static/css/main.053d937c.chunk.css",
     "static/js/main.5f35f43c.chunk.js"
   ]
 }
