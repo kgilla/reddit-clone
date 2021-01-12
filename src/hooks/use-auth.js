@@ -17,6 +17,17 @@ function useProvideAuth() {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
 
+  const storeVotes = (votes) => {
+    votes.forEach((vote) => {
+      let data = {};
+      if (vote.value === true || vote.value === false) {
+        data.id = vote.post ? vote.post : vote.comment;
+        data.value = vote.value ? "up" : "down";
+        localStorage.setItem(data.id, data.value);
+      }
+    });
+  };
+
   const login = async (username, password) => {
     try {
       const response = await fetchPostData(`${baseUrl}/api/users/login`, {
@@ -26,6 +37,7 @@ function useProvideAuth() {
       if (!response.user) {
         return response;
       } else if (response.user) {
+        storeVotes(response.votes);
         setUser(response.user);
         setToken(response.token);
         return { user: response.user };
@@ -51,6 +63,7 @@ function useProvideAuth() {
   const logout = () => {
     setUser(null);
     setToken(null);
+    localStorage.clear();
   };
 
   const subscribe = (sub) => {

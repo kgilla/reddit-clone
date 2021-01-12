@@ -74,7 +74,7 @@ const Sidebar = ({ sub, user, score }) => {
         >
           {subs
             ? subs.map((sub) => (
-                <div className="sub-preview">
+                <div className="sub-preview" key={sub._id}>
                   <div className="small-sub-image sub-image"></div>
                   {sub.name}
                   <Link

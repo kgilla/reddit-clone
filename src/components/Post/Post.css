@@ -21,6 +21,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .header-item,
@@ -28,6 +29,7 @@
   position: relative;
   display: flex;
   align-items: center;
+  flex-wrap: nowrap;
   height: 25px;
   width: auto;
   padding: 2px 0;

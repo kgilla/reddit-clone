@@ -44,7 +44,8 @@ const Post = ({ post, link, handleRemove }) => {
 
   const castVote = async (value) => {
     const url = `${baseUrl}/api/s/${post.sub._id}/posts/${post._id}/vote`;
-    await fetchPutData(url, { value }, auth.token);
+    const response = await fetchPutData(url, { value }, auth.token);
+    console.log(response);
   };
 
   const youtubeParser = (url) => {
