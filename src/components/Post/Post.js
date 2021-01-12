@@ -95,14 +95,10 @@ const Post = ({ post, link, handleRemove }) => {
             <iframe
               title={post.title}
               className="post-content-video"
-              width="806"
-              height="453"
               src={`https://www.youtube.com/embed/${youtubeParser(
                 post.content
               )}`}
-              frameborder="0"
-              allow="clipboard-write; encrypted-media;"
-              allowfullscreen
+              frameBorder="0"
             ></iframe>
           ) : post.type === "link" ? (
             <div>
