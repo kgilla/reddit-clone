@@ -3,6 +3,7 @@ import { useAuth } from "../../hooks/use-auth";
 import { useWindowSize } from "../../hooks/use-window-size";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import cryptoJS from "crypto-js";
 import { fetchGetData } from "../../api";
 import SidebarItem from "../SidebarItem";
 import moment from "moment";
@@ -31,6 +32,11 @@ const Sidebar = ({ sub, user, score }) => {
       array[j] = temp;
     }
   }
+
+  const getUserImage = () => {
+    const hash = cryptoJS.MD5(user.email.toLowerCase());
+    return `https://www.gravatar.com/avatar/${hash}?s=200&r=pg&d=mp`;
+  };
 
   const subSidebar = () => {
     return (
@@ -93,7 +99,9 @@ const Sidebar = ({ sub, user, score }) => {
   const userSidebar = () => {
     return (
       <div id="sidebar-container">
-        <SidebarItem heading={<div className="profile-picture"></div>}>
+        <SidebarItem
+          heading={<img className="profile-picture" src={getUserImage()} />}
+        >
           <h2>{user.username}</h2>
           <div className="user-stats">
             <div className="user-stat-group">
@@ -108,7 +116,7 @@ const Sidebar = ({ sub, user, score }) => {
             </div>
           </div>
         </SidebarItem>
-        {auth.user._id === user._id ? (
+        {auth.user && auth.user._id === user._id ? (
           <SidebarItem heading="Edit User Details">
             <div className="button-box">
               <Link to="/submit" className="button-filled">

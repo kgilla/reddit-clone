@@ -19,6 +19,8 @@
 }
 
 .profile-picture {
+  display: flex;
+  align-items: flex-start;
   top: 20px;
   height: 100px;
   width: 100px;
