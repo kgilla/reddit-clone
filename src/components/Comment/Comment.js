@@ -4,6 +4,7 @@ import { useAuth } from "../../hooks/use-auth";
 import { useFlash } from "../../hooks/use-flash-message";
 import { Link } from "react-router-dom";
 import Score from "../Score";
+import Alert from "../Alert";
 import moment from "moment";
 import { Message } from "@styled-icons/entypo";
 import { fetchPutData, fetchDeleteData } from "../../api";
@@ -23,10 +24,11 @@ const Comment = ({
   const [openForm, setOpenForm] = useState(false);
   const [edit, setEdit] = useState(false);
   const [score, setScore] = useState(comment.score);
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleClick = (e) => {
     if (e.target.name === "delete") {
-      handleDelete();
+      toggleAlert();
     } else {
       if (e.target.name === "edit") {
         setEdit(true);
@@ -41,24 +43,27 @@ const Comment = ({
   };
 
   const handleDelete = async () => {
-    let result = window.confirm(
-      "Are you sure you want to delete this comment?"
-    );
-    if (result) {
-      const url = `${baseUrl}/api/s/${
-        post ? post.sub._id : comment.post.sub
-      }/posts/${post ? post._id : comment.post._id}/comments/${
-        comment._id
-      }/delete`;
-      const response = await fetchDeleteData(url, auth.token);
-      console.log(response);
-      if (response.ok) {
-        handleRemove ? handleRemove(comment._id) : refreshPost();
-        flash.changeMessage("Comment Deleted");
-      } else {
-        flash.changeMessage("Oops! Something went wrong!");
-      }
+    const url = `${baseUrl}/api/s/${
+      post ? post.sub._id : comment.post.sub
+    }/posts/${post ? post._id : comment.post._id}/comments/${
+      comment._id
+    }/delete`;
+    const response = await fetchDeleteData(url, auth.token);
+    console.log(response);
+    if (response.ok) {
+      handleRemove ? handleRemove(comment._id) : refreshPost();
+      flash.changeMessage("Comment Deleted");
+    } else {
+      flash.changeMessage("Oops! Something went wrong!");
     }
+  };
+
+  const handleDeleteProposal = (confirm) => {
+    confirm ? handleDelete() : toggleAlert();
+  };
+
+  const toggleAlert = () => {
+    showAlert ? setShowAlert(false) : setShowAlert(true);
   };
 
   const handleScoreChange = (direction, increment) => {
@@ -79,6 +84,13 @@ const Comment = ({
 
   return (
     <div className={comment.parent ? "comment-reply" : "comment-container"}>
+      {showAlert ? (
+        <Alert
+          title="Delete Comment"
+          message="Are you sure you want to delete this comment?"
+          onSubmit={handleDeleteProposal}
+        />
+      ) : null}
       <div className="comment">
         {comment.author ? (
           <Score
