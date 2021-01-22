@@ -35,8 +35,8 @@
 }
 
 .user-profile-content {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
   width: 100%;
 }
 

@@ -108,14 +108,14 @@ const Sidebar = ({ sub, user, score }) => {
             </div>
           </div>
         </SidebarItem>
-        {auth.user ? (
-          <SidebarItem heading="Create Content">
+        {auth.user._id === user._id ? (
+          <SidebarItem heading="Edit User Details">
             <div className="button-box">
               <Link to="/submit" className="button-filled">
-                Create Post
+                Change Email
               </Link>
               <Link to="/s/create" className="button-outline">
-                Create Community
+                Change Password
               </Link>
             </div>
           </SidebarItem>
