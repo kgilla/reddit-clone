@@ -1,0 +1,64 @@
+.alert-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+.alert-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #666;
+  border-radius: 8px;
+  background-color: #fff;
+  z-index: 1001;
+  overflow: hidden;
+}
+
+.alert-header,
+.alert-main,
+.alert-footer {
+  padding: 16px;
+}
+
+.alert-header {
+  background-color: var(--blue);
+}
+
+.alert-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.alert-message {
+  font-size: 18px;
+  font-weight: 500;
+  text-align: center;
+  color: #444;
+}
+
+.alert-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.confirm,
+.cancel {
+  margin: 0 8px;
+}
+
+.confirm {
+  color: var(--orange);
+  border: 2px solid var(--orange);
+}
+
+.confirm:hover {
+  background-color: var(--orange);
+  color: #fff;
+}
