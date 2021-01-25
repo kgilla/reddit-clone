@@ -10,15 +10,22 @@ import { Input, Form } from "../FormComponents";
 const schema = yup.object().shape({
   username: yup
     .string()
-    .required()
-    .min(3)
-    .max(20)
+    .required("A username is required")
+    .min(3, "Usernames must be between 3-20 characters in length")
+    .max(20, "Usernames must be between 3-20 characters in length")
     .trim()
     .matches(/^[_a-zA-Z0-9]*$/, {
       message: "cannot contain special characters or spaces",
     }),
-  password: yup.string().required().min(6).max(40),
-  email: yup.string().required().email(),
+  password: yup.string().required("Password is required").min(6).max(40),
+  password2: yup
+    .string()
+    .required("Please re-enter password")
+    .oneOf([yup.ref("password"), null], "Passwords must match"),
+  email: yup
+    .string()
+    .required("An email is required")
+    .email("Must be a valid email"),
 });
 
 const SignupForm = () => {
@@ -65,20 +72,28 @@ const SignupForm = () => {
         error={errors.username ? errors.username.message : null}
       />
       <Input
-        name="password"
-        label="Password"
-        type="text"
-        placeholder=""
-        ref={register}
-        error={errors.password ? errors.password.message : null}
-      />
-      <Input
         name="email"
         label="Email"
         type="text"
         placeholder="example@example.com"
         ref={register}
         error={errors.email ? errors.email.message : null}
+      />
+      <Input
+        name="password"
+        label="Password"
+        type="password"
+        placeholder=""
+        ref={register}
+        error={errors.password ? errors.password.message : null}
+      />
+      <Input
+        name="password2"
+        label="Confirm Password"
+        type="password"
+        placeholder=""
+        ref={register}
+        error={errors.password2 ? errors.password2.message : null}
       />
     </Form>
   );

@@ -119,10 +119,16 @@ const Sidebar = ({ sub, user, score }) => {
         {auth.user && auth.user._id === user._id ? (
           <SidebarItem heading="Edit User Details">
             <div className="button-box">
-              <Link to="/submit" className="button-filled">
+              <Link
+                to={`/users/${auth.user.username}/update_email`}
+                className="button-filled"
+              >
                 Change Email
               </Link>
-              <Link to="/s/create" className="button-outline">
+              <Link
+                to={`/users/${auth.user.username}/update_password`}
+                className="button-outline"
+              >
                 Change Password
               </Link>
             </div>
