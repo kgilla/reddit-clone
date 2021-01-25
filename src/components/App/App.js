@@ -14,6 +14,7 @@ import SignupForm from "../SignupForm";
 import LoginForm from "../LoginForm";
 import UserProfile from "../UserProfile";
 import SubIndex from "../SubIndex";
+import UserForm from "../UserForm";
 import Flash from "../Flash";
 import PrivateRoute from "../PrivateRoute";
 
@@ -27,6 +28,12 @@ function App() {
             <Navbar />
             <main id="main-container">
               <Switch>
+                <PrivateRoute path="/users/:username/update_email">
+                  <UserForm email={true} />
+                </PrivateRoute>
+                <PrivateRoute path="/users/:username/update_password">
+                  <UserForm />
+                </PrivateRoute>
                 <Route path="/users/:username">
                   <UserProfile />
                 </Route>

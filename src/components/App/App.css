@@ -51,6 +51,7 @@ h6 {
   padding: 0 32px;
   text-align: center;
   font-family: inherit;
+  transition: all ease-in-out 0.2s;
 }
 
 .button-filled:hover {
